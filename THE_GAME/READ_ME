@@ -1,0 +1,5 @@
+#This was created by Robert Jones CISC374
+
+#For the Tic-Tac_Toe game to run the FONT_PATH variable at the top of the Tic-Tac-Toe.py file in the /game directory must point to a valid .ttf file. 
+
+#I included the FreeMono.ttf file I used when testing the game in the /game directory so changing the FONT_PATH variable to point to it should do the trick.

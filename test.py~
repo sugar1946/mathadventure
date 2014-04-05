@@ -1,0 +1,22 @@
+import random
+import sys
+print (sys.version)
+range_lower = raw_input('Choose and lower number!: ')
+range_upper = raw_input('Choose an upper number!: ')
+tries = 0
+lower = int(range_lower)
+upper = int(range_upper)
+random_number = random.randrange(lower,upper)
+variable = raw_input('Guess a number between '+`lower`+" and "+`upper`+":")
+success = 0
+while tries < 4:
+	if int(variable) == random_number:
+		success = 1
+		break
+	else:
+		tries += 1
+		variable = raw_input('input something!: ')
+if success:
+	print "You win"
+else:
+	print "You lose"
