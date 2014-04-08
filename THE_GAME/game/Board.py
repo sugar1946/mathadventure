@@ -14,5 +14,5 @@ class Board(spyral.Scene):
 		#for x in range(0,9):
 			
 		spyral.Scene.__init__(self, SIZE2)
-		spyral.event.register("system.quit", spyral.director.pop)
+		spyral.event.register("system.quit", spyral.director.pop) 
 		spyral.event.register("input.keyboard.down.q", spyral.director.pop)
