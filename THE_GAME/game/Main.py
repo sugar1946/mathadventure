@@ -14,7 +14,7 @@ class Main(spyral.Scene):
 
 	def __init__(self, *args, **kwargs):
 		#global manager
-		#for x in range(0,9):
+		#for x in range(0,9): #testing
 			
 		spyral.Scene.__init__(self, SIZE)
 		spyral.event.register("system.quit", spyral.director.pop)
