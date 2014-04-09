@@ -111,7 +111,7 @@ class Main(spyral.Scene):
 		#for x in range(0,9): #testing
 
 		self.player = Character(self)
-		self.opponent = Opponent(self)
+		#self.opponent = Opponent(self)
 			
 		spyral.event.register("system.quit", spyral.director.pop)
 		spyral.event.register("input.keyboard.down.q", spyral.director.pop)
