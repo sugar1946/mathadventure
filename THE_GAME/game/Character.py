@@ -36,7 +36,7 @@ class Character(spyral.Sprite):
         spyral.event.register('director.update', self.update)
 
     def setScene(self,scene):
-	super(Character,self).__init__(scene)
+	   super(Character,self).__init__(scene)
 
     def move_left(self):
         self.moving = 'left'
