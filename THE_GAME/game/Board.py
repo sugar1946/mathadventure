@@ -3,8 +3,8 @@ import random
 import math
 import Walls
 import Character
-WIDTH = 600
-HEIGHT = 600
+WIDTH = 1200
+HEIGHT = 900
 BG_COLOR = (255,255,255)
 BLACK = (0, 0, 255)
 SIZE = (WIDTH, HEIGHT)

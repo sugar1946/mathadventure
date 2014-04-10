@@ -15,7 +15,7 @@ class Character(spyral.Sprite):
         
 
     def setScene(self,scene):
-    super(Character,self).__init__(scene)
+        super(Character,self).__init__(scene)
     
     def setImage(self,imagePath):
     #"game/images/stick.png"
@@ -66,7 +66,7 @@ class Character(spyral.Sprite):
             self.y -= self.vel * delta
 
     def collide_wall(self,wall):
-    if self.collide_sprite(wall):
-        self.vel = -self.vel
-        self.moving = False
+        if self.collide_sprite(wall):
+            self.vel = -self.vel
+            #self.moving = False
 
