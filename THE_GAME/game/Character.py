@@ -11,7 +11,7 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 class Character(spyral.Sprite):
     def __init__(self):
         #super(Character, self).__init__(scene)
-    score = 0
+        score = 0
         
 
     def setScene(self,scene):
