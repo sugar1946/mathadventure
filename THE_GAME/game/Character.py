@@ -41,6 +41,9 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.up.up", self.stop_move)
         spyral.event.register('director.update', self.update)
 
+    def setScene(self,scene):
+	super(Character,self).__init__(scene)
+
     def move_left(self):
         self.moving = 'left'
     def move_right(self):
@@ -53,8 +56,6 @@ class Character(spyral.Sprite):
         self.moving = False
 
     def update(self, delta):
-        #character_velocity = 250
-
         if self.moving == 'left':
             self.x -= (self.vel + 1) * delta
         elif self.moving == 'right':

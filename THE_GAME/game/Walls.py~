@@ -44,6 +44,12 @@ class Walls(spyral.Sprite):
 		self.x = WIDTH - 30
 		if(side == 'Bottom'):
 			self.y = self.y = (HEIGHT/2) + 30
+<<<<<<< HEAD
+
+	def getText(self):
+		return "got herre"
+=======
+>>>>>>> 47d19e9e688ec41c200e92efdce7fe5ba7aabd48
 	
 	
 

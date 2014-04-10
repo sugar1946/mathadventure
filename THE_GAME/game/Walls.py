@@ -47,6 +47,7 @@ class Walls(spyral.Sprite):
 
 	def getText(self):
 		return "got herre"
+
 	
 	
 

@@ -26,8 +26,8 @@ class Character(spyral.Sprite):
         self.moving = False 
 	self.vel = 250
 	
-
-    def setKeyBoardCommands(self,scene):
+    def setScene(self,scene):
+	super(Character,self).__init__(scene)
 	# Key down
         spyral.event.register("input.keyboard.down.left", self.move_left)
         spyral.event.register("input.keyboard.down.right", self.move_right)
@@ -41,6 +41,7 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.up.up", self.stop_move)
         spyral.event.register('director.update', self.update)
 
+
     def move_left(self):
         self.moving = 'left'
     def move_right(self):
@@ -53,8 +54,6 @@ class Character(spyral.Sprite):
         self.moving = False
 
     def update(self, delta):
-        #character_velocity = 250
-
         if self.moving == 'left':
             self.x -= (self.vel + 1) * delta
         elif self.moving == 'right':
@@ -67,12 +66,5 @@ class Character(spyral.Sprite):
     def collide_wall(self,wall):
 	if self.collide_sprite(wall):
 		self.vel = -self.vel
-		if(self.moving == 'left'):
-			self.moving = 'right'
-		if(self.moving == 'right'):
-			self.moving = 'left'
-		if(self.moving == 'up'):
-			self.moving = 'down'
-		if(self.moving == 'down'):
-			self.moving = 'up'
+		self.moving = False
 

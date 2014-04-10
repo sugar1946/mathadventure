@@ -2,6 +2,7 @@ import spyral
 import Board
 #import Character
 def main():
+
 	spyral.director.init(size=(0, 0), max_ups=30, max_fps=30, fullscreen=False, caption='The Game')
 	scene_matrix = [[0 for x in xrange(5)] for x in xrange(5)]#sets up the 4x4 game board
 	backGroundImage = 1
@@ -19,3 +20,4 @@ def main():
 	spyral.director.push(scene_matrix[0][0])
 	character.setScene(scene_matrix[0][0])
 	character.setImage("game/images/stick.png")
+

@@ -12,6 +12,10 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 
 class Character(spyral.Sprite):
     def __init__(self, scene):
+<<<<<<< HEAD
+	#change for commit
+=======
+>>>>>>> 47d19e9e688ec41c200e92efdce7fe5ba7aabd48
         super(Character, self).__init__(scene)
 
         x = WIDTH/2
