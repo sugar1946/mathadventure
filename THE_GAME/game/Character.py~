@@ -9,20 +9,26 @@ SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
 
 class Character(spyral.Sprite):
-    def __init__(self, scene):
+    def __init__(self):
         #super(Character, self).__init__(scene)
+	score = 0
+        
 
-        x = WIDTH/2
-        y = HEIGHT/2
-        score = 0
-
-        self.image = spyral.Image(filename="game/images/stick.png")
+    def setScene(self,scene):
+	super(Character,self).__init__(scene)
+	
+    def setImage(self,imagePath):
+	#"game/images/stick.png"
+	self.image = spyral.Image(filename=imagePath)
         self.anchor = "center"
-        self.x = x
-        self.y = y
-        self.moving = False        
-
-        # Key down
+        self.x = WIDTH/2
+        self.y = HEIGHT/2
+        self.moving = False 
+	self.vel = 250
+	
+    def setScene(self,scene):
+	super(Character,self).__init__(scene)
+	# Key down
         spyral.event.register("input.keyboard.down.left", self.move_left)
         spyral.event.register("input.keyboard.down.right", self.move_right)
         spyral.event.register("input.keyboard.down.down", self.move_down)
@@ -35,8 +41,6 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.up.up", self.stop_move)
         spyral.event.register('director.update', self.update)
 
-    def setScene(self,scene):
-	super(Character,self).__init__(scene)
 
     def move_left(self):
         self.moving = 'left'
@@ -50,13 +54,17 @@ class Character(spyral.Sprite):
         self.moving = False
 
     def update(self, delta):
-        character_velocity = 250
-
         if self.moving == 'left':
-            self.x -= character_velocity * delta
+            self.x -= (self.vel + 1) * delta
         elif self.moving == 'right':
-            self.x += character_velocity * delta
+            self.x += self.vel * delta
         elif self.moving == 'down':
-            self.y += character_velocity * delta
+            self.y += self.vel * delta
         elif self.moving == 'up':
-            self.y -= character_velocity * delta
+            self.y -= self.vel * delta
+
+    def collide_wall(self,wall):
+	if self.collide_sprite(wall):
+		self.vel = -self.vel
+		self.moving = False
+

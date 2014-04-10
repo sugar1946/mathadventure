@@ -25,7 +25,7 @@ class Board(spyral.Scene):
 	
 	def setCharacter(self,character):
 		self.player = character
-		character.setKeyBoardCommands(self)	
+		#character.setKeyBoardCommands(self)	
 	
 	def setBackGround(self,imagePath):
 		self.background = spyral.Image(filename=imagePath)
