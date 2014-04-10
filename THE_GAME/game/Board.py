@@ -2,7 +2,7 @@ import spyral
 import random
 import math
 import Walls
-
+import Character
 WIDTH = 600
 HEIGHT = 600
 BG_COLOR = (255,255,255)
@@ -13,27 +13,35 @@ WALL_LIST = []
 class Board(spyral.Scene):
 	text = '';
 	def __init__(self, *args, **kwargs):
-		#global manager
-		#for x in range(0,9):
-			
+	
 		spyral.Scene.__init__(self, SIZE)
-		#self.walls = Walls.Walls(self)
 		spyral.event.register("system.quit", spyral.director.pop) 
 		spyral.event.register("input.keyboard.down.q", spyral.director.pop)
-
-	def setText(self,string):
-		self.text = string
-
-	def getText(self):
-		return self.text
-
+	
+	def setCharacter(self,character):
+		self.player = character	
+	
 	def setBackGround(self,imagePath):
 		self.background = spyral.Image(filename=imagePath)
+
 	def setWalls(self,quadrantRow,quadrantColumn):
 		if(quadrantRow == 0 and quadrantColumn == 0):
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallTopFull())
+			WALL_LIST.append(wall.wallTopHalf('Left'))
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallLeftFull())
+			WALL_LIST.append(wall.wallTopHalf('Right'))
+			wall = Walls.Walls(self)
+			WALL_LIST.append(wall.wallBottomHalf('Left'))
+			wall = Walls.Walls(self)
+			WALL_LIST.append(wall.wallBottomHalf('Right'))
+			wall = Walls.Walls(self)
+			WALL_LIST.append(wall.wallLeftHalf('Top'))
+			wall = Walls.Walls(self)
+			WALL_LIST.append(wall.wallLeftHalf('Bottom'))
+			wall = Walls.Walls(self)
+			WALL_LIST.append(wall.wallRightHalf('Top'))
+			wall = Walls.Walls(self)
+			WALL_LIST.append(wall.wallRightHalf('Bottom'))
+
 
 		
