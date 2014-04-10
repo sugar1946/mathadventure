@@ -1,7 +1,7 @@
 import spyral
 import random
 import math
-import Board
+#import Board
 
 WIDTH = 900
 HEIGHT = 900

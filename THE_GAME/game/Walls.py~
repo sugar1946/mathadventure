@@ -42,7 +42,7 @@ class Walls(spyral.Sprite):
 	def wallRightHalf(self,side):	
 		self.image = spyral.Image(size=(30, (HEIGHT/2) - 30)).fill(BLACK)
 		self.x = WIDTH - 30
-		if(sidee == 'Bottom'):
+		if(side == 'Bottom'):
 			self.y = self.y = (HEIGHT/2) + 30
 	
 	

@@ -17,9 +17,15 @@ class Board(spyral.Scene):
 		spyral.Scene.__init__(self, SIZE)
 		spyral.event.register("system.quit", spyral.director.pop) 
 		spyral.event.register("input.keyboard.down.q", spyral.director.pop)
+		spyral.event.register("director.update", self.update)
+
+	def update(self,delta):
+		for wall in WALL_LIST:
+			self.player.collide_wall(wall)
 	
 	def setCharacter(self,character):
-		self.player = character	
+		self.player = character
+		character.setKeyBoardCommands(self)	
 	
 	def setBackGround(self,imagePath):
 		self.background = spyral.Image(filename=imagePath)
@@ -27,21 +33,37 @@ class Board(spyral.Scene):
 	def setWalls(self,quadrantRow,quadrantColumn):
 		if(quadrantRow == 0 and quadrantColumn == 0):
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallTopHalf('Left'))
+			wall.wallTopHalf('Left')
+			WALL_LIST.append(wall)
+
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallTopHalf('Right'))
+			wall.wallTopHalf('Right')
+			WALL_LIST.append(wall)
+
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallBottomHalf('Left'))
+			wall.wallBottomHalf('Left')
+			WALL_LIST.append(wall)
+
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallBottomHalf('Right'))
+			wall.wallBottomHalf('Right')
+			WALL_LIST.append(wall)
+
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallLeftHalf('Top'))
+			wall.wallLeftHalf('Top')
+			WALL_LIST.append(wall)
+
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallLeftHalf('Bottom'))
+			wall.wallLeftHalf('Bottom')
+			WALL_LIST.append(wall)
+
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallRightHalf('Top'))
+			wall.wallRightHalf('Top')
+			WALL_LIST.append(wall)
+
 			wall = Walls.Walls(self)
-			WALL_LIST.append(wall.wallRightHalf('Bottom'))
+			wall.wallRightHalf('Bottom')
+			WALL_LIST.append(wall)
+
 
 
 		
