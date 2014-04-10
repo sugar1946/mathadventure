@@ -11,24 +11,24 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 class Character(spyral.Sprite):
     def __init__(self):
         #super(Character, self).__init__(scene)
-	score = 0
+    score = 0
         
 
     def setScene(self,scene):
-	super(Character,self).__init__(scene)
-	
+    super(Character,self).__init__(scene)
+    
     def setImage(self,imagePath):
-	#"game/images/stick.png"
-	self.image = spyral.Image(filename=imagePath)
+    #"game/images/stick.png"
+        self.image = spyral.Image(filename=imagePath)
         self.anchor = "center"
         self.x = WIDTH/2
         self.y = HEIGHT/2
         self.moving = False 
-	self.vel = 250
-	
+        self.vel = 250
+    
 
     def setKeyBoardCommands(self,scene):
-	# Key down
+    # Key down
         spyral.event.register("input.keyboard.down.left", self.move_left)
         spyral.event.register("input.keyboard.down.right", self.move_right)
         spyral.event.register("input.keyboard.down.down", self.move_down)
@@ -42,7 +42,7 @@ class Character(spyral.Sprite):
         spyral.event.register('director.update', self.update)
 
     def setScene(self,scene):
-	   super(Character,self).__init__(scene)
+       super(Character,self).__init__(scene)
 
     def move_left(self):
         self.moving = 'left'
@@ -66,7 +66,7 @@ class Character(spyral.Sprite):
             self.y -= self.vel * delta
 
     def collide_wall(self,wall):
-	if self.collide_sprite(wall):
-		self.vel = -self.vel
-		self.moving = False
+    if self.collide_sprite(wall):
+        self.vel = -self.vel
+        self.moving = False
 
