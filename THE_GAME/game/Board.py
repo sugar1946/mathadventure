@@ -33,6 +33,222 @@ class Board(spyral.Scene):
 	def setWalls(self,quadrantRow,quadrantColumn):
 		if(quadrantRow == 0 and quadrantColumn == 0):
 			wall = Walls.Walls(self)
+			wall.wallTopFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Bottom')
+			WALL_LIST.append(wall)
+		
+		elif((quadrantRow == 0 and quadrantColumn == 1) or (quadrantRow == 0 and quadrantColumn == 2)):
+			wall = Walls.Walls(self)
+			wall.wallTopFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Bottom')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Bottom')
+			WALL_LIST.append(wall)
+
+		elif(quadrantRow == 0 and quadrantColumn == 3):
+			wall = Walls.Walls(self)
+			wall.wallTopFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Bottom')
+			WALL_LIST.append(wall)
+
+		elif((quadrantRow == 1 and quadrantColumn == 0) or (quadrantRow == 2 and quadrantColumn == 0)):
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Bottom')
+			WALL_LIST.append(wall)
+
+		elif(quadrantRow == 3 and quadrantColumn == 0):
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Bottom')
+			WALL_LIST.append(wall)
+
+		elif((quadrantRow == 3 and quadrantColumn == 1) or (quadrantRow == 3 and quadrantColumn == 2)):
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Bottom')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightHalf('Bottom')
+			WALL_LIST.append(wall)
+
+		elif(quadrantRow == 3 and quadrantColumn == 3):
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomFull()
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Bottom')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightFull()
+			WALL_LIST.append(wall)
+
+		elif((quadrantRow == 1 and quadrantColumn == 3) or (quadrantRow == 2 and quadrantColumn == 3)):
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallTopHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Left')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallBottomHalf('Right')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Top')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallLeftHalf('Bottom')
+			WALL_LIST.append(wall)
+
+			wall = Walls.Walls(self)
+			wall.wallRightFull()
+			WALL_LIST.append(wall)
+
+		elif((quadrantRow == 1 and quadrantColumn == 1) or (quadrantRow == 1 and quadrantColumn == 2) or (quadrantRow == 2 and quadrantColumn == 1) or (quadrantRow == 2 and quadrantColumn == 2)):
+			wall = Walls.Walls(self)
 			wall.wallTopHalf('Left')
 			WALL_LIST.append(wall)
 
@@ -63,7 +279,3 @@ class Board(spyral.Scene):
 			wall = Walls.Walls(self)
 			wall.wallRightHalf('Bottom')
 			WALL_LIST.append(wall)
-
-
-
-		
