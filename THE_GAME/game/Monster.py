@@ -9,7 +9,7 @@ SIZE = (WIDTH, HEIGHT)
 MONSTER.IMG = "game/images/m1.bmp"
 
 class Monster(spyral.Sprite):
-    def __inti__(self,scene):
+    def __init__(self,scene):
         self.image = spyral.Image(filename = MONSTER.IMG)
         self.anchor = "center"
         self.x = random.random()*WIDTH
