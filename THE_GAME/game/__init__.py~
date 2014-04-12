@@ -11,10 +11,10 @@ def main():
 	for i in range(4):
 		for j in range(4):
 			gameBoard = Board.Board()
-			if(j == 1):
-				gameBoard.setBackGround("game/sceneImages/2.jpg")
-			else:
-				gameBoard.setBackGround("game/sceneImages/1.jpg")
+			#if(j == 1):
+			#	gameBoard.setBackGround("game/sceneImages/2.jpg")
+			#else:
+			gameBoard.setBackGround("game/sceneImages/1.jpg")
 			gameBoard.setCharacter(character)
 			gameBoard.setWalls(i,j)
 			scene_matrix[i][j] = gameBoard
@@ -26,3 +26,4 @@ def main():
 	character.setSceneMatrix(scene_matrix)
 	character.setImage("game/images/stick.png")
 
+#hello I changed this again 

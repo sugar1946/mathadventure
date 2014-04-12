@@ -25,5 +25,4 @@ def main():
 	character.setScene(scene_matrix[0][0],0,0)
 	character.setSceneMatrix(scene_matrix)
 	character.setImage("game/images/stick.png")
-
-#hello I changed this again 
+ 
