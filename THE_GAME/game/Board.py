@@ -3,6 +3,8 @@ import random
 import math
 import Walls
 import Character
+import Chest
+import random
 WIDTH = 1200
 HEIGHT = 900
 BG_COLOR = (255,255,255)
@@ -22,10 +24,18 @@ class Board(spyral.Scene):
 	def update(self,delta):
 		for wall in WALL_LIST:
 			self.player.collide_wall(wall)
-	
+                self.player.collide_chest(self.chest)
+                
 	def setCharacter(self,character):
 		self.player = character
-		character.setKeyBoardCommands(self)	
+		character.setKeyBoardCommands(self)
+		
+        def setChests(self):
+                for i in range(random.randint(1,3)):
+                        x = random.randint(110, WIDTH-30)
+                        y = random.randint(30, HEIGHT-80)
+                        self.chest = Chest.Chest(self,x, y)
+                
 	
 	def setBackGround(self,imagePath):
 		self.background = spyral.Image(filename=imagePath)

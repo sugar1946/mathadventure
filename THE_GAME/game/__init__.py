@@ -16,6 +16,7 @@ def main():
 			#else:
 			gameBoard.setBackGround("game/sceneImages/1.jpg")
 			gameBoard.setCharacter(character)
+                        gameBoard.setChests()
 			gameBoard.setWalls(i,j)
 			scene_matrix[i][j] = gameBoard
 			#once everything works uncomment these and fix images sizes

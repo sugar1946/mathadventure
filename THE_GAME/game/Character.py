@@ -107,3 +107,6 @@ class Character(spyral.Sprite):
             self.vel = -self.vel
             #self.moving = False
 
+    def collide_chest(self, chest):
+        if self.collide_sprite(chest):
+            self.stop_move()
