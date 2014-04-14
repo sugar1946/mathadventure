@@ -1,7 +1,7 @@
 import spyral
 import random
 import math
-WIDTH = 900
+WIDTH = 1200
 HEIGHT = 900
 BG_COLOR = (255,255,255)
 BLACK = (0, 0, 255)
@@ -41,8 +41,44 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.up.up", self.stop_move)
         spyral.event.register('director.update', self.update)
 
-    def setScene(self,scene):
-       super(Character,self).__init__(scene)
+    def setScene(self,scene,row,column):
+        super(Character,self).__init__(scene)
+        self.sceneRow = row
+        self.sceneColumn = column
+
+    def setSceneMatrix(self,matrix):
+        self.sceneMatrix = matrix
+
+    def leavingScene(self):
+        row = self.sceneRow
+        column = self.sceneColumn
+	if(self.x < 0 and self.sceneColumn != 0):
+		spyral.director.replace(self.sceneMatrix[row][column - 1])
+		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
+		self.sceneMatrix[row][column - 1].setCharacter(self)
+		self.setImage("game/images/stick.bmp")
+		self.x = WIDTH - 40
+		
+	elif(self.x > WIDTH and self.sceneColumn != 3):
+		spyral.director.replace(self.sceneMatrix[row][column + 1])
+		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
+		self.sceneMatrix[row][column + 1].setCharacter(self)
+		self.setImage("game/images/stick.bmp")
+		self.x = 40
+
+	elif(self.y < 0 and self.sceneRow != 0):
+		spyral.director.replace(self.sceneMatrix[row - 1][column])
+		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
+		self.sceneMatrix[row - 1][column].setCharacter(self)
+		self.setImage("game/images/stick.bmp")
+		self.y = HEIGHT - 40
+
+	elif(self.y > HEIGHT and self.sceneRow != 3):
+		spyral.director.replace(self.sceneMatrix[row + 1][column])
+		self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
+		self.sceneMatrix[row + 1][column].setCharacter(self)
+		self.setImage("game/images/stick.bmp")
+		self.y = 40
 
     def move_left(self):
         self.moving = 'left'
@@ -57,16 +93,20 @@ class Character(spyral.Sprite):
 
     def update(self, delta):
         if self.moving == 'left':
-            self.x -= (self.vel + 1) * delta
+            self.x -= self.vel * delta
         elif self.moving == 'right':
             self.x += self.vel * delta
         elif self.moving == 'down':
             self.y += self.vel * delta
         elif self.moving == 'up':
             self.y -= self.vel * delta
+	self.leavingScene()
 
     def collide_wall(self,wall):
         if self.collide_sprite(wall):
             self.vel = -self.vel
             #self.moving = False
 
+    def collide_chest(self, chest):
+        if self.collide_sprite(chest):
+            self.stop_move()

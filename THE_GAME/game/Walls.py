@@ -2,8 +2,8 @@ import spyral
 import random
 import math
 
-WIDTH = 600
-HEIGHT = 600
+WIDTH = 1200
+HEIGHT = 900
 BLACK = (0,0,0)
 class Walls(spyral.Sprite):
 	def __init__(self, scene):
