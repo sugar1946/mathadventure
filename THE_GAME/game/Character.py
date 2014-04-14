@@ -104,9 +104,25 @@ class Character(spyral.Sprite):
 
     def collide_wall(self,wall):
         if self.collide_sprite(wall):
-            self.vel = -self.vel
-            #self.moving = False
+            #self.vel = -self.vel
+            #self.moving = False            
+            if (self.moving == 'right'):
+                self.x-=50
+            elif (self.moving == 'left'):
+                self.x+=50
+            elif (self.moving == 'up'):
+                self.y+=50
+            elif (self.moving == 'down'):
+                self.y-=50
 
     def collide_chest(self, chest):
         if self.collide_sprite(chest):
-            self.stop_move()
+            #self.stop_move()
+            if (self.moving == 'right'):
+                self.x-=50
+            elif (self.moving == 'left'):
+                self.x+=50
+            elif (self.moving == 'up'):
+                self.y+=50
+            elif (self.moving == 'down'):
+                self.y-=50

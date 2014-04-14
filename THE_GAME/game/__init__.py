@@ -20,7 +20,7 @@ def main():
 			#if(j == 1):
 			#	gameBoard.setBackGround("game/sceneImages/2.jpg")
 			#else:
-            #gameBoard.setMonster(monsters)
+            #gameBoard.setMonster(monsters) 
             gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
             gameBoard.setCharacter(character)
             gameBoard.setChests()
