@@ -8,7 +8,11 @@ class Chest(spyral.Sprite):
         question_level = "easy"
         attempts = 0
         
+<<<<<<< HEAD
+        self.image = spyral.Image(filename=("game/images/chest.png"))
+=======
         self.image = spyral.Image(filename=("game/images/chest.bmp"))
+>>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
         self.image.scale((50,80))
         self.anchor = "bottomright"
         self.x = x
