@@ -42,18 +42,6 @@ class Character(spyral.Sprite):
         spyral.event.register('director.update', self.update)
 
     def setScene(self,scene,row,column):
-<<<<<<< HEAD
-	super(Character,self).__init__(scene)
-	self.sceneRow = row
-	self.sceneColumn = column
-
-    def setSceneMatrix(self,matrix):
-	self.sceneMatrix = matrix
-
-    def leavingScene(self):
-	row = self.sceneRow
-	column = self.sceneColumn
-=======
         super(Character,self).__init__(scene)
         self.sceneRow = row
         self.sceneColumn = column
@@ -64,55 +52,40 @@ class Character(spyral.Sprite):
     def leavingScene(self):
         row = self.sceneRow
         column = self.sceneColumn
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
 	if(self.x < 0 and self.sceneColumn != 0):
 		spyral.director.replace(self.sceneMatrix[row][column - 1])
 		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
 		self.sceneMatrix[row][column - 1].setCharacter(self)
-<<<<<<< HEAD
-		self.setImage("game/images/stick.png")
-=======
 		self.setImage("game/images/stick.bmp")
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
 		self.x = WIDTH - 40
 		
 	elif(self.x > WIDTH and self.sceneColumn != 3):
 		spyral.director.replace(self.sceneMatrix[row][column + 1])
 		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
 		self.sceneMatrix[row][column + 1].setCharacter(self)
-<<<<<<< HEAD
-		self.setImage("game/images/stick.png")
-=======
 		self.setImage("game/images/stick.bmp")
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
 		self.x = 40
 
 	elif(self.y < 0 and self.sceneRow != 0):
 		spyral.director.replace(self.sceneMatrix[row - 1][column])
 		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
 		self.sceneMatrix[row - 1][column].setCharacter(self)
-<<<<<<< HEAD
-		self.setImage("game/images/stick.png")
-=======
 		self.setImage("game/images/stick.bmp")
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
 		self.y = HEIGHT - 40
 
 	elif(self.y > HEIGHT and self.sceneRow != 3):
 		spyral.director.replace(self.sceneMatrix[row + 1][column])
 		self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
 		self.sceneMatrix[row + 1][column].setCharacter(self)
-<<<<<<< HEAD
-		self.setImage("game/images/stick.png")
-=======
 		self.setImage("game/images/stick.bmp")
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
 		self.y = 40
 
     def move_left(self):
         self.moving = 'left'
+	self.vel = 250
     def move_right(self):
         self.moving = 'right'
+	self.vel = 250
     def move_down(self):
         self.moving = 'down'
     def move_up(self):
@@ -136,19 +109,18 @@ class Character(spyral.Sprite):
             #self.vel = -self.vel
             #self.moving = False            
             if (self.moving == 'right'):
-                self.x-=50
+                self.x-= 5
+		self.vel = 0
             elif (self.moving == 'left'):
-                self.x+=50
+                self.x+=5
+		self.vel = 0
             elif (self.moving == 'up'):
-                self.y+=50
+                self.y+=20
             elif (self.moving == 'down'):
-                self.y-=50
+                self.y-=20
 
     def collide_chest(self, chest):
         if self.collide_sprite(chest):
-<<<<<<< HEAD
-            self.stop_move()
-=======
             #self.stop_move()
             if (self.moving == 'right'):
                 self.x-=50
@@ -158,4 +130,3 @@ class Character(spyral.Sprite):
                 self.y+=50
             elif (self.moving == 'down'):
                 self.y-=50
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72

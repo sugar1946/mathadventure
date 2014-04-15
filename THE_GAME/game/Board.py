@@ -15,6 +15,7 @@ SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
 ENEMY_LIST = []
+CHEST_LIST = []
 class Board(spyral.Scene):
     text = ''
     ENEMY_LIST = []
@@ -29,10 +30,11 @@ class Board(spyral.Scene):
     def update(self,delta):
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
-            self.player.collide_chest(self.chest)
             for enemy in ENEMY_LIST:
                 enemy.collide_wall(wall)
                 enemy.collide_player(self.player)
+	for chest in CHEST_LIST:
+		self.player.collide_chest(chest)
                     
 
     def setCharacter(self,character):
@@ -50,7 +52,7 @@ class Board(spyral.Scene):
         for i in range(random.randint(1,3)):
             x = random.randint(110, WIDTH-30)
             y = random.randint(30, HEIGHT-80)
-            self.chest = Chest.Chest(self,x, y)
+            CHEST_LIST.append(Chest.Chest(self,x, y))
 
 	
     def setBackGround(self,imagePath):

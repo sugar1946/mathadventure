@@ -3,12 +3,7 @@ import random
 import math
 import Walls
 import Character
-<<<<<<< HEAD
-=======
-
 import Monster
-
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
 import Chest
 import random
 WIDTH = 1200
@@ -20,32 +15,8 @@ SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
 ENEMY_LIST = []
+CHESY_LIST = []
 class Board(spyral.Scene):
-<<<<<<< HEAD
-	text = '';
-	def __init__(self, *args, **kwargs):
-	
-		spyral.Scene.__init__(self, SIZE)
-		spyral.event.register("system.quit", spyral.director.pop) 
-		spyral.event.register("input.keyboard.down.q", spyral.director.pop)
-		spyral.event.register("director.update", self.update)
-
-	def update(self,delta):
-		for wall in WALL_LIST:
-			self.player.collide_wall(wall)
-                self.player.collide_chest(self.chest)
-                
-	def setCharacter(self,character):
-		self.player = character
-		character.setKeyBoardCommands(self)
-		
-        def setChests(self):
-                for i in range(random.randint(1,3)):
-                        x = random.randint(110, WIDTH-30)
-                        y = random.randint(30, HEIGHT-80)
-                        self.chest = Chest.Chest(self,x, y)
-                
-=======
     text = ''
     ENEMY_LIST = []
     def __init__(self, *args, **kwargs):
@@ -59,10 +30,11 @@ class Board(spyral.Scene):
     def update(self,delta):
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
-            self.player.collide_chest(self.chest)
             for enemy in ENEMY_LIST:
                 enemy.collide_wall(wall)
                 enemy.collide_player(self.player)
+	for chest in CHEST_LIST:
+		self.player.collide_chest(chest)
                     
 
     def setCharacter(self,character):
@@ -80,9 +52,8 @@ class Board(spyral.Scene):
         for i in range(random.randint(1,3)):
             x = random.randint(110, WIDTH-30)
             y = random.randint(30, HEIGHT-80)
-            self.chest = Chest.Chest(self,x, y)
+            CHEST_LIST.append(Chest.Chest(self,x, y))
 
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
 	
     def setBackGround(self,imagePath):
 		self.background = spyral.Image(filename=imagePath)
@@ -254,7 +225,6 @@ class Board(spyral.Scene):
 			wall = Walls.Walls(self)
 			wall.wallTopHalf('Left')
 			WALL_LIST.append(wall)
-<<<<<<< HEAD
 
 			wall = Walls.Walls(self)
 			wall.wallTopHalf('Right')
@@ -265,18 +235,6 @@ class Board(spyral.Scene):
 			WALL_LIST.append(wall)
 
 			wall = Walls.Walls(self)
-=======
-
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Right')
-			WALL_LIST.append(wall)
-
-			wall = Walls.Walls(self)
-			wall.wallBottomFull()
-			WALL_LIST.append(wall)
-
-			wall = Walls.Walls(self)
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
 			wall.wallLeftHalf('Top')
 			WALL_LIST.append(wall)
 
