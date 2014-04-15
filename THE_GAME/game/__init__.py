@@ -5,12 +5,12 @@ import LoadingScene
 #import Monster
 def main():
 
-
     spyral.director.init(size=(0, 0), max_ups=30, max_fps=30, fullscreen=False, caption='The Game')
     scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
     backGroundImage = 1
     character = Character.Character()
     monsters = []
+
     for l in range(4):
         temp = Monster.Monster()
         monsters.append(temp)
@@ -20,8 +20,10 @@ def main():
 			#if(j == 1):
 			#	gameBoard.setBackGround("game/sceneImages/2.jpg")
 			#else:
+
             gameBoard.setMonster(monsters)
             gameBoard.setBackGround("game/sceneImages/1_1200*900.bmp")
+
             gameBoard.setCharacter(character)
             gameBoard.setChests()
             gameBoard.setWalls(i,j)
@@ -37,3 +39,4 @@ def main():
         monster.setScene(scene_matrix[0][0])
         monster.setImage("game/images/m1_30*30.bmp")
  
+
