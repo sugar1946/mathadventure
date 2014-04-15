@@ -11,7 +11,7 @@ def main():
     backGroundImage = 1
     character = Character.Character()
     monsters = []
-    for l in range(10):
+    for l in range(4):
         temp = Monster.Monster()
         monsters.append(temp)
     for i in range(4):
