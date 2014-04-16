@@ -5,38 +5,13 @@ import LoadingScene
 #import Monster
 def main():
 
-<<<<<<< HEAD
-	spyral.director.init(size=(0, 0), max_ups=30, max_fps=30, fullscreen=False, caption='The Game')
-	scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
-	backGroundImage = 1
-	character = Character.Character()
-	for i in range(4):
-		for j in range(4):
-			gameBoard = Board.Board()
-			#if(j == 1):
-			#	gameBoard.setBackGround("game/sceneImages/2.jpg")
-			#else:
-			gameBoard.setBackGround("game/sceneImages/1.jpg")
-			gameBoard.setCharacter(character)
-                        gameBoard.setChests()
-			gameBoard.setWalls(i,j)
-			scene_matrix[i][j] = gameBoard
-			#once everything works uncomment these and fix images sizes
-			#gameBoard.setBackGround("game/sceneImages/"+str(backGroundImage)+".jpg")
-			#backGroundImage = backGroundImage + 1
-	spyral.director.push(scene_matrix[0][0])
-	character.setScene(scene_matrix[0][0],0,0)
-	character.setSceneMatrix(scene_matrix)
-	character.setImage("game/images/stick.png")
- 
-=======
-
     spyral.director.init(size=(0, 0), max_ups=30, max_fps=30, fullscreen=False, caption='The Game')
     scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
     backGroundImage = 1
     character = Character.Character()
     monsters = []
-    for l in range(10):
+
+    for l in range(4):
         temp = Monster.Monster()
         monsters.append(temp)
     for i in range(4):
@@ -45,10 +20,16 @@ def main():
 			#if(j == 1):
 			#	gameBoard.setBackGround("game/sceneImages/2.jpg")
 			#else:
-            #gameBoard.setMonster(monsters) 
+
+            gameBoard.setMonster(monsters)
+<<<<<<< HEAD
+            gameBoard.setBackGround("game/sceneImages/1_1200*900.bmp")
+=======
             gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
+>>>>>>> 41be9975ec2847d8697e364ae3fe9e7087ea8de7
+
             gameBoard.setCharacter(character)
-            gameBoard.setChests()
+            gameBoard.setChestsandGems()
             gameBoard.setWalls(i,j)
             scene_matrix[i][j] = gameBoard
 			#once everything works uncomment these and fix images sizes
@@ -60,6 +41,10 @@ def main():
     character.setImage("game/images/stick.bmp")
     for monster in monsters:
         monster.setScene(scene_matrix[0][0])
+<<<<<<< HEAD
+        monster.setImage("game/images/m1_30*30.bmp")
+=======
         monster.setImage("game/images/m1_30_30.bmp")
+>>>>>>> 41be9975ec2847d8697e364ae3fe9e7087ea8de7
  
->>>>>>> adef9774c91affb69d4ae36e9a5c82d9a2831c72
+

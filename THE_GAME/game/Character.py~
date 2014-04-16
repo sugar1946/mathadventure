@@ -1,6 +1,7 @@
 import spyral
 import random
 import math
+import Question
 WIDTH = 1200
 HEIGHT = 900
 BG_COLOR = (255,255,255)
@@ -112,21 +113,22 @@ class Character(spyral.Sprite):
             #self.vel = -self.vel
             #self.moving = False            
             if (self.moving == 'right'):
-                self.x-= 2
+                self.x-= 4
+<<<<<<< HEAD
 		self.vel = 0
             elif (self.moving == 'left'):
-                self.x+= 2
+                self.x+= 4
 		self.vel = 0
             elif (self.moving == 'up'):
-                self.y+= 2
+                self.y+= 4
 		self.vel = 0
             elif (self.moving == 'down'):
-                self.y-= 2
+                self.y-= 4
 		self.vel = 0
 
-    def collide_chest(self, chest):
-        if self.collide_sprite(chest):
-            #self.stop_move()
+    def collide_item(self, item):
+        if self.collide_sprite(item):
+            spyral.director.replace(Question.Question())
             if (self.moving == 'right'):
                 self.x-= 2
 		self.vel = 0
@@ -139,3 +141,32 @@ class Character(spyral.Sprite):
             elif (self.moving == 'down'):
                 self.y-= 2
 		self.vel = 0
+=======
+                self.vel = 0
+            elif (self.moving == 'left'):
+                self.x+= 4
+                self.vel = 0
+            elif (self.moving == 'up'):
+                self.y+= 4
+                self.vel = 0
+            elif (self.moving == 'down'):
+                self.y-= 4
+                self.vel = 0
+
+    def collide_item(self, item):
+        if self.collide_sprite(item):
+            spyral.event.handle("collision")
+            #self.stop_move()
+            if (self.moving == 'right'):
+                self.x-= 2
+                self.vel = 0
+            elif (self.moving == 'left'):
+                self.x+= 2
+                self.vel = 0
+            elif (self.moving == 'up'):
+                self.y+= 2
+                self.vel = 0
+            elif (self.moving == 'down'):
+                self.y-= 2
+                self.vel = 0
+>>>>>>> 41be9975ec2847d8697e364ae3fe9e7087ea8de7
