@@ -38,5 +38,6 @@ def main():
     for monster in monsters:
         monster.setScene(scene_matrix[0][0])
         monster.setImage("game/images/m1_30_30.bmp")
+
  
 
