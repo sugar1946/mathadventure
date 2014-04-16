@@ -114,34 +114,6 @@ class Character(spyral.Sprite):
             #self.moving = False            
             if (self.moving == 'right'):
                 self.x-= 4
-<<<<<<< HEAD
-		self.vel = 0
-            elif (self.moving == 'left'):
-                self.x+= 4
-		self.vel = 0
-            elif (self.moving == 'up'):
-                self.y+= 4
-		self.vel = 0
-            elif (self.moving == 'down'):
-                self.y-= 4
-		self.vel = 0
-
-    def collide_item(self, item):
-        if self.collide_sprite(item):
-            spyral.director.replace(Question.Question())
-            if (self.moving == 'right'):
-                self.x-= 2
-		self.vel = 0
-            elif (self.moving == 'left'):
-                self.x+= 2
-		self.vel = 0
-            elif (self.moving == 'up'):
-                self.y+= 2
-		self.vel = 0
-            elif (self.moving == 'down'):
-                self.y-= 2
-		self.vel = 0
-=======
                 self.vel = 0
             elif (self.moving == 'left'):
                 self.x+= 4
@@ -169,4 +141,4 @@ class Character(spyral.Sprite):
             elif (self.moving == 'down'):
                 self.y-= 2
                 self.vel = 0
->>>>>>> 41be9975ec2847d8697e364ae3fe9e7087ea8de7
+
