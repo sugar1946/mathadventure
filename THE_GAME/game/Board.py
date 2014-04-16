@@ -31,19 +31,18 @@ class Board(spyral.Scene):
         
 
     def update(self,delta):
-        for wall in WALL_LIST:
-            self.player.collide_wall(wall)
-
-
-        for enemy in ENEMY_LIST:
-            enemy.collide_wall(wall)
-
         for item in ITEM_LIST:
-            self.player.collide_item(item)
-
+                self.player.collide_item(item)
 
                     
 
+        for wall in WALL_LIST:
+            self.player.collide_wall(wall)
+
+            for enemy in ENEMY_LIST:
+                enemy.collide_wall(wall)
+
+        
     def setCharacter(self,character):
 		self.player = character
 		character.setKeyBoardCommands(self)
@@ -56,8 +55,8 @@ class Board(spyral.Scene):
   
 		
     def setChestsandGems(self):
-        WIDTH_COORD = range(110, (WIDTH/2)-90) + range((WIDTH/2)+90, WIDTH-110)
-        HEIGHT_COORD = range(110, (HEIGHT/2) - 110) + range((HEIGHT/2) + 110, HEIGHT-110)
+        WIDTH_COORD = range(30, (WIDTH/2)-140) + range((WIDTH/2)+60, WIDTH-120)
+        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
 
         for i in range(random.randint(1,3)):
             x = random.choice(WIDTH_COORD)
@@ -67,7 +66,7 @@ class Board(spyral.Scene):
                 if (x-40 < i < x+40):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
-                if (y-40 < i < y+40):
+                if (y-35 < i < y+35):
                     HEIGHT_COORD.remove(i)
                 
             ITEM_LIST.append(Item.Item(self,"chest", x, y))
@@ -80,7 +79,7 @@ class Board(spyral.Scene):
                 if (x-40 < i < x+40):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
-                if (y-40 < i < y+40):
+                if (y-35 < i < y+35):
                     HEIGHT_COORD.remove(i)
             
             ITEM_LIST.append(Item.Item(self,"gem", x, y))
