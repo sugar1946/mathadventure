@@ -1,6 +1,7 @@
 import spyral
 import random
 import math
+import Question
 WIDTH = 1200
 HEIGHT = 900
 BG_COLOR = (255,255,255)
@@ -124,8 +125,9 @@ class Character(spyral.Sprite):
                 self.y-= 4
 		self.vel = 0
 
-    def collide_chest(self, chest):
-        if self.collide_sprite(chest):
+    def collide_item(self, item):
+        if self.collide_sprite(item):
+            spyral.event.handle("collision")
             #self.stop_move()
             if (self.moving == 'right'):
                 self.x-= 2
