@@ -4,8 +4,10 @@ import math
 import Walls
 import Character
 import Monster
-import Chest
+import Item
+import Question
 import random
+
 WIDTH = 1200
 HEIGHT = 900
 
@@ -15,7 +17,7 @@ SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
 ENEMY_LIST = []
-CHEST_LIST = []
+ITEM_LIST = []
 
 class Board(spyral.Scene):
     text = ''
@@ -31,11 +33,14 @@ class Board(spyral.Scene):
     def update(self,delta):
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
-            for enemy in ENEMY_LIST:
-                enemy.collide_wall(wall)
 
-        for chest in CHEST_LIST:
-            self.player.collide_chest(chest)
+
+        for enemy in ENEMY_LIST:
+            enemy.collide_wall(wall)
+
+        for item in ITEM_LIST:
+            self.player.collide_item(item)
+
 
                     
 
@@ -50,13 +55,35 @@ class Board(spyral.Scene):
 
   
 		
-    def setChests(self):
+    def setChestsandGems(self):
+        WIDTH_COORD = range(110, (WIDTH/2)-90) + range((WIDTH/2)+90, WIDTH-110)
+        HEIGHT_COORD = range(110, (HEIGHT/2) - 110) + range((HEIGHT/2) + 110, HEIGHT-110)
+
         for i in range(random.randint(1,3)):
-            x = random.randint(110, WIDTH-30)
-            y = random.randint(30, HEIGHT-80)
-            CHEST_LIST.append(Chest.Chest(self,x, y))
+            x = random.choice(WIDTH_COORD)
+            y = random.choice(HEIGHT_COORD)
 
+            for i in WIDTH_COORD:
+                if (x-40 < i < x+40):
+                    WIDTH_COORD.remove(i)
+            for i in HEIGHT_COORD:
+                if (y-40 < i < y+40):
+                    HEIGHT_COORD.remove(i)
+                
+            ITEM_LIST.append(Item.Item(self,"chest", x, y))
+            
+        for i in range(random.randint(2,4)):
+            x = random.choice(WIDTH_COORD)
+            y = random.choice(HEIGHT_COORD)
 
+            for i in WIDTH_COORD:
+                if (x-40 < i < x+40):
+                    WIDTH_COORD.remove(i)
+            for i in HEIGHT_COORD:
+                if (y-40 < i < y+40):
+                    HEIGHT_COORD.remove(i)
+            
+            ITEM_LIST.append(Item.Item(self,"gem", x, y))
 	
     def setBackGround(self,imagePath):
 		self.background = spyral.Image(filename=imagePath)

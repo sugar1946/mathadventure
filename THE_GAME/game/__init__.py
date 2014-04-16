@@ -25,7 +25,7 @@ def main():
             gameBoard.setBackGround("game/sceneImages/1_1200*900.bmp")
 
             gameBoard.setCharacter(character)
-            gameBoard.setChests()
+            gameBoard.setChestsandGems()
             gameBoard.setWalls(i,j)
             scene_matrix[i][j] = gameBoard
 			#once everything works uncomment these and fix images sizes

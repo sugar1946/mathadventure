@@ -1,25 +1,22 @@
 import spyral
+import Item
 
-class Question_text(spyral.sprite):
-    def __init__(self, scene, questionText):
-        font = spyral.Font("libraries/spyral/resources/fonts/DejaVuSans.ttf", 40)
-        self.image = font.render(questionText,color=BLACK)
+class Question(spyral.Scene):
+    def __init__(self):
+        super(Question, self).__init__((1200,900))
 
-class Question(spyral.scene):
-    def __init__(self, scene):
-        super(Question, self).__init__(self)
+        self.background = spyral.Image(size = (1200,900)).fill((255,255,255))
 
-    #def setText(self):
+        self.GemList = [["1+2 = ", "1","2","3", "3", "n"], ["2+2 = ", "2", "4", "6", "4", "n"]]
+        self.ChestEasyList = [["easy question 1", "wrong", "Wrong", "Right", "Right", 'n'],["easy question 2", "Right", "Wrong", "wrong", "Right", 'n']]
+        self.ChestMediumList = [["medium question 1", "wrong", "Wrong", "Right", "Right", 'n'],["medium question 2", "Right", "Wrong", "wrong", "Right", 'n']]
+        self.ChestHardList = [["hard question 1", "wrong", "Wrong", "Right", "Right", 'n'],["hard question 2", "Right", "Wrong", "wrong", "Right", 'n']]
 
-    def setLists(self):
-        easySubtraction = []
-        file = open('EasySubtraction.txt', 'r')
-        for line in file:
-            q = line
-            question = q.rstrip('\n')
-            questionList = question.split(',')
-            easySubtraction.append(questionList)
+        self.gemsRight = 0
+        self.question_level = "easy"
 
+        spyral.event.register("input.keyboard.down.q", spyral.director.pop)
 
+    #def setQuestion(self):
 
-       
+#class QuestionText
