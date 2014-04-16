@@ -1,6 +1,7 @@
 import spyral
 import random
 import math
+import Question
 WIDTH = 1200
 HEIGHT = 900
 BG_COLOR = (255,255,255)
@@ -52,33 +53,34 @@ class Character(spyral.Sprite):
     def leavingScene(self):
         row = self.sceneRow
         column = self.sceneColumn
+	distance = 100
 	if(self.x < 0 and self.sceneColumn != 0):
 		spyral.director.replace(self.sceneMatrix[row][column - 1])
 		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
 		self.sceneMatrix[row][column - 1].setCharacter(self)
 		self.setImage("game/images/stick.bmp")
-		self.x = WIDTH - 40
+		self.x = WIDTH - distance
 		
 	elif(self.x > WIDTH and self.sceneColumn != 3):
 		spyral.director.replace(self.sceneMatrix[row][column + 1])
 		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
 		self.sceneMatrix[row][column + 1].setCharacter(self)
 		self.setImage("game/images/stick.bmp")
-		self.x = 40
+		self.x = distance
 
 	elif(self.y < 0 and self.sceneRow != 0):
 		spyral.director.replace(self.sceneMatrix[row - 1][column])
 		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
 		self.sceneMatrix[row - 1][column].setCharacter(self)
 		self.setImage("game/images/stick.bmp")
-		self.y = HEIGHT - 40
+		self.y = HEIGHT - distance
 
 	elif(self.y > HEIGHT and self.sceneRow != 3):
 		spyral.director.replace(self.sceneMatrix[row + 1][column])
 		self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
 		self.sceneMatrix[row + 1][column].setCharacter(self)
 		self.setImage("game/images/stick.bmp")
-		self.y = 40
+		self.y = distance
 
     def move_left(self):
         self.moving = 'left'
@@ -111,26 +113,31 @@ class Character(spyral.Sprite):
             #self.vel = -self.vel
             #self.moving = False            
             if (self.moving == 'right'):
-                self.x-= 2
-		self.vel = 0
+                self.x-= 4
+                self.vel = 0
             elif (self.moving == 'left'):
-                self.x+= 2
-		self.vel = 0
+                self.x+= 4
+                self.vel = 0
             elif (self.moving == 'up'):
-                self.y+= 2
-		self.vel = 0
+                self.y+= 4
+                self.vel = 0
             elif (self.moving == 'down'):
-                self.y-= 2
-		self.vel = 0
+                self.y-= 4
+                self.vel = 0
 
-    def collide_chest(self, chest):
-        if self.collide_sprite(chest):
+    def collide_item(self, item):
+        if self.collide_sprite(item):
+            spyral.event.handle("collision")
             #self.stop_move()
             if (self.moving == 'right'):
-                self.x-=50
+                self.x-= 2
+                self.vel = 0
             elif (self.moving == 'left'):
-                self.x+=50
+                self.x+= 2
+                self.vel = 0
             elif (self.moving == 'up'):
-                self.y+=50
+                self.y+= 2
+                self.vel = 0
             elif (self.moving == 'down'):
-                self.y-=50
+                self.y-= 2
+                self.vel = 0

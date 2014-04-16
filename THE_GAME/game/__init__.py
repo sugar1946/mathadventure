@@ -10,7 +10,8 @@ def main():
     backGroundImage = 1
     character = Character.Character()
     monsters = []
-    for l in range(10):
+
+    for l in range(4):
         temp = Monster.Monster()
         monsters.append(temp)
     for i in range(4):
@@ -19,10 +20,12 @@ def main():
 			#if(j == 1):
 			#	gameBoard.setBackGround("game/sceneImages/2.jpg")
 			#else:
-            #gameBoard.setMonster(monsters) 
+
+            gameBoard.setMonster(monsters)
             gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
+
             gameBoard.setCharacter(character)
-            gameBoard.setChests()
+            gameBoard.setChestsandGems()
             gameBoard.setWalls(i,j)
             scene_matrix[i][j] = gameBoard
 			#once everything works uncomment these and fix images sizes
@@ -35,4 +38,5 @@ def main():
     for monster in monsters:
         monster.setScene(scene_matrix[0][0])
         monster.setImage("game/images/m1_30_30.bmp")
+ 
 
