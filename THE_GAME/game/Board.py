@@ -31,13 +31,11 @@ class Board(spyral.Scene):
     def update(self,delta):
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
-
-            self.player.collide_chest(self.chest)
             for enemy in ENEMY_LIST:
                 enemy.collide_wall(wall)
 
         for chest in CHEST_LIST:
-		self.player.collide_chest(chest)
+            self.player.collide_chest(chest)
 
                     
 
