@@ -127,8 +127,7 @@ class Character(spyral.Sprite):
 
     def collide_item(self, item):
         if self.collide_sprite(item):
-            spyral.event.handle("collision")
-            #self.stop_move()
+            spyral.director.replace(Question.Question())
             if (self.moving == 'right'):
                 self.x-= 2
 		self.vel = 0

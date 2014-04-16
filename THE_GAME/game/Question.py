@@ -15,7 +15,7 @@ class Question(spyral.Scene):
         self.gemsRight = 0
         self.question_level = "easy"
 
-        spyral.event.register("input.keyboard.down.q", spyral.director.pop)
+        spyral.event.register("system.quit", spyral.director.pop)
 
     #def setQuestion(self):
 
