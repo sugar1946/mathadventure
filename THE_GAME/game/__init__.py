@@ -1,12 +1,14 @@
 import spyral
 import Board
 import LoadingScene
+import StartScene
 #import Character
 #import Monster
 def main():
 
     spyral.director.init(size=(0, 0), max_ups=30, max_fps=30, fullscreen=False, caption='The Game')
-    scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
+    spyral.director.push(StartScene.StartScene())
+    '''scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
     backGroundImage = 1
     character = Character.Character()
     
@@ -32,10 +34,7 @@ def main():
     spyral.director.push(scene_matrix[0][0])
     character.setScene(scene_matrix[0][0],0,0)
     character.setSceneMatrix(scene_matrix)
-    character.setImage("game/images/stick.bmp")
+    character.setImage("game/images/stick.bmp")'''
    
-
-
-
 
 

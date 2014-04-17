@@ -41,7 +41,6 @@ class Board(spyral.Scene):
             self.player.collide_item(item)
 
 
-                    
 
     def setCharacter(self,character):
 		self.player = character

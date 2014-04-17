@@ -14,7 +14,7 @@ class StartScene(spyral.Scene):
 	def __init__(self, *args, **kwargs):
 			spyral.Scene.__init__(self, SIZE)
 			
-			self.background = spyral.Image(filename="game/sceneImages/loading.jpg")
+			self.background = spyral.Image(filename="game/sceneImages/loading.bmp")
 			spyral.event.register("input.keyboard.down.q", spyral.director.pop)
 			spyral.event.register("input.keyboard.down.t", spyral.director.pop)
 			spyral.event.register("input.keyboard.down.s", self.startGame)
@@ -24,10 +24,8 @@ class StartScene(spyral.Scene):
 		scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
 		backGroundImage = 1
 		character = Character.Character()
-		monsters = []
-		for l in range(4):
-			temp = Monster.Monster()
-			monsters.append(temp)
+	
+		
 		for i in range(4):
 			for j in range(4):
 				gameBoard = Board.Board()
@@ -35,7 +33,7 @@ class StartScene(spyral.Scene):
 				#	gameBoard.setBackGround("game/sceneImages/2.jpg")
 				#else:
 
-				gameBoard.setMonster(monsters)
+				gameBoard.setMonster()
 				gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
 
 				gameBoard.setCharacter(character)
@@ -49,6 +47,4 @@ class StartScene(spyral.Scene):
 		character.setScene(scene_matrix[0][0],0,0)
 		character.setSceneMatrix(scene_matrix)
 		character.setImage("game/images/stick.bmp")
-		for monster in monsters:
-			monster.setScene(scene_matrix[0][0])
-			monster.setImage("game/images/m1_30_30.bmp")
+		
