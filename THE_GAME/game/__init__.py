@@ -42,6 +42,3 @@ def main():
 	monster.setImage("game/images/m1_30_30.bmp")
 	'''
 
-
-
-
