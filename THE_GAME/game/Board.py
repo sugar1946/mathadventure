@@ -6,7 +6,6 @@ import Character
 import Monster
 import Item
 import Question
-import random
 
 WIDTH = 1200
 HEIGHT = 900
@@ -31,28 +30,15 @@ class Board(spyral.Scene):
         
 
     def update(self,delta):
-<<<<<<< HEAD
-        for item in ITEM_LIST:
-                self.player.collide_item(item)
 
-=======
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
             for enemy in ENEMY_LIST:
                 enemy.collide_wall(wall)
 
-        for item in ITEM_LIST:
-		self.player.collide_item(item)
->>>>>>> f2d8024eeb0fd1f16a9520b20706d0fabd4a2658
-                    
-
-        for wall in WALL_LIST:
-            self.player.collide_wall(wall)
-
-            for enemy in ENEMY_LIST:
-                enemy.collide_wall(wall)
-
-        
+        #for item in ITEM_LIST:
+		#self.player.collide_item(item)
+  
     def setCharacter(self,character):
 		self.player = character
 		character.setKeyBoardCommands(self)
