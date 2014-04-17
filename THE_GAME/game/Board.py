@@ -6,7 +6,6 @@ import Character
 import Monster
 import Item
 import Question
-import random
 
 WIDTH = 1200
 HEIGHT = 900
