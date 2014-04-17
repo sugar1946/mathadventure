@@ -16,26 +16,27 @@ BLACK = (0, 0, 255)
 SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
-ENEMY_LIST = []
+##ENEMY_LIST = []
 ITEM_LIST = []
 
 class Board(spyral.Scene):
     text = ''
-    ENEMY_LIST = []
+    ##self.ENEMY_LIST = []
+    ##enemy = []
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
-        
+        self.ENEMY_LIST = []
 
     def update(self,delta):
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
 
-        for enemy in ENEMY_LIST:
+        for enemy in self.ENEMY_LIST:
             enemy.collide_wall(wall)
 
         for item in ITEM_LIST:
@@ -48,12 +49,13 @@ class Board(spyral.Scene):
 		self.player = character
 		character.setKeyBoardCommands(self)
 
-    def setMonster(self,monsters):
-        for i in range(len(monsters)):
-            ENEMY_LIST.append(monsters[i])
-            monsters[i].setUpdate(self)
+    def setMonster(self):
+        for i in range(4):
+            monster = Monster.Monster(self)
+            self.ENEMY_LIST.append(monster)
+            monster.setUpdate(self)
 
-  
+              
 		
     def setChestsandGems(self):
         WIDTH_COORD = range(110, (WIDTH/2)-90) + range((WIDTH/2)+90, WIDTH-110)

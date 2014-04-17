@@ -12,11 +12,18 @@ MONSTER = "game/images/m1.bmp"
 
 
 class Monster(spyral.Sprite):
-    def __init__(self):
-        #super(Character, self).__init__(scene)
+    def __init__(self,scene):
+        super(Monster, self).__init__(scene)
+        self.image = spyral.Image(filename=("game/images/m1_30*30.bmp"))
         score = 0
-        
-        
+        self.anchor = "center"
+        self.x=100*random.random()
+        self.y=100*random.random()
+        self.moving = False
+        self.vel_x = 20
+        self.vel_y = 20
+        spyral.event.register('director.update', self.update)
+
 
     def setScene(self,scene):
         super(Monster,self).__init__(scene)
@@ -24,12 +31,7 @@ class Monster(spyral.Sprite):
     def setImage(self,imagePath):
     #"game/images/stick.png"
         self.image = spyral.Image(filename=imagePath)
-        self.anchor = "center"
-        self.x=100*random.random()
-        self.y=100*random.random()
-        self.moving = False
-        self.vel_x = 20
-        self.vel_y = 20
+        
         
     def update(self,delta):
         self.x += delta * self.vel_x
