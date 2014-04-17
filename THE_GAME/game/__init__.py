@@ -9,11 +9,7 @@ def main():
     scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
     backGroundImage = 1
     character = Character.Character()
-    monsters = []
-
-        ## for l in range(4):
-        ## temp = Monster.Monster()
-    ##monsters.append(temp)
+    
     for i in range(4):
         for j in range(4):
             gameBoard = Board.Board()
