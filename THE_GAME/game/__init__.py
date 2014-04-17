@@ -16,7 +16,7 @@ def main():
 			#if(j == 1):
 			#	gameBoard.setBackGround("game/sceneImages/2.jpg")
 			#else:
-            temp = monsters
+            #temp = monsters
             gameBoard.setMonster()
             
             gameBoard.setBackGround("game/sceneImages/1_1200*900.bmp")
