@@ -22,11 +22,7 @@ def main():
 			#else:
 
             gameBoard.setMonster(monsters)
-<<<<<<< HEAD
-            gameBoard.setBackGround("game/sceneImages/1_1200*900.bmp")
-=======
             gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
->>>>>>> 41be9975ec2847d8697e364ae3fe9e7087ea8de7
 
             gameBoard.setCharacter(character)
             gameBoard.setChestsandGems()
@@ -41,10 +37,7 @@ def main():
     character.setImage("game/images/stick.bmp")
     for monster in monsters:
         monster.setScene(scene_matrix[0][0])
-<<<<<<< HEAD
-        monster.setImage("game/images/m1_30*30.bmp")
-=======
         monster.setImage("game/images/m1_30_30.bmp")
->>>>>>> 41be9975ec2847d8697e364ae3fe9e7087ea8de7
+
  
 

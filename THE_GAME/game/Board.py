@@ -6,7 +6,6 @@ import Character
 import Monster
 import Item
 import Question
-import random
 
 WIDTH = 1200
 HEIGHT = 900
@@ -36,8 +35,8 @@ class Board(spyral.Scene):
             for enemy in ENEMY_LIST:
                 enemy.collide_wall(wall)
 
-        for item in ITEM_LIST:
-		self.player.collide_item(item)
+        #for item in ITEM_LIST:
+		#self.player.collide_item(item)
                     
 
     def setCharacter(self,character):
