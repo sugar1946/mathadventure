@@ -140,3 +140,4 @@ class Character(spyral.Sprite):
             elif (self.moving == 'down'):
                 self.y-= 2
 		self.vel = 0
+
