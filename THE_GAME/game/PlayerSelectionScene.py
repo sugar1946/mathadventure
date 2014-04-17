@@ -12,7 +12,7 @@ import Board
 SIZE = (1200,900)
 WIDTH = 1200
 HEIGHT = 900
-FONT_PATH = "/usr/share/fonts/truetype/freefont/FreeMono.ttf"
+FONT_PATH = "/Users/mingzhiyu/Documents/School work/Spring 2014/cisc374/THE_GAME/THE_GAME/game/images/DejaVuSansMono-Bold.ttf"
 
 class PlayerImage(spyral.Sprite):
 	def __init__(self,scene,img,side):
@@ -66,10 +66,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 		scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
 		backGroundImage = 1
 		character = Character.Character()
-		monsters = []
-		for l in range(4):
-			temp = Monster.Monster()
-			monsters.append(temp)
+		
 		for i in range(4):
 			for j in range(4):
 				gameBoard = Board.Board()
@@ -77,7 +74,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 				#	gameBoard.setBackGround("game/sceneImages/2.jpg")
 				#else:
 
-				gameBoard.setMonster(monsters)
+				gameBoard.setMonster()
 				gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
 
 				gameBoard.setCharacter(character)
@@ -91,6 +88,4 @@ class PlayerSelectionSceneMain(spyral.Scene):
 		character.setScene(scene_matrix[0][0],0,0)
 		character.setSceneMatrix(scene_matrix)
 		character.setImage(self.player_choice)
-		for monster in monsters:
-			monster.setScene(scene_matrix[0][0])
-			monster.setImage("game/images/m1_30_30.bmp")
+		
