@@ -15,7 +15,7 @@ BLACK = (0, 0, 255)
 SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
-##ENEMY_LIST = []
+ENEMY_LIST = []
 ITEM_LIST = []
 
 class Board(spyral.Scene):
@@ -28,14 +28,17 @@ class Board(spyral.Scene):
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
-        self.ENEMY_LIST = []
+        ENEMY_LIST = []
 
     def update(self,delta):
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
             
-        for enemy in self.ENEMY_LIST:
+        for enemy in ENEMY_LIST:
             enemy.collide_wall(wall)
+            enemy.collide_player(self.player)
+            for item in ITEM_LIST:
+                enemy.collide_item(item)
 
         for item in ITEM_LIST:
             self.player.collide_item(item)
@@ -49,7 +52,7 @@ class Board(spyral.Scene):
     def setMonster(self):
         for i in range(4):
             monster = Monster.Monster(self)
-            self.ENEMY_LIST.append(monster)
+            ENEMY_LIST.append(monster)
             monster.setUpdate(self)
 
               

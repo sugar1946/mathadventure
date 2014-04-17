@@ -15,13 +15,13 @@ class Monster(spyral.Sprite):
     def __init__(self,scene):
         super(Monster, self).__init__(scene)
         self.image = spyral.Image(filename=("game/images/m1_30*30.bmp"))
-        score = 0
+        self.score = 0
         self.anchor = "center"
-        self.x=100*random.random()
-        self.y=100*random.random()
+        self.x=300*random.random()
+        self.y=300*random.random()
         self.moving = False
-        self.vel_x = 20
-        self.vel_y = 20
+        self.vel_x = 15
+        self.vel_y = 15
         spyral.event.register('director.update', self.update)
 
 
@@ -52,10 +52,10 @@ class Monster(spyral.Sprite):
         if r.right > WIDTH-30:
             self.vel_x = -self.vel_x
         ##change the direction , during the move, the monster would change its direction by 30% possibility
-        if(chance<=0.3):
+        if(chance<=0.03):
         ## pick up a random angle for monster to move
             theta = random.random()*2*math.pi
-            r = 100
+            r = 60
             self.vel_x = r*math.cos(theta)
             self.vel_y = r*math.sin(theta)
 
@@ -78,4 +78,9 @@ class Monster(spyral.Sprite):
            self.vel_x = -self.vel_x
            self.vel_y = -self.vel_y
 
+    def collide_item(self,item):
+        if self.collide_sprite(item):
+            self.vel_x = -self.vel_x
+            self.vel_y = -self.vel_y
+            self.score = self.score + 1
 
