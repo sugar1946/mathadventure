@@ -1,5 +1,6 @@
 import spyral
 import Item
+import random
 
 class Question(spyral.Scene):
     def __init__(self):
@@ -16,7 +17,30 @@ class Question(spyral.Scene):
         self.question_level = "easy"
 
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
+        spyral.event.register("system.quit", spyral.director.pop)
 
-    #def setQuestion(self):
+    def questionpopup(self, item):
+        if (item.name == "gem"):
+            popup = QuestionText(self, self.GemList[random.randint(0,len(self.GemList)-1)][0])
+            popup.anchor = "topleft"
+            popup.visible = True
+            return True
+        elif (item.name == "chest"):
+            print "chest"
+            return False
+    
 
-#class QuestionText
+class QuestionText(spyral.Sprite):
+    def __init__(self, scene, text):
+        super(QuestionText, self).__init__(scene)
+        font = spyral.Font("libraries/spyral/resources/fonts/DejaVuSans.ttf", 50)
+        self.image = font.render(text, color=(0,0,0))
+        self.anchor = "topleft"
+
+class QuestionForm(spyral.Form):
+    buttonY = spyral.widgets.Button("yes")
+    buttonN = spyral.widgets.Button("no")
+    text = spyral.widgets.TextInput(75)
+    num = 1
+
+         

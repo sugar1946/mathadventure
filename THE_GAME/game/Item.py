@@ -22,8 +22,3 @@ class Item(spyral.Sprite):
         self.y = y
 
         
-        spyral.event.register("collision", self.collision)
-        
-    def collision(self):
-        return 0
-

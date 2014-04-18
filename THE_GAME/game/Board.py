@@ -18,12 +18,16 @@ WALL_LIST = []
 ENEMY_LIST = []
 ITEM_LIST = []
 
+
 class Board(spyral.Scene):
     text = ''
     ENEMY_LIST = []
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
+
+        self.question = Question.Question()
+        
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
@@ -35,10 +39,19 @@ class Board(spyral.Scene):
             self.player.collide_wall(wall)
             for enemy in ENEMY_LIST:
                 enemy.collide_wall(wall)
-
+        a = 0
         for item in ITEM_LIST:
-		self.player.collide_item(item)
-                    
+	    self.player.collide_item(item)
+	    a = a+1
+	    if (self.player.collide_sprite(item)):
+                if (item.name == "chest"):
+                    if (self.question.questionpopup(item)):
+                            spyral.director.replace(self.question)
+                if (item.name == "gem"):
+                    if (self.question.questionpopup(item)):
+                            spyral.director.replace(self.question)
+
+                        
 
     def setCharacter(self,character):
 		self.player = character
@@ -52,7 +65,7 @@ class Board(spyral.Scene):
   
 		
     def setChestsandGems(self):
-        WIDTH_COORD = range(30, (WIDTH/2)-140) + range((WIDTH/2)+60, WIDTH-120)
+        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
         HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
 
         for i in range(random.randint(1,3)):
@@ -60,10 +73,10 @@ class Board(spyral.Scene):
             y = random.choice(HEIGHT_COORD)
 
             for i in WIDTH_COORD:
-                if (x-40 < i < x+40):
+                if (x-95 < i and i < x+95):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
-                if (y-35 < i < y+35):
+                if (y-75 < i and i< y+75):
                     HEIGHT_COORD.remove(i)
                 
             ITEM_LIST.append(Item.Item(self,"chest", x, y))
@@ -76,11 +89,11 @@ class Board(spyral.Scene):
                 if (x-40 < i < x+40):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
-                if (y-35 < i < y+35):
+                if (y-60 < i < y+60):
                     HEIGHT_COORD.remove(i)
             
             ITEM_LIST.append(Item.Item(self,"gem", x, y))
-	
+
     def setBackGround(self,imagePath):
 		self.background = spyral.Image(filename=imagePath)
 

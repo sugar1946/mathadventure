@@ -126,7 +126,7 @@ class Character(spyral.Sprite):
 		self.vel = 0
 
     def collide_item(self, item):
-        if self.collide_sprite(item):
+        if (self.collide_sprite(item)):
             if (self.moving == 'right'):
                 self.x-= 2
 		self.vel = 0
@@ -139,4 +139,5 @@ class Character(spyral.Sprite):
             elif (self.moving == 'down'):
                 self.y-= 2
 		self.vel = 0
+	    return True
 
