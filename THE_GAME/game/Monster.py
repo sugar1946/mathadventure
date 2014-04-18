@@ -14,7 +14,7 @@ MONSTER = "game/images/m1.bmp"
 class Monster(spyral.Sprite):
     def __init__(self,scene):
         super(Monster, self).__init__(scene)
-        self.image = spyral.Image(filename=("game/images/m1_30*30.bmp"))
+        self.image = spyral.Image(filename=("game/images/m1_30_30.bmp"))
         self.score = 0
         self.anchor = "center"
         self.x=300*random.random()
