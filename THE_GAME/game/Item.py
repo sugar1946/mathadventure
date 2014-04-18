@@ -14,7 +14,7 @@ class Item(spyral.Sprite):
             self.image = spyral.Image(filename=("game/images/chest.bmp"))
             self.image.scale((90,65))
         elif (self.name == "gem"):
-            self.image = spyral.Image(filename=("game/images/gem.png"))
+            self.image = spyral.Image(filename=("game/images/gem.bmp"))
             self.image.scale((40,60))
 
         self.anchor = "bottomleft"

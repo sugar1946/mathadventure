@@ -21,7 +21,8 @@ ITEM_LIST = []
 
 class Board(spyral.Scene):
     text = ''
-    ENEMY_LIST = []
+    ##self.ENEMY_LIST = []
+    ##enemy = []
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
@@ -31,14 +32,13 @@ class Board(spyral.Scene):
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
-        
+        ENEMY_LIST = []
 
     def update(self,delta):
 
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
-            for enemy in ENEMY_LIST:
-                enemy.collide_wall(wall)
+
         a = 0
         for item in ITEM_LIST:
 	    self.player.collide_item(item)
@@ -50,19 +50,25 @@ class Board(spyral.Scene):
                 if (item.name == "gem"):
                     if (self.question.questionpopup(item)):
                             spyral.director.replace(self.question)
+  
+        for enemy in ENEMY_LIST:
+            enemy.collide_wall(wall)
+            enemy.collide_player(self.player)
+            for item in ITEM_LIST:
+                enemy.collide_item(item)
 
-                        
 
     def setCharacter(self,character):
 		self.player = character
 		character.setKeyBoardCommands(self)
 
-    def setMonster(self,monsters):
-        for i in range(len(monsters)):
-            ENEMY_LIST.append(monsters[i])
-            monsters[i].setUpdate(self)
+    def setMonster(self):
+        for i in range(4):
+            monster = Monster.Monster(self)
+            ENEMY_LIST.append(monster)
+            monster.setUpdate(self)
 
-  
+              
 		
     def setChestsandGems(self):
         WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
