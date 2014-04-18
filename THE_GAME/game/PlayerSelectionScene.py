@@ -12,7 +12,7 @@ import Board
 SIZE = (1200,900)
 WIDTH = 1200
 HEIGHT = 900
-FONT_PATH = "/Users/mingzhiyu/Documents/School work/Spring 2014/cisc374/THE_GAME/THE_GAME/game/images/DejaVuSansMono-Bold.ttf"
+FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
 
 class PlayerImage(spyral.Sprite):
 	def __init__(self,scene,img,side):

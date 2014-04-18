@@ -41,16 +41,12 @@ class Board(spyral.Scene):
 
         a = 0
         for item in ITEM_LIST:
-	    self.player.collide_item(item)
 	    a = a+1
 	    if (self.player.collide_sprite(item)):
-                if (item.name == "chest"):
-                    if (self.question.questionpopup(item)):
-                            spyral.director.replace(self.question)
-                if (item.name == "gem"):
-                    if (self.question.questionpopup(item)):
-                            spyral.director.replace(self.question)
-  
+                self.question.questionpopup(item)
+
+            self.player.collide_item(item)
+
         for enemy in ENEMY_LIST:
             enemy.collide_wall(wall)
             enemy.collide_player(self.player)

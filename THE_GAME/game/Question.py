@@ -24,10 +24,11 @@ class Question(spyral.Scene):
             popup = QuestionText(self, self.GemList[random.randint(0,len(self.GemList)-1)][0])
             popup.anchor = "topleft"
             popup.visible = True
-            return True
         elif (item.name == "chest"):
             print "chest"
             return False
+        spyral.director.replace(self)
+
     
 
 class QuestionText(spyral.Sprite):
