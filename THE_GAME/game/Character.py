@@ -2,6 +2,7 @@ import spyral
 import random
 import math
 import Question
+import Monster
 WIDTH = 1200
 HEIGHT = 900
 BG_COLOR = (255,255,255)
@@ -11,12 +12,12 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 
 class Character(spyral.Sprite):
     def __init__(self):
-        #super(Character, self).__init__(scene)
         score = 0
         
 
     def setScene(self,scene):
-        super(Character,self).__init__(scene)
+        super(Character, self).__init__(scene)
+
     
     def setImage(self,imagePath):
     #"game/images/stick.png"
@@ -53,47 +54,47 @@ class Character(spyral.Sprite):
     def leavingScene(self):
         row = self.sceneRow
         column = self.sceneColumn
-	distance = 100
-	if(self.x < 0 and self.sceneColumn != 0):
-		spyral.director.replace(self.sceneMatrix[row][column - 1])
-		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
-		self.sceneMatrix[row][column - 1].setCharacter(self)
-		self.setImage("game/images/stick.bmp")
-		self.x = WIDTH - distance
-		
-	elif(self.x > WIDTH and self.sceneColumn != 3):
-		spyral.director.replace(self.sceneMatrix[row][column + 1])
-		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
-		self.sceneMatrix[row][column + 1].setCharacter(self)
-		self.setImage("game/images/stick.bmp")
-		self.x = distance
+        distance = 100
+    	if(self.x < 0 and self.sceneColumn != 0):
+    		spyral.director.replace(self.sceneMatrix[row][column - 1])
+    		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
+    		self.sceneMatrix[row][column - 1].setCharacter(self)
+    		self.setImage("game/images/stick.bmp")
+    		self.x = WIDTH - distance
+    		
+    	elif(self.x > WIDTH and self.sceneColumn != 3):
+    		spyral.director.replace(self.sceneMatrix[row][column + 1])
+    		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
+    		self.sceneMatrix[row][column + 1].setCharacter(self)
+    		self.setImage("game/images/stick.bmp")
+    		self.x = distance
 
-	elif(self.y < 0 and self.sceneRow != 0):
-		spyral.director.replace(self.sceneMatrix[row - 1][column])
-		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
-		self.sceneMatrix[row - 1][column].setCharacter(self)
-		self.setImage("game/images/stick.bmp")
-		self.y = HEIGHT - distance
+    	elif(self.y < 0 and self.sceneRow != 0):
+    		spyral.director.replace(self.sceneMatrix[row - 1][column])
+    		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
+    		self.sceneMatrix[row - 1][column].setCharacter(self)
+    		self.setImage("game/images/stick.bmp")
+    		self.y = HEIGHT - distance
 
-	elif(self.y > HEIGHT and self.sceneRow != 3):
-		spyral.director.replace(self.sceneMatrix[row + 1][column])
-		self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
-		self.sceneMatrix[row + 1][column].setCharacter(self)
-		self.setImage("game/images/stick.bmp")
-		self.y = distance
+    	elif(self.y > HEIGHT and self.sceneRow != 3):
+    		spyral.director.replace(self.sceneMatrix[row + 1][column])
+    		self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
+    		self.sceneMatrix[row + 1][column].setCharacter(self)
+    		self.setImage("game/images/stick.bmp")
+    		self.y = distance
 
     def move_left(self):
         self.moving = 'left'
-	self.vel = 250
+        self.vel = 250
     def move_right(self):
         self.moving = 'right'
-	self.vel = 250
+        self.vel = 250
     def move_down(self):
         self.moving = 'down'
-	self.vel = 250
+        self.vel = 250
     def move_up(self):
         self.moving = 'up'
-	self.vel = 250
+        self.vel = 250
     def stop_move(self):
         self.moving = False
 
@@ -114,29 +115,31 @@ class Character(spyral.Sprite):
             #self.moving = False            
             if (self.moving == 'right'):
                 self.x-= 4
-		self.vel = 0
+                self.vel = 0
             elif (self.moving == 'left'):
                 self.x+= 4
-		self.vel = 0
+                self.vel = 0
             elif (self.moving == 'up'):
                 self.y+= 4
-		self.vel = 0
+                self.vel = 0
             elif (self.moving == 'down'):
                 self.y-= 4
-		self.vel = 0
+                self.vel = 0
 
     def collide_item(self, item):
-        if self.collide_sprite(item):
+
+        if (self.collide_sprite(item)):
             if (self.moving == 'right'):
                 self.x-= 2
-		self.vel = 0
+                self.vel = 0
             elif (self.moving == 'left'):
                 self.x+= 2
-		self.vel = 0
+                self.vel = 0
             elif (self.moving == 'up'):
                 self.y+= 2
-		self.vel = 0
+                self.vel = 0
             elif (self.moving == 'down'):
                 self.y-= 2
-		self.vel = 0
+                self.vel = 0
+	    return True
 

@@ -1,5 +1,6 @@
 import spyral
 import Board
+import LoadingScene
 import StartScene
 #import Character
 #import Monster
@@ -41,4 +42,3 @@ def main():
 	monster.setScene(scene_matrix[0][0])
 	monster.setImage("game/images/m1_30_30.bmp")
 	'''
-

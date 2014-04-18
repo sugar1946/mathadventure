@@ -18,51 +18,67 @@ WALL_LIST = []
 ENEMY_LIST = []
 ITEM_LIST = []
 
+
 class Board(spyral.Scene):
     text = ''
-    ENEMY_LIST = []
+    ##self.ENEMY_LIST = []
+    ##enemy = []
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
+
+        self.question = Question.Question()
+        
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
-        
+        ENEMY_LIST = []
 
     def update(self,delta):
+
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
-            for enemy in ENEMY_LIST:
-                enemy.collide_wall(wall)
 
+        a = 0
         for item in ITEM_LIST:
-		self.player.collide_item(item)
-                    
+	    a = a+1
+	    if (self.player.collide_sprite(item)):
+                self.question.questionpopup(item)
+
+            self.player.collide_item(item)
+
+        for enemy in ENEMY_LIST:
+            enemy.collide_wall(wall)
+            enemy.collide_player(self.player)
+            for item in ITEM_LIST:
+                enemy.collide_item(item)
+
 
     def setCharacter(self,character):
 		self.player = character
 		character.setKeyBoardCommands(self)
 
-    def setMonster(self,monsters):
-        for i in range(len(monsters)):
-            ENEMY_LIST.append(monsters[i])
-            monsters[i].setUpdate(self)
+    def setMonster(self):
+        for i in range(4):
+            monster = Monster.Monster(self)
+            ENEMY_LIST.append(monster)
+            monster.setUpdate(self)
 
-  
+              
 		
     def setChestsandGems(self):
-        WIDTH_COORD = range(110, (WIDTH/2)-90) + range((WIDTH/2)+90, WIDTH-110)
-        HEIGHT_COORD = range(110, (HEIGHT/2) - 110) + range((HEIGHT/2) + 110, HEIGHT-110)
+        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
+        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
 
         for i in range(random.randint(1,3)):
             x = random.choice(WIDTH_COORD)
             y = random.choice(HEIGHT_COORD)
 
             for i in WIDTH_COORD:
-                if (x-40 < i < x+40):
+                if (x-95 < i and i < x+95):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
-                if (y-40 < i < y+40):
+                if (y-75 < i and i< y+75):
                     HEIGHT_COORD.remove(i)
                 
             ITEM_LIST.append(Item.Item(self,"chest", x, y))
@@ -75,11 +91,11 @@ class Board(spyral.Scene):
                 if (x-40 < i < x+40):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
-                if (y-40 < i < y+40):
+                if (y-60 < i < y+60):
                     HEIGHT_COORD.remove(i)
             
             ITEM_LIST.append(Item.Item(self,"gem", x, y))
-	
+
     def setBackGround(self,imagePath):
 		self.background = spyral.Image(filename=imagePath)
 
