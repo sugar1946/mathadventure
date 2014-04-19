@@ -41,11 +41,11 @@ class Board(spyral.Scene):
 
         a = 0
         for item in ITEM_LIST:
-	    a = a+1
-	    if (self.player.collide_sprite(item)):
-                self.question.questionpopup(item)
+            a = a+1
+            if (self.player.collide_sprite(item)):
+                #self.question.questionpopup(item)
 
-            self.player.collide_item(item)
+                self.player.collide_item(item)
 
         for enemy in ENEMY_LIST:
             enemy.collide_wall(wall)
@@ -55,8 +55,8 @@ class Board(spyral.Scene):
 
 
     def setCharacter(self,character):
-		self.player = character
-		character.setKeyBoardCommands(self)
+        self.player = character
+        character.setKeyBoardCommands(self)
 
     def setMonster(self):
         for i in range(4):
@@ -65,7 +65,7 @@ class Board(spyral.Scene):
             monster.setUpdate(self)
 
               
-		
+        
     def setChestsandGems(self):
         WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
         HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
@@ -97,254 +97,254 @@ class Board(spyral.Scene):
             ITEM_LIST.append(Item.Item(self,"gem", x, y))
 
     def setBackGround(self,imagePath):
-		self.background = spyral.Image(filename=imagePath)
+        self.background = spyral.Image(filename=imagePath)
 
     def setWalls(self,quadrantRow,quadrantColumn):
-		if(quadrantRow == 0 and quadrantColumn == 0):
-			wall = Walls.Walls(self)
-			wall.wallTopFull()
-			WALL_LIST.append(wall)
+        if(quadrantRow == 0 and quadrantColumn == 0):
+            wall = Walls.Walls(self)
+            wall.wallTopFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Left')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Bottom')
-			WALL_LIST.append(wall)
-		
-		elif((quadrantRow == 0 and quadrantColumn == 1) or (quadrantRow == 0 and quadrantColumn == 2)):
-			wall = Walls.Walls(self)
-			wall.wallTopFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Bottom')
+            WALL_LIST.append(wall)
+        
+        elif((quadrantRow == 0 and quadrantColumn == 1) or (quadrantRow == 0 and quadrantColumn == 2)):
+            wall = Walls.Walls(self)
+            wall.wallTopFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Left')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Bottom')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Bottom')
+            WALL_LIST.append(wall)
 
-		elif(quadrantRow == 0 and quadrantColumn == 3):
-			wall = Walls.Walls(self)
-			wall.wallTopFull()
-			WALL_LIST.append(wall)
+        elif(quadrantRow == 0 and quadrantColumn == 3):
+            wall = Walls.Walls(self)
+            wall.wallTopFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Left')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Bottom')
+            WALL_LIST.append(wall)
 
-		elif((quadrantRow == 1 and quadrantColumn == 0) or (quadrantRow == 2 and quadrantColumn == 0)):
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Left')
-			WALL_LIST.append(wall)
+        elif((quadrantRow == 1 and quadrantColumn == 0) or (quadrantRow == 2 and quadrantColumn == 0)):
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Left')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Bottom')
+            WALL_LIST.append(wall)
 
-		elif(quadrantRow == 3 and quadrantColumn == 0):
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Left')
-			WALL_LIST.append(wall)
+        elif(quadrantRow == 3 and quadrantColumn == 0):
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Bottom')
+            WALL_LIST.append(wall)
 
-		elif((quadrantRow == 3 and quadrantColumn == 1) or (quadrantRow == 3 and quadrantColumn == 2)):
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Left')
-			WALL_LIST.append(wall)
+        elif((quadrantRow == 3 and quadrantColumn == 1) or (quadrantRow == 3 and quadrantColumn == 2)):
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Bottom')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Bottom')
+            WALL_LIST.append(wall)
 
-		elif(quadrantRow == 3 and quadrantColumn == 3):
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Left')
-			WALL_LIST.append(wall)
+        elif(quadrantRow == 3 and quadrantColumn == 3):
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomFull()
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Bottom')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightFull()
+            WALL_LIST.append(wall)
 
-		elif((quadrantRow == 1 and quadrantColumn == 3) or (quadrantRow == 2 and quadrantColumn == 3)):
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Left')
-			WALL_LIST.append(wall)
+        elif((quadrantRow == 1 and quadrantColumn == 3) or (quadrantRow == 2 and quadrantColumn == 3)):
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Left')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Bottom')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightFull()
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightFull()
+            WALL_LIST.append(wall)
 
-		elif((quadrantRow == 1 and quadrantColumn == 1) or (quadrantRow == 1 and quadrantColumn == 2) or (quadrantRow == 2 and quadrantColumn == 1) or (quadrantRow == 2 and quadrantColumn == 2)):
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Left')
-			WALL_LIST.append(wall)
+        elif((quadrantRow == 1 and quadrantColumn == 1) or (quadrantRow == 1 and quadrantColumn == 2) or (quadrantRow == 2 and quadrantColumn == 1) or (quadrantRow == 2 and quadrantColumn == 2)):
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallTopHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallTopHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Left')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Left')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallBottomHalf('Right')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallBottomHalf('Right')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallLeftHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallLeftHalf('Bottom')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Top')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Top')
+            WALL_LIST.append(wall)
 
-			wall = Walls.Walls(self)
-			wall.wallRightHalf('Bottom')
-			WALL_LIST.append(wall)
+            wall = Walls.Walls(self)
+            wall.wallRightHalf('Bottom')
+            WALL_LIST.append(wall)
