@@ -13,6 +13,7 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 class Character(spyral.Sprite):
     def __init__(self):
         score = 0
+	self.current_image = '';
         
 
     def setScene(self,scene):
@@ -21,6 +22,7 @@ class Character(spyral.Sprite):
     
     def setImage(self,imagePath):
     #"game/images/stick.png"
+	self.current_image = imagePath
         self.image = spyral.Image(filename=imagePath)
         self.anchor = "center"
         self.x = WIDTH/2
@@ -35,6 +37,7 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.down.right", self.move_right)
         spyral.event.register("input.keyboard.down.down", self.move_down)
         spyral.event.register("input.keyboard.down.up", self.move_up)
+	spyral.event.register("input.keyboard.down.y", self.changeImage)
 
         # Key up
         spyral.event.register("input.keyboard.up.left", self.stop_move)
@@ -59,28 +62,28 @@ class Character(spyral.Sprite):
     		spyral.director.replace(self.sceneMatrix[row][column - 1])
     		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
     		self.sceneMatrix[row][column - 1].setCharacter(self)
-    		self.setImage("game/images/stick.bmp")
+    		self.setImage(self.current_image)
     		self.x = WIDTH - distance
     		
     	elif(self.x > WIDTH and self.sceneColumn != 3):
     		spyral.director.replace(self.sceneMatrix[row][column + 1])
     		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
     		self.sceneMatrix[row][column + 1].setCharacter(self)
-    		self.setImage("game/images/stick.bmp")
+    		self.setImage(self.current_image)
     		self.x = distance
 
     	elif(self.y < 0 and self.sceneRow != 0):
     		spyral.director.replace(self.sceneMatrix[row - 1][column])
     		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
     		self.sceneMatrix[row - 1][column].setCharacter(self)
-    		self.setImage("game/images/stick.bmp")
+    		self.setImage(self.current_image)
     		self.y = HEIGHT - distance
 
     	elif(self.y > HEIGHT and self.sceneRow != 3):
     		spyral.director.replace(self.sceneMatrix[row + 1][column])
     		self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
     		self.sceneMatrix[row + 1][column].setCharacter(self)
-    		self.setImage("game/images/stick.bmp")
+    		self.setImage(self.current_image)
     		self.y = distance
 
     def move_left(self):
@@ -143,3 +146,10 @@ class Character(spyral.Sprite):
                 self.vel = 0
 	    return True
 
+    def changeImage(self):
+         self.current_image = "game/images/stick.bmp";
+         x = self.x
+         y = self.y
+         self.setImage(self.current_image)
+         self.x = x
+         self.y = y

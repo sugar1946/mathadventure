@@ -52,7 +52,6 @@ class PlayerSelectionSceneMain(spyral.Scene):
 			spyral.event.register("input.keyboard.down.s", self.startGame)
 			spyral.event.register("input.keyboard.down.left", self.chosePlayerOne)
 			spyral.event.register("input.keyboard.down.right", self.chosePlayerTwo)
-			#spyral.event.register("director.update", self.update)
 
 	def chosePlayerOne(self):
 		self.player_choice = "game/images/stick.bmp"
@@ -84,8 +83,8 @@ class PlayerSelectionSceneMain(spyral.Scene):
 				#once everything works uncomment these and fix images sizes
 				#gameBoard.setBackGround("game/sceneImages/"+str(backGroundImage)+".jpg")
 				#backGroundImage = backGroundImage + 1
-		spyral.director.replace(scene_matrix[0][0])
-		character.setScene(scene_matrix[0][0],0,0)
+		spyral.director.replace(scene_matrix[3][0])
+		character.setScene(scene_matrix[3][0],3,0)
 		character.setSceneMatrix(scene_matrix)
 		character.setImage(self.player_choice)
 		
