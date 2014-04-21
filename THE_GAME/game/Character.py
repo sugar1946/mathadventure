@@ -15,20 +15,26 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 class Character(spyral.Sprite):
     def __init__(self):
         score = 0
+	self.current_image = '';
+
+
+    def setAnimationArray(self,animationPath):
+	data=[]                               # will hold the lines of the file
+	with open(animationPath,'rU') as fin:
+		for line in fin:                  # for each line of the file
+			line=line.strip()             # remove CR/LF
+			if line:                      # skip blank lines
+				data.append(line)
+	return data
 
     # Character animations
     def setAnimations(self,scene):
-
         # right walk animation sequence
-        right = ["game/images/Animations/b1.bmp", "game/images/Animations/b2.bmp", "game/images/Animations/b3.bmp",
-        "game/images/Animations/b4.bmp","game/images/Animations/b5.bmp", "game/images/Animations/b6.bmp", 
-        "game/images/Animations/b7.bmp","game/images/Animations/b8.bmp"]
+        right = self.setAnimationArray("game/images/Animations/rightanimation.txt")
         images = [spyral.Image(filename=f) for f in right]
 
         # left walk animation sequence
-        left = ["game/images/Animations/bl1.bmp", "game/images/Animations/bl2.bmp", "game/images/Animations/bl3.bmp", 
-        "game/images/Animations/bl4.bmp","game/images/Animations/bl5.bmp", "game/images/Animations/bl6.bmp", 
-        "game/images/Animations/bl7.bmp","game/images/Animations/bl8.bmp"]
+        left = self.setAnimationArray("game/images/Animations/leftanimation.txt")
         images2 = [spyral.Image(filename=f) for f in left]
 
         #right stop animation sequence
@@ -42,15 +48,15 @@ class Character(spyral.Sprite):
         self.animation = Animation('image', easing.Iterate(images), duration = 1.5, loop=True)
         self.animation2 = Animation('image', easing.Iterate(images2), duration = 1.5, loop=True)
         self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1.5)
-        self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1.5)
-        
+        self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1.5)        
 
     def setScene(self,scene):
         super(Character, self).__init__(scene)
 
     
     def setImage(self,imagePath):
-    #"game/images/stick.bmp"
+    #"game/images/stick.png"
+	self.current_image = imagePath
         self.image = spyral.Image(filename=imagePath)
         self.anchor = "center"
         self.x = WIDTH/2
@@ -65,6 +71,7 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.down.right", self.move_right)
         spyral.event.register("input.keyboard.down.down", self.move_down)
         spyral.event.register("input.keyboard.down.up", self.move_up)
+	spyral.event.register("input.keyboard.down.y", self.changeImage)
 
         # Key up
         spyral.event.register("input.keyboard.up.left", self.stop_move)
@@ -89,6 +96,7 @@ class Character(spyral.Sprite):
     		spyral.director.replace(self.sceneMatrix[row][column - 1])
     		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
     		self.sceneMatrix[row][column - 1].setCharacter(self)
+    		#self.setImage(self.current_image)
     		self.setImage("game/images/Animations/stop2l.bmp")
     		self.x = WIDTH - distance
     		
@@ -96,6 +104,7 @@ class Character(spyral.Sprite):
     		spyral.director.replace(self.sceneMatrix[row][column + 1])
     		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
     		self.sceneMatrix[row][column + 1].setCharacter(self)
+    		#self.setImage(self.current_image)
     		self.setImage("game/images/Animations/stop2.bmp")
     		self.x = distance
 
@@ -103,6 +112,7 @@ class Character(spyral.Sprite):
     		spyral.director.replace(self.sceneMatrix[row - 1][column])
     		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
     		self.sceneMatrix[row - 1][column].setCharacter(self)
+    		#self.setImage(self.current_image)
     		self.setImage("game/images/Animations/stop2.bmp")
     		self.y = HEIGHT - distance
 
@@ -110,6 +120,7 @@ class Character(spyral.Sprite):
     		spyral.director.replace(self.sceneMatrix[row + 1][column])
     		self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
     		self.sceneMatrix[row + 1][column].setCharacter(self)
+    		#self.setImage(self.current_image)
     		self.setImage("game/images/Animations/stop2.bmp")
     		self.y = distance
 
@@ -189,3 +200,10 @@ class Character(spyral.Sprite):
                 self.vel = 0
 	    return True
 
+    def changeImage(self):
+         self.current_image = "game/images/stick.bmp";
+         x = self.x
+         y = self.y
+         self.setImage(self.current_image)
+         self.x = x
+         self.y = y
