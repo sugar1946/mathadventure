@@ -30,13 +30,11 @@ class Character(spyral.Sprite):
     # Character animations
     def setAnimations(self,scene):
         # right walk animation sequence
-        right = self.setAnimationArray("game/images/Animations/leftanimation.txt")
+        right = self.setAnimationArray("game/images/Animations/rightanimation.txt")
         images = [spyral.Image(filename=f) for f in right]
 
         # left walk animation sequence
-        left = ["game/images/Animations/bl1.bmp", "game/images/Animations/bl2.bmp", "game/images/Animations/bl3.bmp", 
-        "game/images/Animations/bl4.bmp","game/images/Animations/bl5.bmp", "game/images/Animations/bl6.bmp", 
-        "game/images/Animations/bl7.bmp","game/images/Animations/bl8.bmp"]
+        left = self.setAnimationArray("game/images/Animations/leftanimation.txt")
         images2 = [spyral.Image(filename=f) for f in left]
 
         #right stop animation sequence
