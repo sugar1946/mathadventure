@@ -65,7 +65,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 		scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
 		backGroundImage = 1
 		character = Character.Character()
-		
+		question = Question.Question()
 		for i in range(4):
 			for j in range(4):
 				gameBoard = Board.Board()
@@ -75,10 +75,10 @@ class PlayerSelectionSceneMain(spyral.Scene):
 
 				gameBoard.setMonster()
 				gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
-
 				gameBoard.setCharacter(character)
 				gameBoard.setChestsandGems()
 				gameBoard.setWalls(i,j)
+				gameBoard.setQuestion(question)
 				scene_matrix[i][j] = gameBoard
 				#once everything works uncomment these and fix images sizes
 				#gameBoard.setBackGround("game/sceneImages/"+str(backGroundImage)+".jpg")
