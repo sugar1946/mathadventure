@@ -56,6 +56,7 @@ class Board(spyral.Scene):
 
     def setCharacter(self,character):
         self.player = character
+        character.setAnimations(self)
         character.setKeyBoardCommands(self)
 
     def setMonster(self):

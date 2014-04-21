@@ -37,7 +37,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 			spyral.Scene.__init__(self, SIZE)
 			self.player_choice = "";
 			self.background = spyral.Image(size=SIZE).fill((255,255,255))
-			self.selfplayerOneImage = PlayerImage(self,"game/images/stick.bmp","left")
+			self.selfplayerOneImage = PlayerImage(self,"game/images/Animations/stop2.bmp","left")
 			self.selfplayerTwoImage = PlayerImage(self,"game/images/player2.bmp","right")
 
 			font = spyral.Font(FONT_PATH,24,(0,0,0))
@@ -55,7 +55,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 			#spyral.event.register("director.update", self.update)
 
 	def chosePlayerOne(self):
-		self.player_choice = "game/images/stick.bmp"
+		self.player_choice = "game/images/Animations/stop2.bmp"
 		self.startGame()
 
 	def chosePlayerTwo(self):
