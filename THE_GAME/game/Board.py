@@ -27,8 +27,6 @@ class Board(spyral.Scene):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
 
-        self.question = Question.Question()
-        
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
@@ -43,8 +41,8 @@ class Board(spyral.Scene):
         for item in ITEM_LIST:
             a = a+1
             if (self.player.collide_sprite(item)):
-                #self.question.questionpopup(item)
-
+                self.question.setScene(self)
+                self.question.setNewQuestion(item)
                 self.player.collide_item(item)
 
         for enemy in ENEMY_LIST:
@@ -53,7 +51,9 @@ class Board(spyral.Scene):
             for item in ITEM_LIST:
                 enemy.collide_item(item)
 
-
+    def setQuestion(self, question):
+        self.question = question
+        
     def setCharacter(self,character):
         self.player = character
         character.setAnimations(self)
