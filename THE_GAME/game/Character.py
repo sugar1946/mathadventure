@@ -45,10 +45,10 @@ class Character(spyral.Sprite):
         stopL = [spyral.Image(filename=f) for f in stop_left]
 
         # Animation
-        self.animation = Animation('image', easing.Iterate(images), duration = 1.5, loop=True)
-        self.animation2 = Animation('image', easing.Iterate(images2), duration = 1.5, loop=True)
-        self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1.5)
-        self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1.5)        
+        self.animation = Animation('image', easing.Iterate(images), duration = 1, loop=True)
+        self.animation2 = Animation('image', easing.Iterate(images2), duration = 1, loop=True)
+        self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1)
+        self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1)        
 
     def setScene(self,scene):
         super(Character, self).__init__(scene)
@@ -62,7 +62,7 @@ class Character(spyral.Sprite):
         self.x = WIDTH/2
         self.y = HEIGHT/2
         self.moving = False 
-        self.vel = 150
+        self.vel = 100
     
 
     def setKeyBoardCommands(self,scene):
@@ -126,20 +126,20 @@ class Character(spyral.Sprite):
 
     def move_left(self):
         self.moving = 'left'
-        self.vel = 150
+        self.vel = 100
         self.stop_all_animations()
         self.animate(self.animation2)
     def move_right(self):
         self.moving = 'right'
-        self.vel = 150
+        self.vel = 100
         self.stop_all_animations()
         self.animate(self.animation)
     def move_down(self):
         self.moving = 'down'
-        self.vel = 150
+        self.vel = 100
     def move_up(self):
         self.moving = 'up'
-        self.vel = 150
+        self.vel = 100
     def stop_move(self):
         self.stop_all_animations()
         if (self.moving == 'right'):
