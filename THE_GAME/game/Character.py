@@ -184,21 +184,19 @@ class Character(spyral.Sprite):
                 self.vel = 0
 
     def collide_item(self, item):
-
-        if (self.collide_sprite(item)):
-            if (self.moving == 'right'):
-                self.x-= 2
-                self.vel = 0
-            elif (self.moving == 'left'):
-                self.x+= 2
-                self.vel = 0
-            elif (self.moving == 'up'):
-                self.y+= 2
-                self.vel = 0
-            elif (self.moving == 'down'):
-                self.y-= 2
-                self.vel = 0
-	    return True
+        if (self.moving == 'right'):
+            self.x-= 2
+            self.vel = 0
+        elif (self.moving == 'left'):
+            self.x+= 2
+            self.vel = 0
+        elif (self.moving == 'up'):
+            self.y+= 2
+            self.vel = 0
+        elif (self.moving == 'down'):
+            self.y-= 2
+            self.vel = 0
+        return True
 
     def changeImage(self):
          self.current_image = "game/images/stick.bmp";
