@@ -165,9 +165,12 @@ class Question(spyral.Scene):
         for i in self.textList:
             i.kill()
         spyral.director.replace(self.return_scene)
+	self.character.moving = False
+        self.character.stop_all_animations()
         print "return"
         return
-
+    def setCharacter(self,character):
+        self.character = character
 
 
         
@@ -189,6 +192,7 @@ class DifficultyForm(spyral.Form):
     easy = spyral.widgets.Button(" EASY ")
     medium = spyral.widgets.Button(" MEDIUM ")
     hard = spyral.widgets.Button(" DIFFICULT ")
+
 
 
          
