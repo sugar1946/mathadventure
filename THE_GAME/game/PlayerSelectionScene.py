@@ -74,7 +74,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 				#else:
 
 				gameBoard.setMonster()
-				gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
+				gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
 				gameBoard.setCharacter(character)
 				gameBoard.setChestsandGems()
 				gameBoard.setWalls(i,j)
