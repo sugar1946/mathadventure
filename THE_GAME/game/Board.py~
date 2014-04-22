@@ -79,7 +79,7 @@ class Board(spyral.Scene):
                 if (y-75 < i and i< y+75):
                     HEIGHT_COORD.remove(i)
                 
-	    item = Item.Item("chest")
+	    item = Item.Item()
 	    item.setScene(self)
 	    item.setImage("game/images/chest.bmp",x,y)
 	    ITEM_LIST.append(item)
@@ -96,7 +96,7 @@ class Board(spyral.Scene):
                 if (y-60 < i < y+60):
                     HEIGHT_COORD.remove(i)
             
-	    item = Item.Item("gem")
+	    item = Item.Item()
 	    item.setScene(self)
 	    item.setImage("game/images/gem.bmp",x,y)
 	    ITEM_LIST.append(item)

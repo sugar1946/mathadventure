@@ -37,7 +37,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 			spyral.Scene.__init__(self, SIZE)
 			self.player_choice = "";
 			self.background = spyral.Image(size=SIZE).fill((255,255,255))
-			self.selfplayerOneImage = PlayerImage(self,"game/images/stick.bmp","left")
+			self.selfplayerOneImage = PlayerImage(self,"game/images/Animations/stop2.bmp","left")
 			self.selfplayerTwoImage = PlayerImage(self,"game/images/player2.bmp","right")
 
 			font = spyral.Font(FONT_PATH,24,(0,0,0))
@@ -54,7 +54,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 			spyral.event.register("input.keyboard.down.right", self.chosePlayerTwo)
 
 	def chosePlayerOne(self):
-		self.player_choice = "game/images/stick.bmp"
+		self.player_choice = "game/images/Animations/stop2.bmp"
 		self.startGame()
 
 	def chosePlayerTwo(self):
@@ -65,7 +65,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 		scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
 		backGroundImage = 1
 		character = Character.Character()
-		
+		question = Question.Question()
 		for i in range(4):
 			for j in range(4):
 				gameBoard = Board.Board()
@@ -75,16 +75,17 @@ class PlayerSelectionSceneMain(spyral.Scene):
 
 				gameBoard.setMonster()
 				gameBoard.setBackGround("game/sceneImages/1_1200_900.bmp")
-
 				gameBoard.setCharacter(character)
 				gameBoard.setChestsandGems()
 				gameBoard.setWalls(i,j)
+				gameBoard.setQuestion(question)
 				scene_matrix[i][j] = gameBoard
 				#once everything works uncomment these and fix images sizes
 				#gameBoard.setBackGround("game/sceneImages/"+str(backGroundImage)+".jpg")
 				#backGroundImage = backGroundImage + 1
-		spyral.director.replace(scene_matrix[4][0])
-		character.setScene(scene_matrix[4][0],4,0)
+		spyral.director.replace(scene_matrix[3][0])
+		
 		character.setSceneMatrix(scene_matrix)
 		character.setImage(self.player_choice)
+		character.setScene(scene_matrix[3][0],3,0)
 		

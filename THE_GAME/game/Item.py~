@@ -7,7 +7,7 @@ class Item(spyral.Sprite):
         #super(Item, self).__init__(scene)
         question_level = "easy"
         attempts = 0
-        self.name = name
+        #self.name = name
         self.key = False
 	'''
         if (self.name == "chest"):

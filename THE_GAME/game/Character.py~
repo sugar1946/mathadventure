@@ -94,6 +94,7 @@ class Character(spyral.Sprite):
         distance = 100
     	if(self.x < 0 and self.sceneColumn != 0):
     		spyral.director.replace(self.sceneMatrix[row][column - 1])
+		self.sceneMatrix[row][column - 1].setCharacter(self)
     		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
     		self.sceneMatrix[row][column - 1].setCharacter(self)
     		#self.setImage(self.current_image)
@@ -102,6 +103,7 @@ class Character(spyral.Sprite):
     		
     	elif(self.x > WIDTH and self.sceneColumn != 3):
     		spyral.director.replace(self.sceneMatrix[row][column + 1])
+		self.sceneMatrix[row][column - 1].setCharacter(self)
     		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
     		self.sceneMatrix[row][column + 1].setCharacter(self)
     		#self.setImage(self.current_image)
@@ -110,6 +112,7 @@ class Character(spyral.Sprite):
 
     	elif(self.y < 0 and self.sceneRow != 0):
     		spyral.director.replace(self.sceneMatrix[row - 1][column])
+		self.sceneMatrix[row][column - 1].setCharacter(self)
     		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
     		self.sceneMatrix[row - 1][column].setCharacter(self)
     		#self.setImage(self.current_image)
@@ -185,19 +188,19 @@ class Character(spyral.Sprite):
 
     def collide_item(self, item):
 
-        if (self.collide_sprite(item)):
-            if (self.moving == 'right'):
-                self.x-= 2
-                self.vel = 0
-            elif (self.moving == 'left'):
-                self.x+= 2
-                self.vel = 0
-            elif (self.moving == 'up'):
-                self.y+= 2
-                self.vel = 0
-            elif (self.moving == 'down'):
-                self.y-= 2
-                self.vel = 0
+        #if (self.collide_sprite(item)):
+	    if (self.moving == 'right'):
+		self.x-= 2
+		self.vel = 0
+	    elif (self.moving == 'left'):
+		self.x+= 2
+		self.vel = 0
+	    elif (self.moving == 'up'):
+		self.y+= 2
+		self.vel = 0
+	    elif (self.moving == 'down'):
+		self.y-= 2
+		self.vel = 0
 	    return True
 
     def changeImage(self):

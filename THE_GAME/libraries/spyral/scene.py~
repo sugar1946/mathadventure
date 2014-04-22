@@ -730,11 +730,16 @@ class Scene(object):
                       :class:`View <spyral.View>`
         :returns: A ``bool``
         """
-
+	print first
+	#print second
+	#print self
         if first not in self._collision_boxes or second not in self._collision_boxes:
             return False
         first_box = self._collision_boxes[first]
+	#print first_box
         second_box = self._collision_boxes[second]
+	#print second_box
+	print "<-------------------->"
         return first_box.collide_rect(second_box)
 
     def collide_point(self, sprite, point):
