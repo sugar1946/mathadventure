@@ -39,9 +39,12 @@ class Board(spyral.Scene):
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
-                self.question.setScene(self)
-                self.question.setNewQuestion(item)
                 self.player.collide_item(item)
+                self.question.setReturnScene(self)
+                self.question.openQuestion(item)
+                item.x = 50000
+
+                
         for enemy in ENEMY_LIST:
             enemy.collide_wall(wall)
             enemy.collide_player(self.player)
