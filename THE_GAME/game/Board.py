@@ -42,7 +42,7 @@ class Board(spyral.Scene):
                 self.player.collide_item(item)
                 self.question.setReturnScene(self)
                 self.question.openQuestion(item)
-                item.x = 50000
+                item.x = 69999
 
                 
         for enemy in ENEMY_LIST:

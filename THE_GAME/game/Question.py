@@ -57,6 +57,7 @@ class Question(spyral.Scene):
                                   
         elif (item == "gem"):
             self.current_question = self.GemList[random.randint(0,len(self.GemList)-1)]
+            self.current_difficultyPoints = 5
             self.setNewQuestion()
 
     def easyClicked(self):
