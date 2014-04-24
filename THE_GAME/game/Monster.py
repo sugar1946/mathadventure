@@ -77,6 +77,7 @@ class Monster(spyral.Sprite):
         if self.collide_sprite(character):
            self.vel_x = -self.vel_x
            self.vel_y = -self.vel_y
+           character.damage()
 
     def collide_item(self,item):
         if self.collide_sprite(item):

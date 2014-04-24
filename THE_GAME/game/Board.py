@@ -6,6 +6,7 @@ import Character
 import Monster
 import Item
 import Question
+import HealthGUI
 
 WIDTH = 1200
 HEIGHT = 900
@@ -63,6 +64,10 @@ class Board(spyral.Scene):
         self.player = character
         character.setAnimations(self)
         character.setKeyBoardCommands(self)
+
+    def setHealth(self):
+        gui = HealthGUI.HealthGUI(self)
+        gui.setKeyBoardCommands(self)
 
     def setMonster(self):
         for i in range(4):
