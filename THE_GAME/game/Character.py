@@ -15,17 +15,18 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 class Character(spyral.Sprite):
     def __init__(self):
         score = 0
-	self.current_image = '';
+        self.current_image = '';
+        self.health = 150
 
 
     def setAnimationArray(self,animationPath):
-	data=[]                               # will hold the lines of the file
-	with open(animationPath,'rU') as fin:
-		for line in fin:                  # for each line of the file
-			line=line.strip()             # remove CR/LF
-			if line:                      # skip blank lines
-				data.append(line)
-	return data
+        data=[]                               # will hold the lines of the file
+        with open(animationPath,'rU') as fin:
+            for line in fin:                  # for each line of the file
+                line=line.strip()             # remove CR/LF
+                if line:                      # skip blank lines
+                    data.append(line)
+        return data
 
     # Character animations
     def setAnimations(self,scene):
@@ -55,15 +56,17 @@ class Character(spyral.Sprite):
 
     
     def setImage(self,imagePath):
-    #"game/images/stick.png"
-	self.current_image = imagePath
+        #"game/images/stick.png"
+        self.current_image = imagePath
         self.image = spyral.Image(filename=imagePath)
         self.anchor = "center"
         self.x = WIDTH/2
         self.y = HEIGHT/2
         self.moving = False 
         self.vel = 100
-    
+        
+    def damage(self):
+        self.health-=10
 
     def setKeyBoardCommands(self,scene):
         # Key down
@@ -71,7 +74,7 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.down.right", self.move_right)
         spyral.event.register("input.keyboard.down.down", self.move_down)
         spyral.event.register("input.keyboard.down.up", self.move_up)
-	spyral.event.register("input.keyboard.down.y", self.changeImage)
+        spyral.event.register("input.keyboard.down.y", self.changeImage)
 
         # Key up
         spyral.event.register("input.keyboard.up.left", self.stop_move)
@@ -92,41 +95,41 @@ class Character(spyral.Sprite):
         row = self.sceneRow
         column = self.sceneColumn
         distance = 100
-    	if(self.x < 0 and self.sceneColumn != 0):
-    		spyral.director.replace(self.sceneMatrix[row][column - 1])
-		self.sceneMatrix[row][column - 1].setCharacter(self)
-    		self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
-    		self.sceneMatrix[row][column - 1].setCharacter(self)
-    		#self.setImage(self.current_image)
-    		self.setImage("game/images/Animations/stop2l.bmp")
-    		self.x = WIDTH - distance
-    		
-    	elif(self.x > WIDTH and self.sceneColumn != 3):
-    		spyral.director.replace(self.sceneMatrix[row][column + 1])
-		self.sceneMatrix[row][column - 1].setCharacter(self)
-    		self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
-    		self.sceneMatrix[row][column + 1].setCharacter(self)
-    		#self.setImage(self.current_image)
-    		self.setImage("game/images/Animations/stop2.bmp")
-    		self.x = distance
+        if(self.x < 0 and self.sceneColumn != 0):
+            spyral.director.replace(self.sceneMatrix[row][column - 1])
+            self.sceneMatrix[row][column - 1].setCharacter(self)
+            self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
+            self.sceneMatrix[row][column - 1].setCharacter(self)
+            #self.setImage(self.current_image)
+            self.setImage("game/images/Animations/stop2l.bmp")
+            self.x = WIDTH - distance
+            
+        elif(self.x > WIDTH and self.sceneColumn != 3):
+            spyral.director.replace(self.sceneMatrix[row][column + 1])
+            self.sceneMatrix[row][column - 1].setCharacter(self)
+            self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
+            self.sceneMatrix[row][column + 1].setCharacter(self)
+            #self.setImage(self.current_image)
+            self.setImage("game/images/Animations/stop2.bmp")
+            self.x = distance
 
-    	elif(self.y < 0 and self.sceneRow != 0):
-    		spyral.director.replace(self.sceneMatrix[row - 1][column])
-		self.sceneMatrix[row][column - 1].setCharacter(self)
-    		self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
-    		self.sceneMatrix[row - 1][column].setCharacter(self)
-    		#self.setImage(self.current_image)
-    		self.setImage("game/images/Animations/stop2.bmp")
-    		self.y = HEIGHT - distance
+        elif(self.y < 0 and self.sceneRow != 0):
+            spyral.director.replace(self.sceneMatrix[row - 1][column])
+            self.sceneMatrix[row][column - 1].setCharacter(self)
+            self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
+            self.sceneMatrix[row - 1][column].setCharacter(self)
+            #self.setImage(self.current_image)
+            self.setImage("game/images/Animations/stop2.bmp")
+            self.y = HEIGHT - distance
 
-    	elif(self.y > HEIGHT and self.sceneRow != 3):
-    		spyral.director.replace(self.sceneMatrix[row + 1][column])
-		self.sceneMatrix[row][column - 1].setCharacter(self)
-    		self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
-    		self.sceneMatrix[row + 1][column].setCharacter(self)
-    		#self.setImage(self.current_image)
-    		self.setImage("game/images/Animations/stop2.bmp")
-    		self.y = distance
+        elif(self.y > HEIGHT and self.sceneRow != 3):
+            spyral.director.replace(self.sceneMatrix[row + 1][column])
+            self.sceneMatrix[row][column - 1].setCharacter(self)
+            self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
+            self.sceneMatrix[row + 1][column].setCharacter(self)
+            #self.setImage(self.current_image)
+            self.setImage("game/images/Animations/stop2.bmp")
+            self.y = distance
 
     def move_left(self):
         self.moving = 'left'
@@ -168,7 +171,7 @@ class Character(spyral.Sprite):
             self.y += self.vel * delta
         elif self.moving == 'up':
             self.y -= self.vel * delta
-	self.leavingScene()
+        self.leavingScene()
 
     def collide_wall(self,wall):
         if self.collide_sprite(wall):
@@ -189,19 +192,19 @@ class Character(spyral.Sprite):
 
     def collide_item(self, item):
 
-	    if (self.moving == 'right'):
-		self.x-= 2
-		self.vel = 0
-	    elif (self.moving == 'left'):
-		self.x+= 2
-		self.vel = 0
-	    elif (self.moving == 'up'):
-		self.y+= 2
-		self.vel = 0
-	    elif (self.moving == 'down'):
-		self.y-= 2
-		self.vel = 0
-	    return True
+        if (self.moving == 'right'):
+            self.x-= 2
+            self.vel = 0
+        elif (self.moving == 'left'):
+            self.x+= 2
+            self.vel = 0
+        elif (self.moving == 'up'):
+            self.y+= 2
+            self.vel = 0
+        elif (self.moving == 'down'):
+            self.y-= 2
+            self.vel = 0
+        return True
 
 
     def changeImage(self):
