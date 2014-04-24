@@ -47,11 +47,15 @@ class Board(spyral.Scene):
 
                 
         for enemy in ENEMY_LIST:
+            temp = ENEMY_LIST
             enemy.collide_wall(wall)
             enemy.collide_player(self.player)
             for item in ITEM_LIST:
                 enemy.collide_item(item)
-
+            for x in ENEMY_LIST:
+                if(x != enemy):
+                    enemy.collide_monster(x)
+   
     def setQuestion(self, question):
         self.question = question
         
