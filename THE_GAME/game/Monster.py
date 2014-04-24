@@ -17,8 +17,8 @@ class Monster(spyral.Sprite):
         self.image = spyral.Image(filename=("game/images/m1_30_30.bmp"))
         self.score = 0
         self.anchor = "center"
-        self.x=300*random.random()
-        self.y=300*random.random()
+        self.x=1200*random.random()
+        self.y=900*random.random()
         self.moving = False
         self.vel_x = 15
         self.vel_y = 15
@@ -40,16 +40,16 @@ class Monster(spyral.Sprite):
 
         ## bounce
         r = self.rect
-        if r.top < 30:
-            r.top = 30
+        if r.top < 50:
+            r.top = 50
             self.vel_y = -self.vel_y
-        if r.bottom > HEIGHT-30:
-            r.bottom = HEIGHT-30
+        if r.bottom > HEIGHT-50:
+            r.bottom = HEIGHT-50
             self.vel_y = -self.vel_y
-        if r.left < 30:
-            r.left = 30
+        if r.left < 50:
+            r.left = 50
             self.vel_x = -self.vel_x
-        if r.right > WIDTH-30:
+        if r.right > WIDTH-50:
             self.vel_x = -self.vel_x
         ##change the direction , during the move, the monster would change its direction by 30% possibility
         if(chance<=0.03):
