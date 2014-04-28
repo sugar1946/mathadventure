@@ -25,8 +25,11 @@ class Item(spyral.Sprite):
         self.image.draw_image(top, position=(12, 5))
         self.bottom_number = random.randint(4,12)
         bottom = Text(str(self.bottom_number)).getimage()
-        self.image.draw_image(bottom,position=(12,25) )
-        
+        if (self.bottom_number > 9):
+            self.image.draw_image(bottom,position=(6,25) )
+        elif(self.bottom_number <= 9):
+            self.image.draw_image(bottom,position=(12,25) )
+
 class Text(spyral.Image):
         def __init__(self,text):
             font = spyral.Font("libraries/spyral/resources/fonts/DejaVuSans.ttf", 20)
