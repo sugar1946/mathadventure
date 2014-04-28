@@ -27,7 +27,6 @@ class Board(spyral.Scene):
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
-
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
@@ -40,11 +39,14 @@ class Board(spyral.Scene):
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
-                self.player.collide_item(item)
-                self.question.setReturnScene(self)
-                self.question.openQuestion(item)
-		self.question.setCharacter(self.player)
-                item.x = 69999
+                if (item.name == 'chest'):
+                    #self.player.collide_item(item)
+                    self.question.setReturnScene(self)
+                    self.question.openQuestion(item)
+                    self.question.setCharacter(self.player)
+                    item.x = 69999
+                elif (item.name == "gem"):
+                    item.x = 132324
 
                 
         for enemy in ENEMY_LIST:
@@ -73,13 +75,12 @@ class Board(spyral.Scene):
         for i in range(4):
             monster = Monster.Monster(self)
             ENEMY_LIST.append(monster)
-            monster.setUpdate(self)
-
-              
+            monster.setUpdate(self)         
         
-    def setChestsandGems(self):
+    def setchestsandgems(self):
         WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
         HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
+        self.gems = []
 
         for i in range(random.randint(1,3)):
             x = random.choice(WIDTH_COORD)
@@ -92,12 +93,11 @@ class Board(spyral.Scene):
                 if (y-75 < i and i< y+75):
                     HEIGHT_COORD.remove(i)
                 
-	    item = Item.Item("chest")
+	    item = Item.Item(self,"chest")
 	    item.setScene(self)
 	    item.setImage("game/images/chest.bmp",x,y)
 	    ITEM_LIST.append(item)
-            #ITEM_LIST.append(Item.Item(self,"chest", x, y))
-            
+
         for i in range(random.randint(2,4)):
             x = random.choice(WIDTH_COORD)
             y = random.choice(HEIGHT_COORD)
@@ -109,12 +109,13 @@ class Board(spyral.Scene):
                 if (y-60 < i < y+60):
                     HEIGHT_COORD.remove(i)
             
-	    item = Item.Item("gem")
+	    item = Item.Item(self,"gem")
 	    item.setScene(self)
 	    item.setImage("game/images/gem.bmp",x,y)
-	    ITEM_LIST.append(item)
-            #ITEM_LIST.append(Item.Item(self,"gem", x, y))
-
+	    self.gems.append(item)
+	    item.setFraction()
+        ITEM_LIST.extend(self.gems)
+	    
     def setBackGround(self,imagePath):
         self.background = spyral.Image(filename=imagePath)
 
@@ -367,3 +368,5 @@ class Board(spyral.Scene):
             wall = Walls.Walls(self)
             wall.wallRightHalf('Bottom')
             WALL_LIST.append(wall)
+        
+

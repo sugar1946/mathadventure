@@ -3,24 +3,9 @@ import random
 import Question
 
 class Item(spyral.Sprite):
-    def __init__(self,name):
-        #super(Item, self).__init__(scene)
-        question_level = "easy"
-        attempts = 0
+    def __init__(self, scene, name):
+        super(Item, self).__init__(scene)
         self.name = name
-        self.key = False
-	'''
-        if (self.name == "chest"):
-            self.image = spyral.Image(filename=("game/images/chest.bmp"))
-            self.image.scale((90,65))
-        elif (self.name == "gem"):
-            self.image = spyral.Image(filename=("game/images/gem.bmp"))
-            self.image.scale((40,60))
-
-        self.anchor = "bottomleft"
-        self.x = x
-        self.y = y
-	'''
 
 
     def setScene(self,scene):
@@ -33,4 +18,19 @@ class Item(spyral.Sprite):
         self.anchor = "bottomleft"
         self.x = x
         self.y = y
+
+    def setFraction(self):
+        self.top_number = random.randint(1,3)
+        top = Text(str(self.top_number)).getimage()
+        self.image.draw_image(top, position=(12, 5))
+        self.bottom_number = random.randint(4,12)
+        bottom = Text(str(self.bottom_number)).getimage()
+        self.image.draw_image(bottom,position=(12,25) )
         
+class Text(spyral.Image):
+        def __init__(self,text):
+            font = spyral.Font("libraries/spyral/resources/fonts/DejaVuSans.ttf", 20)
+            self.image = font.render(text, color=(0,0,0))
+            self.anchor = "bottomleft"
+        def getimage(self):
+            return self.image
