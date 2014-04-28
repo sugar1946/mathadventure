@@ -6,7 +6,7 @@ class Item(spyral.Sprite):
     def __init__(self, scene, name):
         super(Item, self).__init__(scene)
         self.name = name
-
+        self.layer = 'bottom'
 
     def setScene(self,scene):
         super(Item, self).__init__(scene)

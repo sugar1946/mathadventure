@@ -6,6 +6,7 @@ import Character
 import Monster
 import Item
 import Question
+import Q
 import HealthGUI
 
 WIDTH = 1200
@@ -27,6 +28,7 @@ class Board(spyral.Scene):
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
+        self.layers = ['top', 'bottom']
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
@@ -41,12 +43,12 @@ class Board(spyral.Scene):
             if (self.player.collide_sprite(item)):
                 if (item.name == 'chest'):
                     #self.player.collide_item(item)
-                    self.question.setReturnScene(self)
-                    self.question.openQuestion(item)
-                    self.question.setCharacter(self.player)
-                    item.x = 69999
+##                    self.question.setReturnScene(self)
+##                    self.question.openQuestion(item)
+                    self.question = Q.Question(self)
+                    item.x = 90000
                 elif (item.name == "gem"):
-                    item.x = 132324
+                    item.kill()
 
                 
         for enemy in ENEMY_LIST:
@@ -59,8 +61,8 @@ class Board(spyral.Scene):
                 if(x != enemy):
                     enemy.collide_monster(x)
    
-    def setQuestion(self, question):
-        self.question = question
+##    def setQuestion(self, question):
+##        self.question = question
         
     def setCharacter(self,character):
         self.player = character
@@ -69,7 +71,6 @@ class Board(spyral.Scene):
 
     def setHealth(self):
         gui = HealthGUI.HealthGUI(self)
-        gui.setImage(self.player.health)
         gui.setKeyBoardCommands(self)
 
     def setMonster(self):
