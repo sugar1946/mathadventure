@@ -19,6 +19,18 @@ WALL_LIST = []
 ENEMY_LIST = []
 ITEM_LIST = []
 
+class StoreSetupForm(spyral.Form):
+	def setButtomImage(self,item):
+		image_up: item
+		image_up_hovered: item
+		image_up_focused: item
+		image_down: item
+		image_down_hovered: item
+		image_down_focused: item
+		nine_slice: True
+	#answer_input = spyral.widgets.TextInput(100, "")
+	store_button = spyral.widgets.Button("Store")
+	whichButton = 1
 
 class Board(spyral.Scene):
     text = ''
