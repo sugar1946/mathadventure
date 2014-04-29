@@ -45,12 +45,16 @@ class Board(spyral.Scene):
                 self.question.openQuestion(item)
 		self.question.setCharacter(self.player)
                 item.x = 69999
-
+    
+        
+        
                 
         for enemy in ENEMY_LIST:
             temp = ENEMY_LIST
             enemy.collide_wall(wall)
             enemy.collide_player(self.player)
+            self.player.collide_monster(enemy)
+            
             for item in ITEM_LIST:
                 enemy.collide_item(item)
             for x in ENEMY_LIST:

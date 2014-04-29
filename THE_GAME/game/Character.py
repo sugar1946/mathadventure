@@ -190,6 +190,23 @@ class Character(spyral.Sprite):
                 self.y-= 4
                 self.vel = 0
 
+    def collide_monster(self,monster):
+        if self.collide_sprite(monster):
+            if (self.moving == 'right'):
+                self.x-= 2
+                self.vel = 0
+            elif (self.moving == 'left'):
+                self.x+= 2
+                self.vel = 0
+            elif (self.moving == 'up'):
+                self.y+= 2
+                self.vel = 0
+            elif (self.moving == 'down'):
+                    self.y-= 2
+                    self.vel = 0
+            return True
+ 
+
     def collide_item(self, item):
 
         if (self.moving == 'right'):
