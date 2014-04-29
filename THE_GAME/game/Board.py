@@ -46,8 +46,9 @@ class Board(spyral.Scene):
 ##                    self.question.setReturnScene(self)
 ##                    self.question.openQuestion(item)
                     self.question = Q.Question(self)
-                    item.x = 90000
+                    item.kill()
                 elif (item.name == "gem"):
+                    i
                     item.kill()
 
                 

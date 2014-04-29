@@ -13,6 +13,7 @@ BG_COLOR = (255,255,255)
 BLACK = (0, 0, 255)
 SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
+GEM_VALUE = 0
 
 class Character(spyral.Sprite):
     def __init__(self):
