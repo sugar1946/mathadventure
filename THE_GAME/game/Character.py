@@ -3,8 +3,10 @@ import random
 import math
 import Question
 import Monster
+import HealthGUI
 import sys
 from spyral import Animation, easing
+
 WIDTH = 1200
 HEIGHT = 900
 BG_COLOR = (255,255,255)
@@ -17,6 +19,7 @@ class Character(spyral.Sprite):
         score = 0
         self.current_image = '';
         self.health = 150
+        self.hp = ''
 
 
     def setAnimationArray(self,animationPath):
@@ -67,6 +70,7 @@ class Character(spyral.Sprite):
         
     def damage(self):
         self.health-=10
+        self.gui.sub()
 
     def setKeyBoardCommands(self,scene):
         # Key down
@@ -87,6 +91,7 @@ class Character(spyral.Sprite):
         super(Character,self).__init__(scene)
         self.sceneRow = row
         self.sceneColumn = column
+        self.gui = HealthGUI.HealthGUI(scene)
 
     def setSceneMatrix(self,matrix):
         self.sceneMatrix = matrix
