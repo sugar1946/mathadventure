@@ -27,6 +27,10 @@ class HealthGUI(spyral.Sprite):
             
     def setImage(self,x):
         self.image = spyral.Image(size=(x, 20)).fill((100, 255, 100))
+        self.anchor = "midleft"
+        self.x = WIDTH - 200
+        self.y = 60
+        self.health = 150
         
     def sub(self):
         if (self.health - 10 >= 0):
