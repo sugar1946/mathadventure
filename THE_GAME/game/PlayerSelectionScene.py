@@ -55,37 +55,43 @@ class PlayerSelectionSceneMain(spyral.Scene):
 
 	def chosePlayerOne(self):
 		self.player_choice = "game/images/Animations/stop2.bmp"
+        
 		self.startGame()
 
 	def chosePlayerTwo(self):
 		self.player_choice = "game/images/player2.bmp"
 		self.startGame()
 
-	def startGame(self):
-		scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
-		backGroundImage = 1
-		character = Character.Character()
-		question = Question.Question()
-		for i in range(4):
-			for j in range(4):
-				gameBoard = Board.Board()
-				#if(j == 1):
-				#	gameBoard.setBackGround("game/sceneImages/2.jpg")
-				#else:
-
-				gameBoard.setMonster()
-				gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
-				gameBoard.setCharacter(character)
-				gameBoard.setHealth()
-				gameBoard.setchestsandgems()
-				gameBoard.setWalls(i,j)
-				#gameBoard.setQuestion(question)
-				scene_matrix[i][j] = gameBoard
+        def startGame(self):
+                
+                scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
+                backGroundImage = 1
+                character = Character.Character()
+                question = Question.Question()
+                for i in range(4):
+                    for j in range(4):
+                        gameBoard = Board.Board()
+                        #if(j == 1):
+                        #	gameBoard.setBackGround("game/sceneImages/2.jpg")
+                        #else:
+                        if (self.player_choice == "game/images/Animations/stop2.bmp"):
+                            gameBoard.setMonster("game/images/m1_30_30.bmp")
+                        
+                        else:
+                            gameBoard.setMonster("game/images/m2_30_30.bmp")
+                        
+                        gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
+                        gameBoard.setCharacter(character)
+                        gameBoard.setHealth()
+                        gameBoard.setchestsandgems()
+                        gameBoard.setWalls(i,j)
+                        #gameBoard.setQuestion(question)
+                        scene_matrix[i][j] = gameBoard
 				#once everything works uncomment these and fix images sizes
 				#gameBoard.setBackGround("game/sceneImages/"+str(backGroundImage)+".jpg")
 				#backGroundImage = backGroundImage + 1
-		spyral.director.replace(scene_matrix[3][0])
-		character.setScene(scene_matrix[3][0],3,0)
-		character.setSceneMatrix(scene_matrix)
-		character.setImage(self.player_choice)
-		
+                spyral.director.replace(scene_matrix[3][0])
+                character.setScene(scene_matrix[3][0],3,0)
+                character.setSceneMatrix(scene_matrix)
+                character.setImage(self.player_choice)
+
