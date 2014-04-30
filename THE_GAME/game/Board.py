@@ -5,9 +5,9 @@ import Walls
 import Character
 import Monster
 import Item
-import Question
 import Q
 import HealthGUI
+from fractions import Fraction
 
 WIDTH = 1200
 HEIGHT = 900
@@ -50,6 +50,7 @@ class Board(spyral.Scene):
         spyral.event.register('director.update', self.update)
         ENEMY_LIST = []
 
+
     def update(self,delta):
 
         for wall in WALL_LIST:
@@ -57,20 +58,25 @@ class Board(spyral.Scene):
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
-
-            
-    
-        
-        
-
                 if (item.name == 'chest'):
-                    #self.player.collide_item(item)
-##                    self.question.setReturnScene(self)
-##                    self.question.openQuestion(item)
                     self.question = Q.Question(self)
-                    item.x = 90000
-                elif (item.name == "gem"):
                     item.kill()
+                elif (item.name == "gem"):
+                    self.player.fraction += Fraction(item.top_number, item.bottom_number)
+                    if (self.player.fraction == Fraction(1)):
+                        key = Item.Item(self, "key")
+                        key.setScene(self)
+                        key.setImage('game/images/key.png', random.randint(0,WIDTH-200), random.randint(200,HEIGHT))
+                        ITEM_LIST.append(key)
+                    elif (self.player.fraction > Fraction(1)):
+                        self.player.fraction -= Fraction(1)
+                    print 'fraction' + str(self.player.fraction)
+                    item.kill()
+                elif (item.name == 'key'):
+                    item.kill()
+                    self.player.keys += 1
+                    print "keys = " + str(self.player.keys)
+
 
 
                 
@@ -106,12 +112,15 @@ class Board(spyral.Scene):
         store.setSceneReturn(scene)
 
     def setHealth(self):
-        gui = HealthGUI.HealthGUI(self)
+        gui = HealthGUI.HealthGUI()
         gui.setKeyBoardCommands(self)
 
-    def setMonster(self):
+    def setMonster(self,image):
+
         for i in range(4):
-            monster = Monster.Monster(self)
+            monster = Monster.Monster(self,image)
+            monster.setScene(self)
+            monster.setImage(image)
             ENEMY_LIST.append(monster)
             monster.setUpdate(self)         
         

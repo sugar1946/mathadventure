@@ -92,7 +92,7 @@ class Question(spyral.Sprite):
             answer_text = QuestionText("I'm Sorry", 30).getImage()
             sub_text = QuestionText("The correct answer is " + str(self.current_question[4]) , 25).getImage()
         self.image.draw_image(answer_text, position = (100,100))
-        self.image.draw_image(sub_text, position = (75,150))
+        self.image.draw_image(sub_text, position = (100,150))
 
     def returnScene(self):
         self.kill()

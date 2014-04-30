@@ -6,6 +6,7 @@ import Monster
 import HealthGUI
 import sys
 from spyral import Animation, easing
+from fractions import Fraction 
 
 WIDTH = 1200
 HEIGHT = 900
@@ -19,7 +20,14 @@ class Character(spyral.Sprite):
         score = 0
         self.current_image = '';
         self.health = 150
-        self.hp = ''
+        self.keys = 0
+        
+        self.fraction = Fraction(0)
+        self.decimal = 0
+        self.percent = 0
+
+        self.hp = HealthGUI.HealthGUI()
+
 
 
     def setAnimationArray(self,animationPath):
@@ -67,10 +75,12 @@ class Character(spyral.Sprite):
         self.y = HEIGHT/2
         self.moving = False 
         self.vel = 100
+        self.hp.setImage(self.health)
         
     def damage(self):
-        self.health-=10
-        self.gui.sub()
+        if (self.health - 1 >= 0):
+            self.health-=1
+            self.hp.sub(self.health)
 
     def setKeyBoardCommands(self,scene):
         # Key down
@@ -87,11 +97,13 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.up.up", self.stop_move)
         spyral.event.register('director.update', self.update)
 
+        self.hp.setKeyBoardCommands(scene)
+
     def setScene(self,scene,row,column):
         super(Character,self).__init__(scene)
         self.sceneRow = row
         self.sceneColumn = column
-        self.gui = HealthGUI.HealthGUI(scene)
+        self.hp.setScene(scene)
 
     def setSceneMatrix(self,matrix):
         self.sceneMatrix = matrix
@@ -177,6 +189,7 @@ class Character(spyral.Sprite):
         elif self.moving == 'up':
             self.y -= self.vel * delta
         self.leavingScene()
+        self.hp.setImage(self.health)
 
     def collide_wall(self,wall):
         if self.collide_sprite(wall):
@@ -236,3 +249,4 @@ class Character(spyral.Sprite):
          self.setImage(self.current_image)
          self.x = x
          self.y = y
+         
