@@ -20,7 +20,9 @@ WALL_LIST = []
 ENEMY_LIST = []
 ITEM_LIST = []
 
+
 class StoreSetupForm(spyral.Form):
+	'''
 	def setButtomImage(self,item):
 		image_up: item
 		image_up_hovered: item
@@ -29,9 +31,11 @@ class StoreSetupForm(spyral.Form):
 		image_down_hovered: item
 		image_down_focused: item
 		nine_slice: True
+	'''
 	#answer_input = spyral.widgets.TextInput(100, "")
 	store_button = spyral.widgets.Button("Store")
 	whichButton = 1
+
 
 class Board(spyral.Scene):
     text = ''
@@ -80,6 +84,17 @@ class Board(spyral.Scene):
         self.player = character
         character.setAnimations(self)
         character.setKeyBoardCommands(self)
+
+    def setStoreButton(self):
+        self.storeButton = StoreSetupForm(self)
+        self.storeButton.store_button.x = WIDTH - 80
+        self.storeButton.store_button.y = HEIGHT - 80
+        spyral.event.register("form.StoreSetupForm.store_button.clicked",self.openStore)
+	    #temp.setButtonImage("game/store/gem.bmp")
+
+    def openStore(self,widget,form,value):
+        store = Store.Store()
+        store.setSceneReturn(scene)
 
     def setHealth(self):
         gui = HealthGUI.HealthGUI(self)

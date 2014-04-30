@@ -165,7 +165,7 @@ class Question(spyral.Scene):
         for i in self.textList:
             i.kill()
         spyral.director.replace(self.return_scene)
-	self.character.moving = False
+        self.character.moving = False
         self.character.stop_all_animations()
         print "return"
         return
