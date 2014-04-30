@@ -6,6 +6,7 @@ import Monster
 import HealthGUI
 import sys
 from spyral import Animation, easing
+from fractions import Fraction 
 
 WIDTH = 1200
 HEIGHT = 900
@@ -13,7 +14,6 @@ BG_COLOR = (255,255,255)
 BLACK = (0, 0, 255)
 SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
-GEM_VALUE = 0
 
 class Character(spyral.Sprite):
     def __init__(self):
@@ -21,7 +21,11 @@ class Character(spyral.Sprite):
         self.current_image = '';
         self.health = 150
         self.hp = ''
-
+        self.keys = 0
+        
+        self.fraction = Fraction(0)
+        self.decimal = 0
+        self.percent = 0
 
     def setAnimationArray(self,animationPath):
         data=[]                               # will hold the lines of the file
@@ -237,3 +241,4 @@ class Character(spyral.Sprite):
          self.setImage(self.current_image)
          self.x = x
          self.y = y
+         

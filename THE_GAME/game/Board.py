@@ -5,9 +5,9 @@ import Walls
 import Character
 import Monster
 import Item
-import Question
 import Q
 import HealthGUI
+from fractions import Fraction
 
 WIDTH = 1200
 HEIGHT = 900
@@ -34,6 +34,7 @@ class Board(spyral.Scene):
         spyral.event.register('director.update', self.update)
         ENEMY_LIST = []
 
+
     def update(self,delta):
 
         for wall in WALL_LIST:
@@ -41,21 +42,25 @@ class Board(spyral.Scene):
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
-
-            
-    
-        
-        
-
                 if (item.name == 'chest'):
-                    #self.player.collide_item(item)
-##                    self.question.setReturnScene(self)
-##                    self.question.openQuestion(item)
                     self.question = Q.Question(self)
                     item.kill()
                 elif (item.name == "gem"):
-                    i
+                    self.player.fraction += Fraction(item.top_number, item.bottom_number)
+                    if (self.player.fraction == Fraction(1)):
+                        key = Item.Item(self, "key")
+                        key.setScene(self)
+                        key.setImage('game/images/key.png', random.randint(0,WIDTH-200), random.randint(200,HEIGHT))
+                        ITEM_LIST.append(key)
+                    elif (self.player.fraction > Fraction(1)):
+                        self.player.fraction -= Fraction(1)
+                    print 'fraction' + str(self.player.fraction)
                     item.kill()
+                elif (item.name == 'key'):
+                    item.kill()
+                    self.player.keys += 1
+                    print "keys = " + str(self.player.keys)
+
 
 
                 
