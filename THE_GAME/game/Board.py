@@ -41,6 +41,12 @@ class Board(spyral.Scene):
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
+
+            
+    
+        
+        
+
                 if (item.name == 'chest'):
                     #self.player.collide_item(item)
 ##                    self.question.setReturnScene(self)
@@ -50,11 +56,14 @@ class Board(spyral.Scene):
                 elif (item.name == "gem"):
                     item.kill()
 
+
                 
         for enemy in ENEMY_LIST:
             temp = ENEMY_LIST
             enemy.collide_wall(wall)
             enemy.collide_player(self.player)
+            self.player.collide_monster(enemy)
+            
             for item in ITEM_LIST:
                 enemy.collide_item(item)
             for x in ENEMY_LIST:
