@@ -12,7 +12,7 @@ class Item(spyral.Sprite):
 
     
     def setImage(self,imagePath,x,y):
-	self.current_image = imagePath
+        self.current_image = imagePath
         self.image = spyral.Image(filename=imagePath)
         self.anchor = "bottomleft"
         self.x = x
