@@ -6,17 +6,16 @@ WIDTH = 1200
 HEIGHT = 900
 
 class HealthGUI(spyral.Sprite):
-    def __init__(self,scene):
-        super(HealthGUI, self).__init__(scene)
-        self.image = spyral.Image(size=(5, 20)).fill((0, 0, 0))
-        self.anchor = "midleft"
-        self.x = WIDTH - 200
-        self.y = 60
-        self.health = 150
+    def __init__(self):
+        '''self.image = spyral.Image(size=(5, 20)).fill((0, 0, 0))
+                                self.anchor = "midleft"
+                                self.x = WIDTH - 200
+                                self.y = 60
+                                self.health = 150'''
 
     def setKeyBoardCommands(self,scene):
         # Key down
-        spyral.event.register("input.keyboard.down.p", self.sub)
+        spyral.event.register("input.keyboard.down.p", self.subten)
 
         # Key up
         '''spyral.event.register("input.keyboard.up.l", self.stop_move)
@@ -30,9 +29,13 @@ class HealthGUI(spyral.Sprite):
         self.anchor = "midleft"
         self.x = WIDTH - 200
         self.y = 60
-        self.health = 150
-        
-    def sub(self):
+        self.health = x
+    
+    def sub(self, x):
+        self.health = x
+        self.setImage(x)
+
+    def subten(self):
         if (self.health - 10 >= 0):
             self.health-=10
             self.setImage(self.health)

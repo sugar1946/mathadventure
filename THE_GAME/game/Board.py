@@ -69,10 +69,6 @@ class Board(spyral.Scene):
         character.setAnimations(self)
         character.setKeyBoardCommands(self)
 
-    def setHealth(self):
-        gui = HealthGUI.HealthGUI(self)
-        gui.setKeyBoardCommands(self)
-
     def setMonster(self):
         for i in range(4):
             monster = Monster.Monster(self)
