@@ -81,7 +81,8 @@ class PlayerSelectionSceneMain(spyral.Scene):
                             gameBoard.setMonster("game/images/m2_30_30.bmp")
                         
                         gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
-                        gameBoard.setCharacter(character)
+                        character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp",'','','','']
+                        gameBoard.setCharacter(character,character.ani_array)
                         gameBoard.setHealth()
                         gameBoard.setchestsandgems()
                         gameBoard.setStoreButton()

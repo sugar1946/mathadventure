@@ -33,6 +33,8 @@ class Store(spyral.Scene):
 		spyral.event.register("input.keyboard.down.q", self.closeStore)
 		spyral.event.register("input.keyboard.down.a", self.buyHealth)#buy health
 		spyral.event.register("input.keyboard.down.b", self.buyGem)#buy gem
+		spyral.event.register("input.keyboard.down.c", self.buyChest)#buy gem
+		spyral.event.register("input.keyboard.down.e", self.buySprite1)#buy sprite1
 		self.shopFont = spyral.Font(FONT_PATH,24,(0,0,0))#font used for header
 		self.itemFont = spyral.Font(FONT_PATH,14,(0,0,0))#font used for prices
 		row_val = [(HEIGHT/4.5),(HEIGHT/2),(HEIGHT/1.286)]
@@ -55,7 +57,7 @@ class Store(spyral.Scene):
 				
 	def closeStore(self):
 		self.player.vel = 100
-		self.sceneReturn.setCharacter(self.player)
+		self.sceneReturn.setCharacter(self.player,self.player.ani_array)
 		spyral.director.pop()			
 				
 	def buyHealth(self):
@@ -64,6 +66,13 @@ class Store(spyral.Scene):
 
 	def buyGem(self):
 		self.sceneReturn.addGem()
+
+	def buyChest(self):
+		self.sceneReturn.addChest()
+
+	def buySprite1(self):
+		self.player.ani_array = ["game/images/Animations/linkanimationdown.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp",'','','','']
+		
 
 	def setSceneReturn(self,scene):
 		self.sceneReturn = scene

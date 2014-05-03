@@ -95,9 +95,9 @@ class Board(spyral.Scene):
 ##    def setQuestion(self, question):
 ##        self.question = question
         
-    def setCharacter(self,character):
+    def setCharacter(self,character,animation_array):
         self.player = character
-        character.setAnimations(self)
+        character.setAnimations(self,animation_array)
         character.setKeyBoardCommands(self)
 
     def setStoreButton(self):
@@ -184,6 +184,22 @@ class Board(spyral.Scene):
         self.gems.append(item)
         item.setFraction()
         ITEM_LIST.extend(self.gems)
+
+    def addChest(self):
+        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
+        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
+        x = random.choice(WIDTH_COORD)
+        y = random.choice(HEIGHT_COORD)
+        for i in WIDTH_COORD:
+            if (x-95 < i and i < x+95):
+                WIDTH_COORD.remove(i)
+        for i in HEIGHT_COORD:
+            if (y-75 < i and i< y+75):
+                HEIGHT_COORD.remove(i)
+        item = Item.Item(self,"chest")
+        item.setScene(self)
+        item.setImage("game/images/chest.bmp",x,y)
+        ITEM_LIST.append(item)
 
     def setWalls(self,quadrantRow,quadrantColumn):
         if(quadrantRow == 0 and quadrantColumn == 0):

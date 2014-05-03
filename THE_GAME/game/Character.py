@@ -40,27 +40,44 @@ class Character(spyral.Sprite):
         return data
 
     # Character animations
-    def setAnimations(self,scene):
+    def setAnimations(self,scene,animation_array):
+		#animationArray being passed in to the setAnimations function has setup:
+		#animation_array[0] = right movement file path
+		#animation_array[1] = right stop image path
+		#animation_array[2] = left movement file path
+		#animation_array[3] = left stop image path
+		#animation_array[4] = up movement file path
+		#animation_array[5] = up stop image path
+		#animation_array[6] = down movement path
+		#animation_array[7] = down stop image path
+
         # right walk animation sequence
-        right = self.setAnimationArray("game/images/Animations/rightanimation.txt")
-        images = [spyral.Image(filename=f) for f in right]
-
+        if(animation_array[0] != ''):
+            right = self.setAnimationArray(animation_array[0])
+            images = [spyral.Image(filename=f) for f in right]
+            #right stop animation sequence
+            stopR = [spyral.Image(filename=animation_array[1])]
+            self.animation = Animation('image', easing.Iterate(images), duration = 1, loop=True)
+            self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1)
+        
         # left walk animation sequence
-        left = self.setAnimationArray("game/images/Animations/leftanimation.txt")
-        images2 = [spyral.Image(filename=f) for f in left]
+        if(animation_array[2] != ''):
+            left = self.setAnimationArray(animation_array[2])
+            images2 = [spyral.Image(filename=f) for f in left]
+            #left stop animation sequence
+            stopL = [spyral.Image(filename=animation_array[3])]
+            self.animation2 = Animation('image', easing.Iterate(images2), duration = 1, loop=True)
+            self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1)
 
-        #right stop animation sequence
-        stop_right = ["game/images/Animations/stop2.bmp"]
-        stopR = [spyral.Image(filename=f) for f in stop_right]
-        #left stop animation sequence
-        stop_left = ["game/images/Animations/stop2l.bmp"]
-        stopL = [spyral.Image(filename=f) for f in stop_left]
-
-        # Animation
-        self.animation = Animation('image', easing.Iterate(images), duration = 1, loop=True)
-        self.animation2 = Animation('image', easing.Iterate(images2), duration = 1, loop=True)
-        self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1)
-        self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1)        
+        # down walk animation sequence
+        if(animation_array[4] != ''):
+            up = self.setAnimationArray(animation_array[4])
+            images3 = [spyral.Image(filename=f) for f in up]
+            #up stop animation sequence
+            stopU = [spyral.Image(filename=animation_array[5])]
+            self.animation3 = Animation('image', easing.Iterate(images3), duration = 1, loop=True)
+            self.stop_u = Animation('image', easing.Iterate(stopU), duration = 1)
+                
 
     def setScene(self,scene):
         super(Character, self).__init__(scene)
@@ -114,36 +131,36 @@ class Character(spyral.Sprite):
         distance = 100
         if(self.x < 0 and self.sceneColumn != 0):
             spyral.director.replace(self.sceneMatrix[row][column - 1])
-            self.sceneMatrix[row][column - 1].setCharacter(self)
+            self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array)
             self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
-            self.sceneMatrix[row][column - 1].setCharacter(self)
+            #self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
             self.setImage("game/images/Animations/stop2l.bmp")
             self.x = WIDTH - distance
             
         elif(self.x > WIDTH and self.sceneColumn != 3):
             spyral.director.replace(self.sceneMatrix[row][column + 1])
-            self.sceneMatrix[row][column - 1].setCharacter(self)
+            self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
             self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
-            self.sceneMatrix[row][column + 1].setCharacter(self)
+            #self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
             self.setImage("game/images/Animations/stop2.bmp")
             self.x = distance
 
         elif(self.y < 0 and self.sceneRow != 0):
             spyral.director.replace(self.sceneMatrix[row - 1][column])
-            self.sceneMatrix[row][column - 1].setCharacter(self)
+            self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array)
             self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
-            self.sceneMatrix[row - 1][column].setCharacter(self)
+            #self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
             self.setImage("game/images/Animations/stop2.bmp")
             self.y = HEIGHT - distance
 
         elif(self.y > HEIGHT and self.sceneRow != 3):
             spyral.director.replace(self.sceneMatrix[row + 1][column])
-            self.sceneMatrix[row][column - 1].setCharacter(self)
+            self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array)
             self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
-            self.sceneMatrix[row + 1][column].setCharacter(self)
+            #self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
             self.setImage("game/images/Animations/stop2.bmp")
             self.y = distance
@@ -161,9 +178,13 @@ class Character(spyral.Sprite):
     def move_down(self):
         self.moving = 'down'
         self.vel = 100
+        #self.stop_all_animations()
+        #self.animate(self.animation4)
     def move_up(self):
         self.moving = 'up'
         self.vel = 100
+        #self.stop_all_animations()
+        #self.animate(self.animation3)
     def stop_move(self):
         self.stop_all_animations()
         if (self.moving == 'right'):
