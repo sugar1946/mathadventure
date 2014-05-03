@@ -5,6 +5,7 @@ import Walls
 import Character
 import Monster
 import Item
+import Store
 import Q
 import HealthGUI
 from fractions import Fraction
@@ -52,7 +53,6 @@ class Board(spyral.Scene):
 
 
     def update(self,delta):
-
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
@@ -108,8 +108,9 @@ class Board(spyral.Scene):
 	    #temp.setButtonImage("game/store/gem.bmp")
 
     def openStore(self,widget,form,value):
-        store = Store.Store()
-        store.setSceneReturn(scene)
+        store = Store.Store(self.player)
+        store.setSceneReturn(self)
+        spyral.director.push(store)
 
     def setHealth(self):
         gui = HealthGUI.HealthGUI()
@@ -165,6 +166,24 @@ class Board(spyral.Scene):
 	    
     def setBackGround(self,imagePath):
         self.background = spyral.Image(filename=imagePath)
+
+    def addGem(self):
+        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
+        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
+        x = random.choice(WIDTH_COORD)
+        y = random.choice(HEIGHT_COORD)
+        for i in WIDTH_COORD:
+            if (x-40 < i < x+40):
+                WIDTH_COORD.remove(i)
+        for i in HEIGHT_COORD:
+            if (y-60 < i < y+60):
+                HEIGHT_COORD.remove(i)
+        item = Item.Item(self,"gem")
+        item.setScene(self)
+        item.setImage("game/images/gem.bmp",x,y)
+        self.gems.append(item)
+        item.setFraction()
+        ITEM_LIST.extend(self.gems)
 
     def setWalls(self,quadrantRow,quadrantColumn):
         if(quadrantRow == 0 and quadrantColumn == 0):

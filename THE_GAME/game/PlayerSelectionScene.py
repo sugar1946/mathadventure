@@ -84,7 +84,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         gameBoard.setCharacter(character)
                         gameBoard.setHealth()
                         gameBoard.setchestsandgems()
-						gameBoard.setStoreButton()
+                        gameBoard.setStoreButton()
                         gameBoard.setWalls(i,j)
                         #gameBoard.setQuestion(question)
                         scene_matrix[i][j] = gameBoard

@@ -1,36 +1,88 @@
 import spyral
 import random
 import math
+import Item
+import Board
 
-class StoreForm(spyral.Form):
-	def setButtomImage(self,item):
-		image_up: item
-		image_up_hovered: item
-		image_up_focused: item
-		image_down: item
-		image_down_hovered: item
-		image_down_focused: item
-		nine_slice: True
-	store_button = spyral.widgets.Button("Item")
-	whichButton = 1
+WIDTH = 1200
+HEIGHT = 900
+SIZE = (WIDTH, HEIGHT)
+FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
+ITEM_BOUGHT_LIST = []
+
+class ItemSprite(spyral.Sprite):
+	def __init__(self,scene,img,x,y):
+		spyral.Sprite.__init__(self,scene)
+		self.image = spyral.Image(filename=img)
+		self.x = x
+		self.y = y
+
+class ItemText(spyral.Sprite):
+	def __init__(self,scene,img,x,y):
+		spyral.Sprite.__init__(self,scene)
+		self.image = img
+		self.x = x
+		self.y = y
 
 
 class Store(spyral.Scene):
+	def __init__(self,character):
+		spyral.Scene.__init__(self, SIZE)
+		self.background = spyral.Image(size=SIZE).fill((255,255,255))
+		spyral.event.register("system.quit", spyral.director.pop)
+		spyral.event.register("input.keyboard.down.q", self.closeStore)
+		spyral.event.register("input.keyboard.down.a", self.buyHealth)#buy health
+		spyral.event.register("input.keyboard.down.b", self.buyGem)#buy gem
+		self.shopFont = spyral.Font(FONT_PATH,24,(0,0,0))#font used for header
+		self.itemFont = spyral.Font(FONT_PATH,14,(0,0,0))#font used for prices
+		row_val = [(HEIGHT/4.5),(HEIGHT/2),(HEIGHT/1.286)]
+		column_val = [0,(WIDTH/4),(WIDTH/2),(WIDTH/1.34)]
+		itemSelection = ["a)","b)","c)","d)","e)","f)","g)","h)","i)","j)","k)","l)"]
+		itemPrice = ["500"]
+		itemSelectionIndex = 0
+		self.player = character
 
+		for row_value in row_val:
+			for column_value in column_val:
+				itemString = self.itemFont.render(itemSelection[itemSelectionIndex])
+				itemSelectionIndex += 1
+				itemSelectionText = ItemText(self,itemString,(column_value + 10),row_value)
+				itemImg = ItemSprite(self,"game/store/gem.bmp",(column_value + 70),row_value)
+				itemPriceImg = self.itemFont.render("Price: " + itemPrice[0])
+				itemPriceImgText = ItemText(self,itemPriceImg,(column_value + 70),(row_value + 80))
+				itemDescription = self.itemFont.render("This is a temp value")
+				itemSelectionDescription = ItemText(self,itemDescription,(column_value + 70),(row_value + 110))
+				
+	def closeStore(self):
+		self.player.vel = 100
+		self.sceneReturn.setCharacter(self.player)
+		spyral.director.pop()			
+				
+	def buyHealth(self):
+		#need to check if if player has enough points
+		self.player.health = 150
 
-	def __init__(self, character):
-        spyral.Scene.__init__(self, SIZE)
+	def buyGem(self):
+		WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
+		HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
+		#self.sceneReturn.gems = []
+		x = random.choice(WIDTH_COORD)
+		y = random.choice(HEIGHT_COORD)
 
-        spyral.event.register("system.quit", spyral.director.pop)
-        spyral.event.register("input.keyboard.down.q", spyral.director.pop)
-		button_row = [200]
-		button_column = [200,400,600]
-		for row_value in button_row:
-			for column_value in button column:
-				temp = StoreForm(self)
-				temp.store_button.x = row_value
-				temp.store_button.y = column_value
-				temp.setButtonImage("game/store/gem.bmp")
-		    #spyral.event.register('director.update', self.update)
-	
-	#def setScene
+		for i in WIDTH_COORD:
+			if (x-40 < i < x+40):
+				WIDTH_COORD.remove(i)
+		for i in HEIGHT_COORD:
+			if (y-60 < i < y+60):
+				HEIGHT_COORD.remove(i)
+
+		item = Item.Item(self,"gem")
+		item.setScene(self)
+		item.setImage("game/images/gem.bmp",x,y)
+		self.sceneReturn.gems.append(item)
+		item.setFraction()
+		self.sceneReturn.appendToItemList(self.sceneReturn.gems)
+
+	def setSceneReturn(self,scene):
+		self.sceneReturn = scene
+

@@ -21,7 +21,7 @@ class Character(spyral.Sprite):
         self.current_image = '';
         self.health = 150
         self.keys = 0
-        
+        self.ownedItems = []
         self.fraction = Fraction(0)
         self.decimal = 0
         self.percent = 0

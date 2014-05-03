@@ -84,25 +84,14 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         gameBoard.setCharacter(character)
                         gameBoard.setHealth()
                         gameBoard.setchestsandgems()
+						gameBoard.setStoreButton()
                         gameBoard.setWalls(i,j)
                         #gameBoard.setQuestion(question)
                         scene_matrix[i][j] = gameBoard
 
-<<<<<<< HEAD
-				gameBoard.setMonster()
-				gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
-				gameBoard.setCharacter(character)
-				gameBoard.setHealth()
-				gameBoard.setchestsandgems()
-				gameBoard.setStoreButton()
-				gameBoard.setWalls(i,j)
-				#gameBoard.setQuestion(question)
-				scene_matrix[i][j] = gameBoard
-=======
->>>>>>> 048e40fbfdf3e34c6d84edb9effea7fcc65e0372
-				#once everything works uncomment these and fix images sizes
-				#gameBoard.setBackGround("game/sceneImages/"+str(backGroundImage)+".jpg")
-				#backGroundImage = backGroundImage + 1
+						#once everything works uncomment these and fix images sizes
+						#gameBoard.setBackGround("game/sceneImages/"+str(backGroundImage)+".jpg")
+						#backGroundImage = backGroundImage + 1
                 spyral.director.replace(scene_matrix[3][0])
                 character.setScene(scene_matrix[3][0],3,0)
                 character.setSceneMatrix(scene_matrix)
