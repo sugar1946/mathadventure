@@ -5,6 +5,7 @@ import Walls
 import Character
 import Monster
 import Item
+import Store
 import Q
 import HealthGUI
 from fractions import Fraction
@@ -19,6 +20,22 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
 ENEMY_LIST = []
 ITEM_LIST = []
+
+
+class StoreSetupForm(spyral.Form):
+	'''
+	def setButtomImage(self,item):
+		image_up: item
+		image_up_hovered: item
+		image_up_focused: item
+		image_down: item
+		image_down_hovered: item
+		image_down_focused: item
+		nine_slice: True
+	'''
+	#answer_input = spyral.widgets.TextInput(100, "")
+	store_button = spyral.widgets.Button("Store")
+	whichButton = 1
 
 
 class Board(spyral.Scene):
@@ -36,7 +53,6 @@ class Board(spyral.Scene):
 
 
     def update(self,delta):
-
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
@@ -79,11 +95,22 @@ class Board(spyral.Scene):
 ##    def setQuestion(self, question):
 ##        self.question = question
         
-    def setCharacter(self,character):
+    def setCharacter(self,character,animation_array):
         self.player = character
-        character.setAnimations(self)
+        character.setAnimations(self,animation_array)
         character.setKeyBoardCommands(self)
 
+    def setStoreButton(self):
+        self.storeButton = StoreSetupForm(self)
+        self.storeButton.store_button.x = WIDTH - 80
+        self.storeButton.store_button.y = HEIGHT - 80
+        spyral.event.register("form.StoreSetupForm.store_button.clicked",self.openStore)
+	    #temp.setButtonImage("game/store/gem.bmp")
+
+    def openStore(self,widget,form,value):
+        store = Store.Store(self.player)
+        store.setSceneReturn(self)
+        spyral.director.push(store)
 
     def setHealth(self):
         gui = HealthGUI.HealthGUI()
@@ -139,6 +166,40 @@ class Board(spyral.Scene):
 	    
     def setBackGround(self,imagePath):
         self.background = spyral.Image(filename=imagePath)
+
+    def addGem(self):
+        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
+        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
+        x = random.choice(WIDTH_COORD)
+        y = random.choice(HEIGHT_COORD)
+        for i in WIDTH_COORD:
+            if (x-40 < i < x+40):
+                WIDTH_COORD.remove(i)
+        for i in HEIGHT_COORD:
+            if (y-60 < i < y+60):
+                HEIGHT_COORD.remove(i)
+        item = Item.Item(self,"gem")
+        item.setScene(self)
+        item.setImage("game/images/gem.bmp",x,y)
+        self.gems.append(item)
+        item.setFraction()
+        ITEM_LIST.extend(self.gems)
+
+    def addChest(self):
+        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
+        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
+        x = random.choice(WIDTH_COORD)
+        y = random.choice(HEIGHT_COORD)
+        for i in WIDTH_COORD:
+            if (x-95 < i and i < x+95):
+                WIDTH_COORD.remove(i)
+        for i in HEIGHT_COORD:
+            if (y-75 < i and i< y+75):
+                HEIGHT_COORD.remove(i)
+        item = Item.Item(self,"chest")
+        item.setScene(self)
+        item.setImage("game/images/chest.bmp",x,y)
+        ITEM_LIST.append(item)
 
     def setWalls(self,quadrantRow,quadrantColumn):
         if(quadrantRow == 0 and quadrantColumn == 0):

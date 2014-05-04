@@ -1,0 +1,9 @@
+StoreForm.store_button {
+	image_up: "game/store/chest.bmp"
+    image_up_hovered: "game/store/chest.bmp"
+    image_up_focused: "game/store/chest.bmp"
+    image_down: "game/store/chest.bmp"
+    image_down_hovered: "game/store/chest.bmp"
+    image_down_focused: "game/store/chest.bmp"
+    nine_slice: False
+}
