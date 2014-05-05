@@ -2,7 +2,8 @@ import spyral
 import random
 import math
 
-WIDTH = 900
+
+WIDTH = 1200
 HEIGHT = 900
 BG_COLOR = (255,255,255)
 BLACK = (0, 0, 255)
@@ -12,11 +13,16 @@ MONSTER = "game/images/m1.bmp"
 
 
 class Monster(spyral.Sprite):
-    def __init__(self,scene,image):
+    def __init__(self,scene,image,x,y):
         super(Monster, self).__init__(scene)
-        ##  self.image = spyral.Image(filename=(image))
+        self.image = spyral.Image(filename=(image))
         self.score = 0
-        self.anchor = "center"
+        self.anchor ='center'
+        direction = random.choice(['up','down','left','right'])
+        self.x = x
+        self.y = y
+        self.direction = direction
+ 
         
         self.moving = False
         self.vel_x = 15
@@ -24,20 +30,25 @@ class Monster(spyral.Sprite):
         spyral.event.register('director.update', self.update)
 
 
-    def setScene(self,scene):
-        super(Monster,self).__init__(scene)
+    ##def setScene(self,scene):
+        #super(Monster,self).__init__(scene)
 
-    def setImage(self,imagePath):
+   ## def setImage(self,imagePath,x,y):
     #"game/images/stick.png"
-        self.image = spyral.Image(filename=imagePath)
-        self.x=1200*random.random()
-        self.y=900*random.random()
-        
+ ##       self.image = spyral.Image(filename=imagePath)
+##        self.anchor = "center"
+ 
         
     def update(self,delta):
-        self.x += delta * self.vel_x
-        self.y += delta * self.vel_y
-        chance = random.random();
+        if (self.direction == 'up'):
+            self.y = self.y - delta * self.vel_y
+        elif (self.direction == 'down'):
+            self.y = self.y + delta * self.vel_y
+        elif (self.direction == 'left'):
+            self.x = self.x + delta * self.vel_x
+        elif (self.direction == 'right'):
+            self.x = self.x - delta*self.vel_x
+ 
 
         ## bounce
         r = self.rect
@@ -52,37 +63,40 @@ class Monster(spyral.Sprite):
             self.vel_x = -self.vel_x
         if r.right > WIDTH-50:
             self.vel_x = -self.vel_x
-        ##change the direction , during the move, the monster would change its direction by 30% possibility
-        if(chance<=0.03):
-        ## pick up a random angle for monster to move
-            theta = random.random()*2*math.pi
-            r = 60
-            self.vel_x = r*math.cos(theta)
-            self.vel_y = r*math.sin(theta)
+        
 
     def setUpdate(self,scene):
         spyral.event.register('director.update', self.update)
 
     def collide_wall(self,wall):
         if self.collide_sprite(wall):
-            self.vel_x = -self.vel_x
-            self.vel_y = -self.vel_y
-            self.moving = False
+            if(self.direction == 'up' or self.direction == 'down'):
+                self.vel_y = -self.vel_y
+            if(self.direction == 'left' or self.direction == 'right'):
+                self.vel_x = -self.vel_x
+ 
         
     def collide_monster(self,monster):
         if self.collide_sprite(monster):
-            self.vel_x = -self.vel_x
-            self.vel_y = -self.vel_y
+            if(self.direction == 'up' or self.direction == 'down'):
+                self.vel_y = -self.vel_y
+            if(self.direction == 'left' or self.direction == 'right'):
+                self.vel_x = -self.vel_x
 
     def collide_player(self,character):
         if self.collide_sprite(character):
-           self.vel_x = -self.vel_x
-           self.vel_y = -self.vel_y
-           character.damage()
+            ##if(self.direction == 'up' or self.direction == 'down'):
+##                self.vel_y = -self.vel_y
+##            if(self.direction == 'left' or self.direction == 'right'):
+##                self.vel_x = -self.vel_x
+            self.kill()
+            character.damage()
 
     def collide_item(self,item):
          if self.collide_sprite(item):
-            self.vel_y = -0.5*self.vel_y
-            self.vel_x = -0.5*self.vel_x
-            self.score = self.score + 1
+             if(self.direction == 'up' or self.direction == 'down'):
+                 self.vel_y = -self.vel_y
+             if(self.direction == 'left' or self.direction == 'right'):
+                 self.vel_x = -self.vel_x
+  
 

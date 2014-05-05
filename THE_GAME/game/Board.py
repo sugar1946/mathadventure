@@ -8,6 +8,8 @@ import Item
 import Store
 import Q
 import HealthGUI
+import random
+import math
 from fractions import Fraction
 
 WIDTH = 1200
@@ -18,7 +20,7 @@ BLACK = (0, 0, 255)
 SIZE = (WIDTH, HEIGHT)
 SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
-ENEMY_LIST = []
+##ENEMY_LIST = []
 ITEM_LIST = []
 
 
@@ -40,7 +42,7 @@ class StoreSetupForm(spyral.Form):
 
 class Board(spyral.Scene):
     text = ''
-    ##self.ENEMY_LIST = []
+    ##self.self.ENEMY_LIST = []
     ##enemy = []
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
@@ -49,7 +51,7 @@ class Board(spyral.Scene):
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
-        ENEMY_LIST = []
+        self.ENEMY_LIST = []
 
 
     def update(self,delta):
@@ -66,7 +68,7 @@ class Board(spyral.Scene):
                     if (self.player.fraction == Fraction(1)):
                         key = Item.Item(self, "key")
                         key.setScene(self)
-                        key.setImage('game/images/key.png', random.randint(0,WIDTH-200), random.randint(200,HEIGHT))
+                        key.setImage('game/images/key.bmp', random.randint(0,WIDTH-200), random.randint(200,HEIGHT))
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
                         self.player.fraction -= Fraction(1)
@@ -80,18 +82,32 @@ class Board(spyral.Scene):
 
 
                 
-        for enemy in ENEMY_LIST:
-            temp = ENEMY_LIST
+        for enemy in self.ENEMY_LIST:
+            temp = self.ENEMY_LIST
             enemy.collide_wall(wall)
             enemy.collide_player(self.player)
             self.player.collide_monster(enemy)
             
             for item in ITEM_LIST:
                 enemy.collide_item(item)
-            for x in ENEMY_LIST:
+            for x in self.ENEMY_LIST:
                 if(x != enemy):
                     enemy.collide_monster(x)
-   
+        num = len(self.ENEMY_LIST)
+        n = random.randint(0,num-1)
+        chance = random.random()
+
+        if (chance <0.03):
+                choices = ['up','down','left','right']
+                choices.remove(self.ENEMY_LIST[n].direction)
+                direction = random.choice(choices)
+                self.ENEMY_LIST[n].direction = direction
+
+
+
+        ##change the direction , during the move, the monster would change its direction by 30% possibil
+
+            
 ##    def setQuestion(self, question):
 ##        self.question = question
         
@@ -117,14 +133,40 @@ class Board(spyral.Scene):
         gui.setKeyBoardCommands(self)
 
     def setMonster(self,image):
+ 
+        count = 0
+        while (count < 4):
+                l = random.randint(90,1110)
+                w = random.randint(100,800)
+                
+                flag = True
+                for item in ITEM_LIST:
+                        x = item.x
+                        y = item.y
+                        if (item.name == 'chest'):
+                                if ((x-50 <= l <= x+140)and(y-125<= w <= y+65)):
+                                        flag = False
 
-        for i in range(4):
-            monster = Monster.Monster(self,image)
-            monster.setScene(self)
-            monster.setImage(image)
-            ENEMY_LIST.append(monster)
-            monster.setUpdate(self)         
-        
+                        if (item.name == 'gem'):
+                                if ((x-55 <= l <= x+95)and(y-125<=w<=y+65)):
+                                        flag = False
+
+                for enemy in self.ENEMY_LIST:
+                        x = enemy.x
+                        y = enemy.y
+                        if ((x-90 < l < x+90) and (y-120 < w < y +120)):
+                                  flag = False
+                                  
+                if(flag==True):
+                        monster = Monster.Monster(self,image,l,w)
+                        print ("the "+str(count) + " monster's x is "+ str(l))
+                        print ("the "+str(count) + " monster's y is "+ str(w))
+                        self.ENEMY_LIST.append(monster)
+                        monster.setUpdate(self)
+                        count = count+1
+                
+                
+ 
     def setchestsandgems(self):
         WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
         HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
@@ -145,6 +187,7 @@ class Board(spyral.Scene):
 	    item.setScene(self)
 	    item.setImage("game/images/chest.bmp",x,y)
 	    ITEM_LIST.append(item)
+	    
 
         for i in range(random.randint(2,4)):
             x = random.choice(WIDTH_COORD)
@@ -162,6 +205,7 @@ class Board(spyral.Scene):
 	    item.setImage("game/images/gem.bmp",x,y)
 	    self.gems.append(item)
 	    item.setFraction()
+	    
         ITEM_LIST.extend(self.gems)
 	    
     def setBackGround(self,imagePath):

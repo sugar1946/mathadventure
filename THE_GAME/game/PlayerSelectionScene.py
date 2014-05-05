@@ -71,6 +71,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                 for i in range(4):
                     for j in range(4):
                         gameBoard = Board.Board()
+                        gameBoard.setchestsandgems()
                         #if(j == 1):
                         #	gameBoard.setBackGround("game/sceneImages/2.jpg")
                         #else:
@@ -84,8 +85,8 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp",'','','','']
                         gameBoard.setCharacter(character,character.ani_array)
                         gameBoard.setHealth()
-                        gameBoard.setchestsandgems()
-                        gameBoard.setStoreButton()
+
+##                        gameBoard.setStoreButton()
                         gameBoard.setWalls(i,j)
                         #gameBoard.setQuestion(question)
                         scene_matrix[i][j] = gameBoard
