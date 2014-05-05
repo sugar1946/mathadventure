@@ -95,8 +95,8 @@ class Character(spyral.Sprite):
         self.hp.setImage(self.health)
         
     def damage(self):
-        if (self.health - 1 >= 0):
-            self.health-=1
+        if (self.health - 10 >= 0):
+            self.health-=10
             self.hp.sub(self.health)
 
     def setKeyBoardCommands(self,scene):
