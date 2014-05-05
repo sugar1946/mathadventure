@@ -77,7 +77,7 @@ class Character(spyral.Sprite):
             stopU = [spyral.Image(filename=animation_array[5])]
             self.animation3 = Animation('image', easing.Iterate(images3), duration = 1, loop=True)
             self.stop_u = Animation('image', easing.Iterate(stopU), duration = 1)
-                
+
 
     def setScene(self,scene):
         super(Character, self).__init__(scene)
@@ -106,12 +106,14 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.down.down", self.move_down)
         spyral.event.register("input.keyboard.down.up", self.move_up)
         spyral.event.register("input.keyboard.down.y", self.changeImage)
+        spyral.event.register("input.keyboard.down.g", self.grab)
 
         # Key up
         spyral.event.register("input.keyboard.up.left", self.stop_move)
         spyral.event.register("input.keyboard.up.right", self.stop_move)
         spyral.event.register("input.keyboard.up.down", self.stop_move)
         spyral.event.register("input.keyboard.up.up", self.stop_move)
+        #spyral.event.register("input.keyboard.up.g", self.stop_move)
         spyral.event.register('director.update', self.update)
 
         self.hp.setKeyBoardCommands(scene)
@@ -185,6 +187,11 @@ class Character(spyral.Sprite):
         self.vel = 100
         #self.stop_all_animations()
         #self.animate(self.animation3)
+        
+    def grab(self):
+        self.stop_all_animations()
+        #self.animate(self.grab_r)
+        
     def stop_move(self):
         self.stop_all_animations()
         if (self.moving == 'right'):
