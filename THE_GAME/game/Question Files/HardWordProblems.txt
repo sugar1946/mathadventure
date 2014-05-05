@@ -1,0 +1,1 @@
+{name}s family has two equal size {food1}s. Each {food1} was cut into {num1} equal pieces. The family ate one whole {food1} and one piece of the other {food1}. What Mixed Fraction shows how much pie was eaten?;1 1/{num1};1 {numless1}/{num1};{num2}; 1 1/{num1};Tip: How many pieces were eaten in total? Now think about what fraction represent 1 piece of one {food1}. 

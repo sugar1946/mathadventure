@@ -1,0 +1,3 @@
+{fraction1} + {fraction2easy} = ;{fractionAdd};1;2;{fractionAdd};Tip
+{fraction1} - {fraction2easy} = ;{fractionSub};1;2;{fractionSub};Tip
+{fraction1} X {fraction2easy} = ;{fractionMult};1;2;{fractionMult};Tip

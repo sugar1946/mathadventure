@@ -1,0 +1,9 @@
+StoreForm.store_button {
+	image_up: "game/store/gem.bmp"
+    image_up_hovered: "game/store/gem.bmp"
+    image_up_focused: "game/store/gem.bmp"
+    image_down: "game/store/gem.bmp"
+    image_down_hovered: "game/store/gem.bmp"
+    image_down_focused: "game/store/gem.bmp"
+    nine_slice: False
+}
