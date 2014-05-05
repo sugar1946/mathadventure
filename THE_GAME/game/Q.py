@@ -10,7 +10,6 @@ class Question(spyral.Sprite):
         self.image = spyral.Image(filename=('game/images/question.png'))
         self.pos = (350,50)
         self.layer = 'top'
-        #self.getDifficulty()
 
         #question lists
         self.chestEasyList = []
@@ -40,12 +39,11 @@ class Question(spyral.Sprite):
             question = q.rstrip('\n')
             qList = question.split(';')
             alist.append(qList)
-        print alist
         self.addNumbers(alist)
 
     def addNumbers(self,alist):
         names = ['Rai’zhana','Rikesh','Richard','Khalil','David','Moises','Angela','Lamar','Aiyana','Raymond','Rafiqe','Khadejah','Aaliyah','Fahim','Shanyia','Anashiah','Makyiah','Neonyae','Ceyrah']
-        food = ['apple','orange','cake', 'pie','pastry', 'sandwhich']
+        food = ['apple','orange','cake', 'pie','pastry','cookie', 'apricot','mango', 'suchi', 'salmon', 'sandwhich', 'pizza', 'bacon', 'steak']
         n = random.choice(names)
         f1 = random.choice(food)
         f2 = random.choice(food)
@@ -58,8 +56,9 @@ class Question(spyral.Sprite):
         nless1 = random.randint(2,n1-1)
         nless2= random.randint(2,n1-1)
         nless3= random.randint(2,n3-1)
+        nlesseasy = random.randint(1,nless1)
         frac1 = Fraction(nless1,n1)
-        frac2easy = Fraction(nless2, n1)
+        frac2easy = Fraction(nlesseasy, n1)
         frac2 = Fraction(nless2,n2)
         frac3 = Fraction(nless3,n3)
         fracAdd = frac1 + frac2easy
@@ -69,7 +68,6 @@ class Question(spyral.Sprite):
         fracAdd2 = frac1 + frac2
         fracSub2 = frac1 - frac2
         fracMult2 = frac1*frac2
-        fracDiv2 = frac1/frac2
         nmore1 = random.randint(n1+1,15)
         nmore2 = random.randint(n2+1,15)
         nmore3 = random.randint(n3+1,15)
@@ -83,7 +81,7 @@ class Question(spyral.Sprite):
                                 'nummore1':str(nmore1),'nummore2':str(nmore2),'nummore3':str(nmore3),'nummoreM':str(nmorem),
                                 'fraction1':str(frac1), 'fraction2easy':str(frac2easy), 'fraction2':str(frac2),'fraction3':str(frac3),
                                 'fractionAdd':str(fracAdd),'fractionSub':str(fracSub),'fractionMult':str(fracMult), 'fractionDiv':str(fracDiv),
-                                'fractionAdd2':str(fracAdd2),'fractionSub2':str(fracSub2),'fractionMult2':str(fracMult2), 'fractionDiv2':str(fracDiv2)}
+                                'fractionAdd2':str(fracAdd2),'fractionSub2':str(fracSub2),'fractionMult2':str(fracMult2)}
 
                 newstring = str(stringtochange).format(**replacements)
                 alist[j][i] = newstring
@@ -108,8 +106,12 @@ class Question(spyral.Sprite):
     def setNewQuestion(self):
         self.image = spyral.Image(filename=('game/images/blank_question.png'))
         #question and answers
-        question_text = QuestionText(self.current_question[0], 15).getImage()
-        self.image.draw_image(question_text, position = (15,200))
+        questionlines = self.current_question[0].split('.')
+        z = 150
+        for i in range(0,len(questionlines)):
+            question_text = QuestionText(questionlines[i], 18).getImage()
+            self.image.draw_image(question_text, position = (10,z))
+            z += 25
 
         self.answerList = self.current_question[1:4]
             
@@ -117,20 +119,20 @@ class Question(spyral.Sprite):
         self.answerList.remove(self.current_question[1])
         a = "A) " + self.current_question[1]
         a_text = QuestionText(a, 20).getImage()
-        self.image.draw_image(a_text, position = (75,250))
+        self.image.draw_image(a_text, position = (75,z+25))
 
         b1 = random.choice(self.answerList)
         self.answerList.remove(b1)
         self.current_question[2] = b1
         b = "B) "+ str(b1)
         b_text = QuestionText(b, 20).getImage()
-        self.image.draw_image(b_text, position = (75,300))
+        self.image.draw_image(b_text, position = (75,z+75))
 
         c1 = random.choice(self.answerList)
         self.current_question[3] = c1
         c = "C) "+ str(c1)
         c_text = QuestionText(c, 20).getImage()
-        self.image.draw_image(c_text, position = (75,350))
+        self.image.draw_image(c_text, position = (75,z+125))
         
     def checkAnswerA(self):
         if  (self.current_question[1] == self.current_question[4]):
