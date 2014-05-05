@@ -3,7 +3,7 @@ import random
 import math
 import Item
 import Board
-
+//
 WIDTH = 1200
 HEIGHT = 900
 SIZE = (WIDTH, HEIGHT)
@@ -57,7 +57,7 @@ class Store(spyral.Scene):
 				
 	def closeStore(self):
 		self.player.vel = 100
-		self.sceneReturn.setCharacter(self.player,self.animation_array)
+		self.sceneReturn.setCharacter(self.player,self.player.ani_array)
 		spyral.director.pop()			
 				
 	def buyHealth(self):
@@ -71,7 +71,7 @@ class Store(spyral.Scene):
 		self.sceneReturn.addChest()
 
 	def buySprite1(self):
-		self.animation_array = ["game/images/Animations/linkanimationdown.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp",'','','','']
+		self.player.ani_array = ["game/images/Animations/linkanimationdown.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp",'','','','']
 		
 
 	def setSceneReturn(self,scene):
