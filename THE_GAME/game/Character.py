@@ -56,11 +56,15 @@ class Character(spyral.Sprite):
         stop_left = ["game/images/Animations/stop2l.bmp"]
         stopL = [spyral.Image(filename=f) for f in stop_left]
 
+        grabr = ["game/images/Animations/grab.bmp"]
+        grab = [spyral.Image(filename=f) for f in grabr]
+
         # Animation
         self.animation = Animation('image', easing.Iterate(images), duration = 1, loop=True)
         self.animation2 = Animation('image', easing.Iterate(images2), duration = 1, loop=True)
         self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1)
-        self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1)        
+        self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1)      
+        self.grab_r = Animation('image', easing.Iterate(grab), duration = 1)  
 
     def setScene(self,scene):
         super(Character, self).__init__(scene)
@@ -89,12 +93,14 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.down.down", self.move_down)
         spyral.event.register("input.keyboard.down.up", self.move_up)
         spyral.event.register("input.keyboard.down.y", self.changeImage)
+        spyral.event.register("input.keyboard.down.g", self.grab)
 
         # Key up
         spyral.event.register("input.keyboard.up.left", self.stop_move)
         spyral.event.register("input.keyboard.up.right", self.stop_move)
         spyral.event.register("input.keyboard.up.down", self.stop_move)
         spyral.event.register("input.keyboard.up.up", self.stop_move)
+        #spyral.event.register("input.keyboard.up.g", self.stop_move)
         spyral.event.register('director.update', self.update)
 
         self.hp.setKeyBoardCommands(scene)
@@ -164,6 +170,9 @@ class Character(spyral.Sprite):
     def move_up(self):
         self.moving = 'up'
         self.vel = 100
+    def grab(self):
+        self.stop_all_animations()
+        self.animate(self.grab_r)
     def stop_move(self):
         self.stop_all_animations()
         if (self.moving == 'right'):
