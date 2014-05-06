@@ -42,6 +42,7 @@ class StoreSetupForm(spyral.Form):
 
 class Board(spyral.Scene):
     text = ''
+    
     ##self.self.ENEMY_LIST = []
     ##enemy = []
     def __init__(self, *args, **kwargs):
@@ -52,6 +53,7 @@ class Board(spyral.Scene):
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
+        
 
 
     def update(self,delta):
@@ -60,7 +62,9 @@ class Board(spyral.Scene):
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
+ 
                 if (item.name == 'chest'):
+                    self.freezeMonster()
                     self.question = Q.Question(self)
                     item.kill()
                 elif (item.name == "gem"):
@@ -68,11 +72,39 @@ class Board(spyral.Scene):
                     if (self.player.fraction == Fraction(1)):
                         key = Item.Item(self, "key")
                         key.setScene(self)
-                        key.setImage('game/images/key.bmp', random.randint(0,WIDTH-200), random.randint(200,HEIGHT))
+                        flag = True
+                        while (flag == True):
+                                w = random.randint(150,1050)
+                                h = random.randint(100,800)
+                                for enemy in self.ENEMY_LIST:
+                                        x=enemy.x
+                                        y=enemy.y
+                                        if ((x-50<w<x+50)and(y-60<h<y+60)):
+                                                flag == True
+                                        else:
+                                                flag == False
+
+                                for item in ITEM_LIST:
+                                        x = item.x
+                                        y = item.y
+                                        if(item.name == 'chest'):
+                                                if ((x-20<w<x+105)and(y-80<h<y+20)):
+                                                        flag == True
+                                                else:
+                                                        flag=False
+                                        elif(item.name =='gem'):
+                                                if((x-20<w<x+55)and(y-80<h<y+20)):
+                                                        flag == True
+                                                else:
+                                                        flag=False
+                                        
+                                if (flag == False):
+                                        key.setImage('game/images/key_converted.bmp',w,h)
+                                        
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
                         self.player.fraction -= Fraction(1)
-                    print 'Fraction =' + str(self.player.fraction)
+                    print 'fraction' + str(self.player.fraction)
                     item.kill()
                 elif (item.name == 'key'):
                     item.kill()
@@ -132,12 +164,20 @@ class Board(spyral.Scene):
         gui = HealthGUI.HealthGUI()
         gui.setKeyBoardCommands(self)
 
+    def freezeMonster(self):
+        for enemy in self.ENEMY_LIST:
+                enemy.frozen = True
+
+    def defreezeMonster(self):
+        for enemy in self.ENEMY_LIST:
+                enemy.frozen = False
+
     def setMonster(self,image):
  
         count = 0
         while (count < 4):
-                l = random.randint(90,1110)
-                w = random.randint(100,800)
+                l = random.randint(160,1200-160)
+                w = random.randint(150,900-125)
                 
                 flag = True
                 for item in ITEM_LIST:
@@ -159,11 +199,12 @@ class Board(spyral.Scene):
                                   
                 if(flag==True):
                         monster = Monster.Monster(self,image,l,w)
-                        print ("the "+str(count) + " monster's x is "+ str(l))
-                        print ("the "+str(count) + " monster's y is "+ str(w))
+                        #print ("the "+str(count) + " monster's x is "+ str(l))
+                        #print ("the "+str(count) + " monster's y is "+ str(w))
                         self.ENEMY_LIST.append(monster)
                         monster.setUpdate(self)
                         count = count+1
+
                 
                 
  

@@ -6,8 +6,8 @@ from fractions import Fraction
 class Question(spyral.Sprite):
     def __init__(self, scene):
         super(Question, self).__init__(scene)
-        
-        self.image = spyral.Image(filename=('game/images/question.png'))
+        ##self.thisScene = scene
+        self.image = spyral.Image(filename=('game/images/question.bmp'))
         self.pos = (350,50)
         self.layer = 'top'
         #self.getDifficulty()
@@ -106,7 +106,7 @@ class Question(spyral.Sprite):
 
         
     def setNewQuestion(self):
-        self.image = spyral.Image(filename=('game/images/blank_question.png'))
+        self.image = spyral.Image(filename=('game/images/blank_question.bmp'))
         #question and answers
         question_text = QuestionText(self.current_question[0], 15).getImage()
         self.image.draw_image(question_text, position = (15,200))
@@ -152,7 +152,7 @@ class Question(spyral.Sprite):
             self.setResponseText(False)
 
     def setResponseText(self, correct):
-        self.image = spyral.Image(filename=('game/images/feedback.png'))
+        self.image = spyral.Image(filename=('game/images/feedback.bmp'))
         if (correct):
             answer_text = QuestionText("Congratulations!", 30).getImage()
             sub_text = QuestionText( " you earned " + str(self.current_difficultyPoints) + " points!", 25).getImage()
@@ -163,7 +163,9 @@ class Question(spyral.Sprite):
         self.image.draw_image(sub_text, position = (100,150))
 
     def returnScene(self):
+        
         self.kill()
+        self.scene.defreezeMonster()
 
         
 class QuestionText(spyral.Image):
