@@ -11,6 +11,7 @@ import HealthGUI
 import random
 import math
 from fractions import Fraction
+FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
 
 WIDTH = 1200
 HEIGHT = 900
@@ -23,6 +24,12 @@ WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
 
+class ScoreSprite(spyral.Sprite):
+    def __init__(self,scene,img,x,y):
+        spyral.Sprite.__init__(self,scene)
+        self.image = img
+        self.x = x
+        self.y = y
 
 class StoreSetupForm(spyral.Form):
 	'''
@@ -52,16 +59,18 @@ class Board(spyral.Scene):
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
+        self.score = ''
 
 
     def update(self,delta):
+        self.showScore()
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
                 if (item.name == 'chest'):
-                    self.question = Q.Question(self)
+                    self.question = Q.Question(self,self.player)
                     item.kill()
                 elif (item.name == "gem"):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)
@@ -110,7 +119,13 @@ class Board(spyral.Scene):
             
 ##    def setQuestion(self, question):
 ##        self.question = question
-        
+    def showScore(self):
+        scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
+        score_img = scoreFont.render("Score: "+str(self.player.totalScore))
+        if(self.score != ''):
+            self.score.kill()
+        self.score = ScoreSprite(self,score_img,60,40)
+		        
     def setCharacter(self,character,animation_array):
         self.player = character
         character.setAnimations(self,animation_array)
