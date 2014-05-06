@@ -6,14 +6,17 @@ from fractions import Fraction
 class Question(spyral.Sprite):
     def __init__(self, scene, character):
         super(Question, self).__init__(scene)
-        ##self.thisScene = scene
-        self.image = spyral.Image(filename=('game/images/question.bmp'))
+        
+        self.image = spyral.Image(filename=('game/images/question.png'))
         self.pos = (350,50)
         self.layer = 'top'
+<<<<<<< HEAD
         #self.getDifficulty()
         self.player = character
         self.sceneReturn = scene
+=======
 
+>>>>>>> 7968c1fad34064e661c337453bd046d7dcdffad3
         #question lists
         self.chestEasyList = []
         self.makeList('game/Question Files/EasyWordProblems.txt',self.chestEasyList)
@@ -107,7 +110,7 @@ class Question(spyral.Sprite):
 
         
     def setNewQuestion(self):
-        self.image = spyral.Image(filename=('game/images/blank_question.bmp'))
+        self.image = spyral.Image(filename=('game/images/blank_question.png'))
         #question and answers
         questionlines = self.current_question[0].split('.')
         z = 150
@@ -157,7 +160,7 @@ class Question(spyral.Sprite):
             self.setResponseText(False)
 
     def setResponseText(self, correct):
-        self.image = spyral.Image(filename=('game/images/feedback.bmp'))
+        self.image = spyral.Image(filename=('game/images/feedback.png'))
         if (correct):
             answer_text = QuestionText("Congratulations!", 30).getImage()
             sub_text = QuestionText( " you earned " + str(self.current_difficultyPoints) + " points!", 25).getImage()
@@ -169,11 +172,8 @@ class Question(spyral.Sprite):
         self.image.draw_image(sub_text, position = (100,150))
 
     def returnScene(self):
-
         self.sceneReturn.setCharacter(self.player,self.player.ani_array)
-
         self.kill()
-        self.scene.defreezeMonster()
 
         
 class QuestionText(spyral.Image):
