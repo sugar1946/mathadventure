@@ -55,7 +55,7 @@ class Board(spyral.Scene):
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
-        self.layers = ['top', 'bottom']
+        self.layers = ['bottom','top']
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
@@ -88,35 +88,37 @@ class Board(spyral.Scene):
                     if (self.player.fraction == Fraction(1)):
                         key = Item.Item(self, "key")
                         key.setScene(self)
-                        flag = True
-                        while (flag == True):
-                                w = random.randint(150,1050)
-                                h = random.randint(100,800)
-                                for enemy in self.ENEMY_LIST:
-                                        x=enemy.x
-                                        y=enemy.y
-                                        if ((x-50<w<x+50)and(y-60<h<y+60)):
-                                                flag == True
-                                        else:
-                                                flag == False
+                        key.setImage('game/images/key_converted.bmp',500,500)
 
-                                for item in ITEM_LIST:
-                                        x = item.x
-                                        y = item.y
-                                        if(item.name == 'chest'):
-                                                if ((x-20<w<x+105)and(y-80<h<y+20)):
-                                                        flag == True
-                                                else:
-                                                        flag=False
-                                        elif(item.name =='gem'):
-                                                if((x-20<w<x+55)and(y-80<h<y+20)):
-                                                        flag == True
-                                                else:
-                                                        flag=False
-                                        
-                                if (flag == False):
-                                        key.setImage('game/images/key_converted.bmp',w,h)
-                                        self.player.fraction = 0
+##                        flag = True
+##                        while (flag == True):
+##                                w = random.randint(150,1050)
+##                                h = random.randint(100,800)
+##                                for enemy in self.ENEMY_LIST:
+##                                        x=enemy.x
+##                                        y=enemy.y
+##                                        if ((x-50<w<x+50)and(y-60<h<y+60)):
+##                                                flag == True
+##                                        else:
+##                                                flag == False
+##
+##                                for item in ITEM_LIST:
+##                                        x = item.x
+##                                        y = item.y
+##                                        if(item.name == 'chest'):
+##                                                if ((x-20<w<x+105)and(y-80<h<y+20)):
+##                                                        flag == True
+##                                                else:
+##                                                        flag=False
+##                                        elif(item.name =='gem'):
+##                                                if((x-20<w<x+55)and(y-80<h<y+20)):
+##                                                        flag == True
+##                                                else:
+##                                                        flag=False
+##                                        
+##                                if (flag == False):
+##                                    key.setImage('game/images/key_converted.bmp',w,h)
+##                                    self.player.fraction = 0
                                         
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
