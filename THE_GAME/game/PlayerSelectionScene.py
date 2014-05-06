@@ -89,7 +89,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         gameBoard.setDoor(i, j)
 
 
-                        #gameBoard.setStoreButton()
+                        gameBoard.setStoreButton()
                         gameBoard.setWalls(i,j)
                         scene_matrix[i][j] = gameBoard
 
