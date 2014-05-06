@@ -82,15 +82,25 @@ class Monster(spyral.Sprite):
             if(self.direction == 'left' or self.direction == 'right'):
                 self.vel_x = -self.vel_x
 
-    def collide_player(self,character):
+    def collide_player(self,character,board,n):
         if self.collide_sprite(character):
             ##if(self.direction == 'up' or self.direction == 'down'):
 ##                self.vel_y = -self.vel_y
 ##            if(self.direction == 'left' or self.direction == 'right'):
 ##                self.vel_x = -self.vel_x
-   ##         self.scene.ENEMY_LIST.remove(self)
+##            self.scene.ENEMY_LIST.remove(self)
+            ##if (self.scene.EnemyNum>0):
+ 
             self.kill()
             character.damage()
+ ##           if (board.ENEMY_LIST[n] != None):
+##                del board.ENEMY_LIST[n]
+ #               board.ENEMY_LIST.remove(board.ENEMY_LIST[n])
+##                self.kill()
+##                print("in monster class "+ str((len(board.ENEMY_LIST))))
+#            self.scene.EnemyNum = self.scene.EnemyNum - 1
+  #          print (self.scene.EnemyNum)
+            
 
     
 
@@ -99,9 +109,7 @@ class Monster(spyral.Sprite):
         if self.collide_sprite(item):
             if(item.name == 'key'):
                 item.kill()
-                if(self.scene.player.keys > 0):
-                    self.scene.player.keys = self.scene.player.keys-1
-
+                
             else:
                 if(self.direction == 'up' or self.direction == 'down'):
                      self.vel_y = -self.vel_y

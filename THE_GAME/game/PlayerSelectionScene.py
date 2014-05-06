@@ -79,7 +79,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         
                         else:
                             gameBoard.setMonster("game/images/m2_30_30.bmp")
-                        
+                        print (len(gameBoard.ENEMY_LIST))
                         gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
                         character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp",'','','','']
                         gameBoard.setCharacter(character,character.ani_array)

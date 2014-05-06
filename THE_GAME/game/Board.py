@@ -24,12 +24,6 @@ WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
 
-class ScoreSprite(spyral.Sprite):
-    def __init__(self,scene,img,x,y):
-        spyral.Sprite.__init__(self,scene)
-        self.image = img
-        self.x = x
-        self.y = y
 
 
 class FinalScreen(spyral.Sprite):
@@ -95,20 +89,26 @@ class Board(spyral.Scene):
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
+        self.EnemyNum = 4
 
         self.fraction =''
         self.score = ''
         self.keys=''
+        self.signal = 'close'
         frozen = False
 
 
 
 
     def update(self,delta):
+        ##print ("where is she")
         self.showScore()
         self.showFraction()
         self.showKeys()
         self.healthTracker()
+        self.addMonster()
+        ##print("finish healthTracker()")
+        #print(self.EnemyNum)
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
@@ -166,6 +166,8 @@ class Board(spyral.Scene):
                 elif (item.name == 'key'):
                     item.kill()
                     self.player.keys += 1
+                    self.signal = 'open'
+                    
                     print "keys = " + str(self.player.keys)
 
 
@@ -173,16 +175,20 @@ class Board(spyral.Scene):
                 
         for enemy in self.ENEMY_LIST:
             temp = self.ENEMY_LIST
+            index = self.ENEMY_LIST.index(enemy)
             enemy.collide_wall(wall)
-            enemy.collide_player(self.player)
-            self.player.collide_monster(enemy)
+ 
+            ##self.player.collide_monster(enemy)
             
             for item in ITEM_LIST:
                 enemy.collide_item(item)
             for x in self.ENEMY_LIST:
                 if(x != enemy):
                     enemy.collide_monster(x)
+            enemy.collide_player(self.player,self,index)
+            
         num = len(self.ENEMY_LIST)
+        ##print ("num=len(self.E)")
         n = random.randint(0,num-1)
         chance = random.random()
 
@@ -191,7 +197,7 @@ class Board(spyral.Scene):
                 choices.remove(self.ENEMY_LIST[n].direction)
                 direction = random.choice(choices)
                 self.ENEMY_LIST[n].direction = direction
-
+        ##print("finish if chance<0.03")
 
 
         ##change the direction , during the move, the monster would change its direction by 30% possibil
@@ -205,8 +211,49 @@ class Board(spyral.Scene):
             self.freezeMonster()
 
 
-    ##def addMonster(self):
-##        if (len(self.ENEMY_LIST)) <
+    def addMonster(self):
+        #temp = self.player.keys
+        if (self.signal=='open') :
+            flag=True
+            
+            while (flag==True):
+                l = random.randint(160,1200-160)
+                w = random.randint(150,900-125)
+                
+                
+                for item in ITEM_LIST:
+                        x = item.x
+                        y = item.y
+                        if (item.name == 'chest'):
+                                if ((x-50 <= l <= x+140)and(y-125<= w <= y+65)):
+                                        flag = True
+                                else:
+                                        flag = False
+
+                        if (item.name == 'gem'):
+                                if ((x-55 <= l <= x+95)and(y-125<=w<=y+65)):
+                                        flag = True
+                                else:
+                                        flag = False
+
+                for enemy in self.ENEMY_LIST:
+                        x = enemy.x
+                        y = enemy.y
+                        if ((x-90 < l < x+90) and (y-120 < w < y +120)):
+                                    flag = True
+                        else:
+                                    flag=False
+                if(flag==False):
+                        monster = Monster.Monster(self,"game/images/m2_30_30.bmp",l,w)
+                        monster.vel_x = 70
+                        monster.vel_y = 70
+                        #print ("the "+str(count) + " monster's x is "+ str(l))
+                        #print ("the "+str(count) + " monster's y is "+ str(w))
+                        self.ENEMY_LIST.append(monster)
+                        monster.setUpdate(self)
+                        self.signal = 'close'
+                        
+            
 
         
     def showScore(self):
