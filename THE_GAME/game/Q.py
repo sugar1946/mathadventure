@@ -106,7 +106,7 @@ class Question(spyral.Sprite):
                                 'orderedFraction1':str(orderFrac1),'orderedFraction2':str(orderFrac2),'orderedFraction3':str(orderFrac3),
                                 'otherFraction':str(frac7),
                                 'fractionAdd':str(fracAdd),'fractionSub':str(fracSub),'fractionMult':str(fracMult), 'fractionDiv':str(fracDiv),
-                                'fractionAdd2':str(fracAdd2),'fractionSub2':str(fracSub2),'fractionMult2':str(fracMult2)}
+                                'fractionAdd2':str(fracAdd2),'fractionSub2':str(fracSub2),'fractionMult2':str(fracMult2), 'fractionDiv2':str(fracDiv2)}
 
                 newstring = str(stringtochange).format(**replacements)
                 alist[j][i] = newstring
