@@ -31,6 +31,25 @@ class ScoreSprite(spyral.Sprite):
         self.x = x
         self.y = y
 
+
+class FractionSprite(spyral.Sprite):
+    def __init__(self,scene,img,x,y):
+        spyral.Sprite.__init__(self,scene)
+        self.image = img
+        self.x = x
+        self.y = y
+
+class KeySprite(spyral.Sprite):
+    def __init__(self,scene,img,x,y):
+        spyral.Sprite.__init__(self,scene)
+        self.image = img
+        self.x = x
+        self.y = y
+
+        
+
+    
+
 class StoreSetupForm(spyral.Form):
 	'''
 	def setButtomImage(self,item):
@@ -60,8 +79,9 @@ class Board(spyral.Scene):
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
-
+        self.fraction =''
         self.score = ''
+        self.keys=''
         frozen = False
 
 
@@ -69,6 +89,8 @@ class Board(spyral.Scene):
 
     def update(self,delta):
         self.showScore()
+        self.showFraction()
+        self.showKeys()
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
@@ -116,7 +138,7 @@ class Board(spyral.Scene):
                                         
                                 if (flag == False):
                                         key.setImage('game/images/key_converted.bmp',w,h)
-                                        self.player.fraction = 0
+ ##                                       self.player.fraction = Fraction(0)
                                         
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
@@ -165,6 +187,20 @@ class Board(spyral.Scene):
         if(self.score != ''):
             self.score.kill()
         self.score = ScoreSprite(self,score_img,60,40)
+
+    def showFraction(self):
+        scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
+        fraction_img = scoreFont.render("Fraction: "+str(self.player.fraction))
+        if(self.fraction != ''):
+            self.fraction.kill()
+        self.fraction = FractionSprite(self,fraction_img,60,70)
+
+    def showKeys(self):
+        scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
+        key_img = scoreFont.render("Keys: "+str(self.player.keys))
+        if(self.keys != ''):
+            self.keys.kill()
+        self.keys = KeySprite(self,key_img,60,100)
 		        
     def setCharacter(self,character,animation_array):
         self.player = character
