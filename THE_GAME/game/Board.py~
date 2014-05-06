@@ -60,11 +60,9 @@ class Board(spyral.Scene):
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
-<<<<<<< HEAD
         self.score = ''
-=======
         frozen = False
->>>>>>> 7968c1fad34064e661c337453bd046d7dcdffad3
+
 
 
     def update(self,delta):
@@ -76,6 +74,7 @@ class Board(spyral.Scene):
             if (self.player.collide_sprite(item)):
                 if (item.name == 'chest'):
                     self.question = Q.Question(self,self.player)
+					ITEM_LIST.remove(item)
                     item.kill()
                 elif (item.name == "gem"):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)

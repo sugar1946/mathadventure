@@ -1,0 +1,4 @@
+game/images/Animations/linkAnimation/linkleft.bmp
+game/images/Animations/linkAnimation/linkleft1.bmp
+game/images/Animations/linkAnimation/linkleft.bmp
+game/images/Animations/linkAnimation/linkleft2.bmp

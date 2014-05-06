@@ -74,6 +74,7 @@ class Board(spyral.Scene):
             if (self.player.collide_sprite(item)):
                 if (item.name == 'chest'):
                     self.question = Q.Question(self,self.player)
+                    ITEM_LIST.remove(item)
                     item.kill()
                 elif (item.name == "gem"):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)
