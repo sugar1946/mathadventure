@@ -10,6 +10,7 @@ import Q
 import HealthGUI
 import random
 import math
+import Door
 from fractions import Fraction
 
 WIDTH = 1200
@@ -127,6 +128,11 @@ class Board(spyral.Scene):
         store = Store.Store(self.player)
         store.setSceneReturn(self)
         spyral.director.push(store)
+
+    def setDoor(self):
+        self.door = Door.Door(self, "game/images/door2.png")
+        
+
 
     def setHealth(self):
         gui = HealthGUI.HealthGUI()

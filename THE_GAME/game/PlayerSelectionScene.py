@@ -7,6 +7,7 @@ import Monster
 import Item
 import Question
 import Board
+import Door
 
 
 SIZE = (1200,900)
@@ -83,7 +84,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
                         character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp",'','','','']
                         gameBoard.setCharacter(character,character.ani_array)
-                        gameBoard.setHealth()
+
 
                         gameBoard.setStoreButton()
                         gameBoard.setWalls(i,j)
