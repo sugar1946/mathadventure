@@ -17,7 +17,6 @@ class Door(spyral.Sprite):
 
     def setScene(self,scene):
         super(Door,self).__init__(scene)
-        print("testing door")
             
     def setImage(self, pos):
         if (pos == "1"):
@@ -32,7 +31,7 @@ class Door(spyral.Sprite):
             self.y = HEIGHT/2
         
         # This is reached, but no image is produced
-        print("testing door")
+        #print("testing door")
 
     def collide(self):
         self.kill()

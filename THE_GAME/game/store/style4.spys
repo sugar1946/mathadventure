@@ -1,9 +1,0 @@
-StoreForm.store_button {
-	image_up: "game/store/ball.bmp"
-    image_up_hovered: "game/store/ball.bmp"
-    image_up_focused: "game/store/ball.bmp"
-    image_down: "game/store/ball.bmp"
-    image_down_hovered: "game/store/ball.bmp"
-    image_down_focused: "game/store/ball.bmp"
-    nine_slice: False
-}

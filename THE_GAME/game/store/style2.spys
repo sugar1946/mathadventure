@@ -1,9 +1,0 @@
-StoreForm.store_button {
-	image_up: "game/store/key.png"
-    image_up_hovered: "game/store/key.png"
-    image_up_focused: "game/store/key.png"
-    image_down: "game/store/key.png"
-    image_down_hovered: "game/store/key.png"
-    image_down_focused: "game/store/key.png"
-    nine_slice: False
-}
