@@ -1,3 +1,5 @@
-{fraction1} + {fraction2easy} = ;{fractionAdd};1;2;{fractionAdd};Tip
-{fraction1} - {fraction2easy} = ;{fractionSub};1;2;{fractionSub};Tip
-{fraction1} X {fraction2easy} = ;{fractionMult};1;2;{fractionMult};Tip
+The answer is written in simplest form: {fraction1} + {fractionEasy} = ;{fractionAdd};{fraction1};{fraction3};{fractionAdd};Tip
+The answer is written in simplest form: {fraction1} - {fractionforSub} = ;{fractionSub};{fraction1};{fraction3};{fractionSub};Tip
+The answer is written in simplest form: {fraction1} X {fractionEasy} = ;{fractionMult};{fraction1};{fraction3};{fractionMult};Tip
+Which of the following is greater than 1/{num1}?;1/{numless1};1/{nummore1};1/{nummore2};1/{numless1};tip
+Which of the following is less than 1/{num1}?;1/{nummore1};1/{numless1};{num1};1/{nummore1};tip

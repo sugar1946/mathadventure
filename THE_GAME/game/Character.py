@@ -25,10 +25,12 @@ class Character(spyral.Sprite):
         self.fraction = Fraction(0)
         self.decimal = 0
         self.percent = 0
-
+        self.totalScore = 0
         self.hp = HealthGUI.HealthGUI()
 
 
+    def updateScore(self,score):
+        self.totalScore += score
 
     def setAnimationArray(self,animationPath):
         data=[]                               # will hold the lines of the file
