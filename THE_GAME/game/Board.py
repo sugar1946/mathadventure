@@ -240,8 +240,15 @@ class Board(spyral.Scene):
         store.setSceneReturn(self)
         spyral.director.push(store)
 
-    def setDoor(self):
-        self.door = Door.Door(self, "game/images/door2.png")
+    def setDoorRightSide(self):
+        self.door = Door.Door()
+        self.door.setScene(self)
+        self.door.setDoorRight()
+
+    def setDoorTopSide(self):
+        self.door = Door.Door()
+        self.door.setScene(self)
+        self.door.setDoorTop()
         
 
 

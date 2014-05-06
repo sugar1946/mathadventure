@@ -84,8 +84,10 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
                         character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp","game/images/Animations/upanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/downanimation.txt","game/images/Animations/stop2.bmp"]
                         gameBoard.setCharacter(character,character.ani_array)
-
-
+                        if(i == 0 and j == 2):
+                            gameBoard.setDoorRightSide()
+                        if(i == 1 and j == 3):
+                            gameBoard.setDoorTopSide()
                         gameBoard.setStoreButton()
                         gameBoard.setWalls(i,j)
                         scene_matrix[i][j] = gameBoard

@@ -27,7 +27,7 @@ class Door(spyral.Sprite):
         self.image = spyral.Image(size=(30, 100)).fill((0, 0, 200))#spyral.Image(filename="game/images/door2.png")
         self.anchor = "center"
         self.x = WIDTH - 30
-        self.y = HEIGHT/2
+        self.y = Height/2
         
     def setUpdate(self,scene):
         spyral.event.register('director.update', self.update)
