@@ -11,6 +11,7 @@ import HealthGUI
 import random
 import math
 from fractions import Fraction
+FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
 
 WIDTH = 1200
 HEIGHT = 900
@@ -23,6 +24,12 @@ WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
 
+class ScoreSprite(spyral.Sprite):
+    def __init__(self,scene,img,x,y):
+        spyral.Sprite.__init__(self,scene)
+        self.image = img
+        self.x = x
+        self.y = y
 
 class StoreSetupForm(spyral.Form):
 	'''
@@ -53,24 +60,64 @@ class Board(spyral.Scene):
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
+
+        self.score = ''
         frozen = False
 
 
+
+
     def update(self,delta):
+        self.showScore()
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
+ 
                 if (item.name == 'chest'):
-                    self.question = Q.Question(self)
+
+                    self.freezeMonster()
+                    ##self.question = Q.Question(self)
+
+                    self.question = Q.Question(self,self.player)
+
                     item.kill()
                 elif (item.name == "gem"):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)
                     if (self.player.fraction == Fraction(1)):
                         key = Item.Item(self, "key")
                         key.setScene(self)
-                        key.setImage('game/images/key.bmp', random.randint(0,WIDTH-200), random.randint(200,HEIGHT))
+                        flag = True
+                        while (flag == True):
+                                w = random.randint(150,1050)
+                                h = random.randint(100,800)
+                                for enemy in self.ENEMY_LIST:
+                                        x=enemy.x
+                                        y=enemy.y
+                                        if ((x-50<w<x+50)and(y-60<h<y+60)):
+                                                flag == True
+                                        else:
+                                                flag == False
+
+                                for item in ITEM_LIST:
+                                        x = item.x
+                                        y = item.y
+                                        if(item.name == 'chest'):
+                                                if ((x-20<w<x+105)and(y-80<h<y+20)):
+                                                        flag == True
+                                                else:
+                                                        flag=False
+                                        elif(item.name =='gem'):
+                                                if((x-20<w<x+55)and(y-80<h<y+20)):
+                                                        flag == True
+                                                else:
+                                                        flag=False
+                                        
+                                if (flag == False):
+                                        key.setImage('game/images/key_converted.bmp',w,h)
+                                        self.player.fraction = 0
+                                        
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
                         self.player.fraction -= Fraction(1)
@@ -112,7 +159,13 @@ class Board(spyral.Scene):
             
 ##    def setQuestion(self, question):
 ##        self.question = question
-        
+    def showScore(self):
+        scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
+        score_img = scoreFont.render("Score: "+str(self.player.totalScore))
+        if(self.score != ''):
+            self.score.kill()
+        self.score = ScoreSprite(self,score_img,60,40)
+		        
     def setCharacter(self,character,animation_array):
         self.player = character
         character.setAnimations(self,animation_array)
@@ -133,6 +186,14 @@ class Board(spyral.Scene):
     def setHealth(self):
         gui = HealthGUI.HealthGUI()
         gui.setKeyBoardCommands(self)
+
+    def freezeMonster(self):
+        for enemy in self.ENEMY_LIST:
+                enemy.frozen = True
+
+    def defreezeMonster(self):
+        for enemy in self.ENEMY_LIST:
+                enemy.frozen = False
 
     def setMonster(self,image):
  
@@ -166,6 +227,7 @@ class Board(spyral.Scene):
                         self.ENEMY_LIST.append(monster)
                         monster.setUpdate(self)
                         count = count+1
+
                 
                 
  

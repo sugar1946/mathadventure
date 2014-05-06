@@ -22,11 +22,9 @@ class Monster(spyral.Sprite):
         self.x = x
         self.y = y
         self.direction = direction
- 
-        
-        self.moving = False
-        self.vel_x = 15
-        self.vel_y = 15
+        self.frozen = False
+        self.vel_x = 25
+        self.vel_y = 25
         spyral.event.register('director.update', self.update)
 
 
@@ -40,14 +38,15 @@ class Monster(spyral.Sprite):
  
         
     def update(self,delta):
-        if (self.direction == 'up'):
-            self.y = self.y - delta * self.vel_y
-        elif (self.direction == 'down'):
-            self.y = self.y + delta * self.vel_y
-        elif (self.direction == 'left'):
-            self.x = self.x + delta * self.vel_x
-        elif (self.direction == 'right'):
-            self.x = self.x - delta*self.vel_x
+        if (self.frozen == False):
+            if (self.direction == 'up'):
+                self.y = self.y - delta * self.vel_y
+            elif (self.direction == 'down'):
+                self.y = self.y + delta * self.vel_y
+            elif (self.direction == 'left'):
+                self.x = self.x + delta * self.vel_x
+            elif (self.direction == 'right'):
+                self.x = self.x - delta*self.vel_x
  
 
         ## bounce
@@ -92,11 +91,19 @@ class Monster(spyral.Sprite):
             self.kill()
             character.damage()
 
+    
+
     def collide_item(self,item):
-         if self.collide_sprite(item):
-             if(self.direction == 'up' or self.direction == 'down'):
-                 self.vel_y = -self.vel_y
-             if(self.direction == 'left' or self.direction == 'right'):
-                 self.vel_x = -self.vel_x
+        
+        if self.collide_sprite(item):
+            if(item.name == 'key'):
+                item.kill()
+                if(self.scene.player.keys > 0):
+                    self.scene.player.keys = self.scene.player.keys-1
+            else:
+                if(self.direction == 'up' or self.direction == 'down'):
+                     self.vel_y = -self.vel_y
+                if(self.direction == 'left' or self.direction == 'right'):
+                     self.vel_x = -self.vel_x
   
 
