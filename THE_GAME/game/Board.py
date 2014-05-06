@@ -24,6 +24,12 @@ WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
 
+class ScoreSprite(spyral.Sprite):
+    def __init__(self,scene,img,x,y):
+        spyral.Sprite.__init__(self,scene)
+        self.image = img
+        self.x = x
+        self.y = y
 
 
 class FinalScreen(spyral.Sprite):
@@ -84,11 +90,12 @@ class Board(spyral.Scene):
     def __init__(self, *args, **kwargs):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
-        self.layers = ['top', 'bottom']
+        self.layers = ['bottom','top']
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
+
         self.fraction =''
         self.score = ''
         self.keys=''
@@ -121,6 +128,7 @@ class Board(spyral.Scene):
                     if (self.player.fraction == Fraction(1)):
                         key = Item.Item(self, "key")
                         key.setScene(self)
+
                         flag = True
                         while (flag == True):
                                 w = random.randint(150,1050)
@@ -149,7 +157,6 @@ class Board(spyral.Scene):
                                         
                                 if (flag == False):
                                         key.setImage('game/images/key_converted.bmp',w,h)
- ##                                       self.player.fraction = Fraction(0)
                                         
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
@@ -190,9 +197,6 @@ class Board(spyral.Scene):
         ##change the direction , during the move, the monster would change its direction by 30% possibil
 
             
-##    def setQuestion(self, question):
-##        self.question = question
-
 
     def healthTracker(self):
         if(self.player.health == 0):
@@ -212,6 +216,7 @@ class Board(spyral.Scene):
             self.score.kill()
         self.score = ScoreSprite(self,score_img,60,40)
 
+
     def showFraction(self):
         scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
         fraction_img = scoreFont.render("Fraction: "+str(self.player.fraction))
@@ -225,6 +230,7 @@ class Board(spyral.Scene):
         if(self.keys != ''):
             self.keys.kill()
         self.keys = KeySprite(self,key_img,60,100)
+
 		        
     def setCharacter(self,character,animation_array):
         self.player = character
