@@ -10,6 +10,7 @@ import Q
 import HealthGUI
 import random
 import math
+import Door
 from fractions import Fraction
 FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
 
@@ -23,7 +24,6 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
-
 
 
 class FinalScreen(spyral.Sprite):
@@ -116,13 +116,10 @@ class Board(spyral.Scene):
             if (self.player.collide_sprite(item)):
  
                 if (item.name == 'chest'):
-
                     self.freezeMonster()
-                    ##self.question = Q.Question(self)
-
                     self.question = Q.Question(self,self.player)
-
                     item.kill()
+                    
                 elif (item.name == "gem"):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)
                     if (self.player.fraction == Fraction(1)):
@@ -295,6 +292,11 @@ class Board(spyral.Scene):
         store = Store.Store(self.player)
         store.setSceneReturn(self)
         spyral.director.push(store)
+
+    def setDoor(self):
+        self.door = Door.Door(self, "game/images/door2.png")
+        
+
 
     def setHealth(self):
         gui = HealthGUI.HealthGUI()

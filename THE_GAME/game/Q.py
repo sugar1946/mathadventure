@@ -6,12 +6,10 @@ from fractions import Fraction
 class Question(spyral.Sprite):
     def __init__(self, scene, character):
         super(Question, self).__init__(scene)
-        ##self.thisScene = scene
-        self.image = spyral.Image(filename=('game/images/question.bmp'))
+        self.player = character
+        self.image = spyral.Image(filename=('game/images/question.png'))
         self.pos = (350,50)
         self.layer = 'top'
-        #self.getDifficulty()
-        self.player = character
         self.sceneReturn = scene
 
         #question lists
@@ -82,7 +80,7 @@ class Question(spyral.Sprite):
         frac1 = Fraction(nless1,n1)
         frac2 = Fraction(nless2,n2)
         frac3 = Fraction(nless3,n3)
-        frac7 = Fraction(nless1-2,n1)
+        frac7 = orderFrac3 - orderFrac1 - orderFrac2
         fracAdd = frac1 + fracEasy
         fracSub = frac1 - fracforSub
         fracMult = frac1*fracEasy
@@ -108,7 +106,7 @@ class Question(spyral.Sprite):
                                 'orderedFraction1':str(orderFrac1),'orderedFraction2':str(orderFrac2),'orderedFraction3':str(orderFrac3),
                                 'otherFraction':str(frac7),
                                 'fractionAdd':str(fracAdd),'fractionSub':str(fracSub),'fractionMult':str(fracMult), 'fractionDiv':str(fracDiv),
-                                'fractionAdd2':str(fracAdd2),'fractionSub2':str(fracSub2),'fractionMult2':str(fracMult2)}
+                                'fractionAdd2':str(fracAdd2),'fractionSub2':str(fracSub2),'fractionMult2':str(fracMult2), 'fractionDiv2':str(fracDiv2)}
 
                 newstring = str(stringtochange).format(**replacements)
                 alist[j][i] = newstring
@@ -131,7 +129,7 @@ class Question(spyral.Sprite):
 
         
     def setNewQuestion(self):
-        self.image = spyral.Image(filename=('game/images/blank_question.bmp'))
+        self.image = spyral.Image(filename=('game/images/blank_question.png'))
         #question and answers
         questionlines = self.current_question[0].split('.')
         z = 175
@@ -181,7 +179,7 @@ class Question(spyral.Sprite):
             self.setResponseText(False)
 
     def setResponseText(self, correct):
-        self.image = spyral.Image(filename=('game/images/feedback.bmp'))
+        self.image = spyral.Image(filename=('game/images/feedback.png'))
         if (correct):
             answer_text = QuestionText("Congratulations!", 30).getImage()
             sub_text = QuestionText( " you earned " + str(self.current_difficultyPoints) + " points!", 25).getImage()
@@ -193,20 +191,17 @@ class Question(spyral.Sprite):
             s = 200
             for i in range(0, len(tipLines)):
                 tip_text = QuestionText(tipLines[i], 15).getImage()
-                self.image.draw_image(tip_text, position = (50, s))
+                self.image.draw_image(tip_text, position = (15, s))
                 s += 30
                                       
-        self.image.draw_image(answer_text, position = (100,100))
-        self.image.draw_image(sub_text, position = (100,150))
+        self.image.draw_image(answer_text, position = (15,100))
+        self.image.draw_image(sub_text, position = (15,150))
 
     def returnScene(self):
-
         self.sceneReturn.setCharacter(self.player,self.player.ani_array)
-
         self.kill()
         self.scene.defreezeMonster()
 
-        
 class QuestionText(spyral.Image):
     def __init__(self, text, size):
         font = spyral.Font("libraries/spyral/resources/fonts/DejaVuSans.ttf", size)
