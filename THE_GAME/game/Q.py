@@ -43,31 +43,53 @@ class Question(spyral.Sprite):
 
     def addNumbers(self,alist):
         names = ['Rai’zhana','Rikesh','Richard','Khalil','David','Moises','Angela','Lamar','Aiyana','Raymond','Rafiqe','Khadejah','Aaliyah','Fahim','Shanyia','Anashiah','Makyiah','Neonyae','Ceyrah']
-        food = ['apple','orange','cake', 'pie','pastry','cookie', 'apricot','mango', 'suchi', 'salmon', 'sandwhich', 'pizza', 'bacon', 'steak']
+        food = ['apple','orange','cake', 'pie','pastry','cookie', 'apricot','mango', 'sushi', 'salmon', 'sandwhich', 'pizza', 'bacon', 'steak']
+        numslow = range(3,12)
+        numshigh = range(13,50)
+        
         n = random.choice(names)
+        names.remove(n)
+        nam2 = random.choice(names)
+        
         f1 = random.choice(food)
+        food.remove(f1)
         f2 = random.choice(food)
+        food.remove(f2)
         f3 = random.choice(food)
+        food.remove(f3)
         f4 = random.choice(food)
-        n1 = random.randint(3,9)
-        n2 = random.randint(3,9)
-        n3 = random.randint(3,9)
+        
+        n1 = random.choice(numslow)
+        numslow.remove(n1)
+        n2 = random.choice(numslow)
+        numslow.remove(n2)
+        n3 = random.choice(numslow)
         t = n1+n2+n3
+        
         nless1 = random.randint(2,n1-1)
         nless2= random.randint(2,n1-1)
         nless3= random.randint(2,n3-1)
-        nlesseasy = random.randint(1,nless1)
+
+        orderFrac1 = Fraction(random.randint(1,2), random.randint(9,12))
+        orderFrac2 = Fraction(random.randint(2,3), random.randint(4,8))
+        orderFrac3 = random.choice([Fraction(7,8),Fraction(8,9), Fraction(7,9),Fraction(4,5), Fraction(5,6)])
+        
+        fracforSub = Fraction(int(nless1/2), n1)
+        fracEasy = Fraction(nless2,n1)
         frac1 = Fraction(nless1,n1)
-        frac2easy = Fraction(nlesseasy, n1)
         frac2 = Fraction(nless2,n2)
         frac3 = Fraction(nless3,n3)
-        fracAdd = frac1 + frac2easy
-        fracSub = frac1 - frac2easy
-        fracMult = frac1*frac2easy
-        fracDiv = frac1/frac2easy
+        frac7 = Fraction(nless1-2,n1)
+        fracAdd = frac1 + fracEasy
+        fracSub = frac1 - fracforSub
+        fracMult = frac1*fracEasy
+        fracDiv = frac1/fracEasy
+        
         fracAdd2 = frac1 + frac2
         fracSub2 = frac1 - frac2
         fracMult2 = frac1*frac2
+        fracDiv2 = frac1/frac2
+        
         nmore1 = random.randint(n1+1,15)
         nmore2 = random.randint(n2+1,15)
         nmore3 = random.randint(n3+1,15)
@@ -76,10 +98,12 @@ class Question(spyral.Sprite):
         for j in range(0,len(alist)):
             for i in range(0,len(alist[j])):
                 stringtochange = alist[j][i]
-                replacements = {'name':str(n),'food1':str(f1),'food2':str(f2),'food3':str(f3), 'food4':str(f4),
+                replacements = {'name':str(n),'name2':str(nam2),'food1':str(f1),'food2':str(f2),'food3':str(f3), 'food4':str(f4),
                                 'num1':str(n1),'num2':str(n2),'num3':str(n3), "total":str(t),'numless1':str(nless1),'numless2':str(nless2),'numless3':str(nless3),
                                 'nummore1':str(nmore1),'nummore2':str(nmore2),'nummore3':str(nmore3),'nummoreM':str(nmorem),
-                                'fraction1':str(frac1), 'fraction2easy':str(frac2easy), 'fraction2':str(frac2),'fraction3':str(frac3),
+                                'fraction1':str(frac1), 'fractionEasy':str(fracEasy),'fractionforSub':str(fracforSub), 'fraction2':str(frac2),'fraction3':str(frac3),
+                                'orderedFraction1':str(orderFrac1),'orderedFraction2':str(orderFrac2),'orderedFraction3':str(orderFrac3),
+                                'otherFraction':str(frac7),
                                 'fractionAdd':str(fracAdd),'fractionSub':str(fracSub),'fractionMult':str(fracMult), 'fractionDiv':str(fracDiv),
                                 'fractionAdd2':str(fracAdd2),'fractionSub2':str(fracSub2),'fractionMult2':str(fracMult2)}
 
@@ -107,7 +131,7 @@ class Question(spyral.Sprite):
         self.image = spyral.Image(filename=('game/images/blank_question.png'))
         #question and answers
         questionlines = self.current_question[0].split('.')
-        z = 150
+        z = 175
         for i in range(0,len(questionlines)):
             question_text = QuestionText(questionlines[i], 18).getImage()
             self.image.draw_image(question_text, position = (10,z))
@@ -161,6 +185,13 @@ class Question(spyral.Sprite):
         else:
             answer_text = QuestionText("I'm Sorry", 30).getImage()
             sub_text = QuestionText("The correct answer is " + str(self.current_question[4]) , 25).getImage()
+            tipLines = self.current_question[5].split('.')
+            s = 200
+            for i in range(0, len(tipLines)):
+                tip_text = QuestionText(tipLines[i], 15).getImage()
+                self.image.draw_image(tip_text, position = (50, s))
+                s += 30
+                                      
         self.image.draw_image(answer_text, position = (100,100))
         self.image.draw_image(sub_text, position = (100,150))
 
