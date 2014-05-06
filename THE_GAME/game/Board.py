@@ -24,14 +24,6 @@ WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
 
-class ScoreSprite(spyral.Sprite):
-    def __init__(self,scene,img,x,y):
-        spyral.Sprite.__init__(self,scene)
-        self.image = img
-        self.x = x
-        self.y = y
-
-
 class FinalScreen(spyral.Sprite):
     def __init__(self,scene):
         spyral.Sprite.__init__(self,scene)
@@ -116,13 +108,10 @@ class Board(spyral.Scene):
             if (self.player.collide_sprite(item)):
  
                 if (item.name == 'chest'):
-
                     self.freezeMonster()
-                    ##self.question = Q.Question(self)
-
                     self.question = Q.Question(self,self.player)
-
                     item.kill()
+                    
                 elif (item.name == "gem"):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)
                     if (self.player.fraction == Fraction(1)):
