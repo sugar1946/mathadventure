@@ -100,6 +100,7 @@ class Monster(spyral.Sprite):
                 item.kill()
                 if(self.scene.player.keys > 0):
                     self.scene.player.keys = self.scene.player.keys-1
+
             else:
                 if(self.direction == 'up' or self.direction == 'down'):
                      self.vel_y = -self.vel_y

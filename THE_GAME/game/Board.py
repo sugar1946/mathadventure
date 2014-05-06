@@ -31,6 +31,41 @@ class ScoreSprite(spyral.Sprite):
         self.x = x
         self.y = y
 
+
+class FinalScreen(spyral.Sprite):
+    def __init__(self,scene):
+        spyral.Sprite.__init__(self,scene)
+        self.image = spyral.Image(filename=('game/images/FianlScreen.bmp'))
+        self.pos = (350,50)
+        self.layer = 'top'
+        
+
+class ScoreSprite(spyral.Sprite):
+    def __init__(self,scene,img,x,y):
+        spyral.Sprite.__init__(self,scene)
+        self.image = img
+        self.x = x
+        self.y = y
+
+
+class FractionSprite(spyral.Sprite):
+    def __init__(self,scene,img,x,y):
+        spyral.Sprite.__init__(self,scene)
+        self.image = img
+        self.x = x
+        self.y = y
+
+class KeySprite(spyral.Sprite):
+    def __init__(self,scene,img,x,y):
+        spyral.Sprite.__init__(self,scene)
+        self.image = img
+        self.x = x
+        self.y = y
+
+        
+
+    
+
 class StoreSetupForm(spyral.Form):
 	'''
 	def setButtomImage(self,item):
@@ -61,7 +96,9 @@ class Board(spyral.Scene):
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
 
+        self.fraction =''
         self.score = ''
+        self.keys=''
         frozen = False
 
 
@@ -69,6 +106,9 @@ class Board(spyral.Scene):
 
     def update(self,delta):
         self.showScore()
+        self.showFraction()
+        self.showKeys()
+        self.healthTracker()
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
@@ -88,37 +128,35 @@ class Board(spyral.Scene):
                     if (self.player.fraction == Fraction(1)):
                         key = Item.Item(self, "key")
                         key.setScene(self)
-                        key.setImage('game/images/key_converted.bmp',500,500)
 
-##                        flag = True
-##                        while (flag == True):
-##                                w = random.randint(150,1050)
-##                                h = random.randint(100,800)
-##                                for enemy in self.ENEMY_LIST:
-##                                        x=enemy.x
-##                                        y=enemy.y
-##                                        if ((x-50<w<x+50)and(y-60<h<y+60)):
-##                                                flag == True
-##                                        else:
-##                                                flag == False
-##
-##                                for item in ITEM_LIST:
-##                                        x = item.x
-##                                        y = item.y
-##                                        if(item.name == 'chest'):
-##                                                if ((x-20<w<x+105)and(y-80<h<y+20)):
-##                                                        flag == True
-##                                                else:
-##                                                        flag=False
-##                                        elif(item.name =='gem'):
-##                                                if((x-20<w<x+55)and(y-80<h<y+20)):
-##                                                        flag == True
-##                                                else:
-##                                                        flag=False
-##                                        
-##                                if (flag == False):
-##                                    key.setImage('game/images/key_converted.bmp',w,h)
-##                                    self.player.fraction = 0
+                        flag = True
+                        while (flag == True):
+                                w = random.randint(150,1050)
+                                h = random.randint(100,800)
+                                for enemy in self.ENEMY_LIST:
+                                        x=enemy.x
+                                        y=enemy.y
+                                        if ((x-50<w<x+50)and(y-60<h<y+60)):
+                                                flag == True
+                                        else:
+                                                flag == False
+
+                                for item in ITEM_LIST:
+                                        x = item.x
+                                        y = item.y
+                                        if(item.name == 'chest'):
+                                                if ((x-20<w<x+105)and(y-80<h<y+20)):
+                                                        flag == True
+                                                else:
+                                                        flag=False
+                                        elif(item.name =='gem'):
+                                                if((x-20<w<x+55)and(y-80<h<y+20)):
+                                                        flag == True
+                                                else:
+                                                        flag=False
+                                        
+                                if (flag == False):
+                                        key.setImage('game/images/key_converted.bmp',w,h)
                                         
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
@@ -159,14 +197,36 @@ class Board(spyral.Scene):
         ##change the direction , during the move, the monster would change its direction by 30% possibil
 
             
-##    def setQuestion(self, question):
-##        self.question = question
+
+    def healthTracker(self):
+        if(self.player.health == 0):
+            self.finalscreen = FinalScreen(self)
+            self.player.kill()
+            self.freezeMonster()
+
+        
     def showScore(self):
         scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
         score_img = scoreFont.render("Score: "+str(self.player.totalScore))
         if(self.score != ''):
             self.score.kill()
         self.score = ScoreSprite(self,score_img,60,40)
+
+
+    def showFraction(self):
+        scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
+        fraction_img = scoreFont.render("Fraction: "+str(self.player.fraction))
+        if(self.fraction != ''):
+            self.fraction.kill()
+        self.fraction = FractionSprite(self,fraction_img,60,70)
+
+    def showKeys(self):
+        scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
+        key_img = scoreFont.render("Keys: "+str(self.player.keys))
+        if(self.keys != ''):
+            self.keys.kill()
+        self.keys = KeySprite(self,key_img,60,100)
+
 		        
     def setCharacter(self,character,animation_array):
         self.player = character
