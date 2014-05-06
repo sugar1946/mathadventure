@@ -200,6 +200,10 @@ class Board(spyral.Scene):
             self.player.kill()
             self.freezeMonster()
 
+
+    ##def addMonster(self):
+##        if (len(self.ENEMY_LIST)) <
+
         
     def showScore(self):
         scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))

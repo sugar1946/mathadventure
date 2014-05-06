@@ -88,6 +88,7 @@ class Monster(spyral.Sprite):
 ##                self.vel_y = -self.vel_y
 ##            if(self.direction == 'left' or self.direction == 'right'):
 ##                self.vel_x = -self.vel_x
+   ##         self.scene.ENEMY_LIST.remove(self)
             self.kill()
             character.damage()
 
