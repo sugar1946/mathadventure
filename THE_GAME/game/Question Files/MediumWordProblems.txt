@@ -1,7 +1,7 @@
 {name} cut a {food1} into {num1} pieces. {name} eats {numless1} pieces. What fraction in simplest form names the part of the {food1} eaten?; {fraction1}; wrong answer;wrong answer; {fraction1};Tip: Write the numerator (Think about how many pieces were used), now write the denominator (Think about the total number of pieces). Now to simplify divide the numerator and denominator by their greatest common factor (GCF). 
-{name} has {num1} {food1}s, {num2} {food2}s, and {num3} {food3}s. What fraction of {name}s foods are {food1}s?; {num1}/{total}; {num1}/{nummore1};wrong answer;{num1}/{total}; tip 
+{name} has {num1} {food1}s, {num2} {food2}s, and {num3} {food3}s. What fraction of {name}s foods are {food1}s?; {num1}/{total}; {num1}/{nummore1};{fraction1};{num1}/{total}; tip 
 Which of the following is greater than 1/{num1}?;1/{numless1};1/{nummore1};1/{nummore2};1/{numless1};tip
 {fraction1} + {fraction2} = ;{fractionAdd2};{fraction3};{numless1}/{num2};{fractionAdd2};Tip
 {fraction1} - {fraction2} = ;{fractionSub2};{fraction3};{numless1}/{num2};{fractionSub2};Tip
 {fraction1} X {fraction2} = ;{fractionMult2};{fraction3};{numless1}/{num2};{fractionMult2};Tip
-{fraction1} % {fraction2easy} = ;{fractionDiv};{fraction3};{numless1}/{num2};{fractionDiv};Tip
+{fraction1} ÷ {fraction2easy} = ;{fractionDiv};{fraction3};{numless1}/{num2};{fractionDiv};Tip

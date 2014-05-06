@@ -49,6 +49,7 @@ class StoreSetupForm(spyral.Form):
 
 class Board(spyral.Scene):
     text = ''
+    
     ##self.self.ENEMY_LIST = []
     ##enemy = []
     def __init__(self, *args, **kwargs):
@@ -60,6 +61,8 @@ class Board(spyral.Scene):
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
         self.score = ''
+        frozen = False
+
 
 
     def update(self,delta):
@@ -81,7 +84,7 @@ class Board(spyral.Scene):
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
                         self.player.fraction -= Fraction(1)
-                    print 'Fraction =' + str(self.player.fraction)
+                    print 'fraction' + str(self.player.fraction)
                     item.kill()
                 elif (item.name == 'key'):
                     item.kill()
@@ -151,8 +154,8 @@ class Board(spyral.Scene):
  
         count = 0
         while (count < 4):
-                l = random.randint(90,1110)
-                w = random.randint(100,800)
+                l = random.randint(160,1200-160)
+                w = random.randint(150,900-125)
                 
                 flag = True
                 for item in ITEM_LIST:
@@ -174,8 +177,8 @@ class Board(spyral.Scene):
                                   
                 if(flag==True):
                         monster = Monster.Monster(self,image,l,w)
-                        print ("the "+str(count) + " monster's x is "+ str(l))
-                        print ("the "+str(count) + " monster's y is "+ str(w))
+                        #print ("the "+str(count) + " monster's x is "+ str(l))
+                        #print ("the "+str(count) + " monster's y is "+ str(w))
                         self.ENEMY_LIST.append(monster)
                         monster.setUpdate(self)
                         count = count+1
