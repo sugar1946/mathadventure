@@ -24,6 +24,16 @@ WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
 
+
+
+class FinalScreen(spyral.Sprite):
+    def __init__(self,scene):
+        spyral.Sprite.__init__(self,scene)
+        self.image = spyral.Image(filename=('game/images/FianlScreen.bmp'))
+        self.pos = (350,50)
+        self.layer = 'top'
+        
+
 class ScoreSprite(spyral.Sprite):
     def __init__(self,scene,img,x,y):
         spyral.Sprite.__init__(self,scene)
@@ -91,6 +101,7 @@ class Board(spyral.Scene):
         self.showScore()
         self.showFraction()
         self.showKeys()
+        self.healthTracker()
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
@@ -181,6 +192,15 @@ class Board(spyral.Scene):
             
 ##    def setQuestion(self, question):
 ##        self.question = question
+
+
+    def healthTracker(self):
+        if(self.player.health == 0):
+            self.finalscreen = FinalScreen(self)
+            self.player.kill()
+            self.freezeMonster()
+
+        
     def showScore(self):
         scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
         score_img = scoreFont.render("Score: "+str(self.player.totalScore))
