@@ -68,7 +68,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                 scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
                 backGroundImage = 1
                 character = Character.Character()
-                door = Door.Door()
+                #door = Door.Door()
                 for i in range(4):
                     for j in range(4):
                         gameBoard = Board.Board()
@@ -85,6 +85,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
                         character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp",'','','','']
                         gameBoard.setCharacter(character,character.ani_array)
+                        gameBoard.setDoor(i, j)
 
 
                         #gameBoard.setStoreButton()

@@ -24,6 +24,7 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
+DOOR_LIST = []
 
 class ScoreSprite(spyral.Sprite):
     def __init__(self,scene,img,x,y):
@@ -112,6 +113,9 @@ class Board(spyral.Scene):
         self.healthTracker()
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
+
+        for door in DOOR_LIST:
+            self.player.collide_door(door)
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
@@ -250,11 +254,18 @@ class Board(spyral.Scene):
         store.setSceneReturn(self)
         spyral.director.push(store)
 
-    def setDoor(self):
-        self.door = Door.Door(self, "game/images/door2.png")
+    def setDoor(self, qRow, qCol):
+        # Testing door rendering
+        if(qRow == 1 and qCol == 3):
+            door = Door.Door(self)
+            door.setImage("1")
+            DOOR_LIST.append(door)
+
+        if(qRow == 0 and qCol == 2):
+            door = Door.Door(self)
+            door.setImage("2")
+            DOOR_LIST.append(door)
         
-
-
     def setHealth(self):
         gui = HealthGUI.HealthGUI()
         gui.setKeyBoardCommands(self)
