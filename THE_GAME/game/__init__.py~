@@ -1,7 +1,0 @@
-import spyral
-#import Board
-#import LoadingScene
-import StartScene
-def main():
-	spyral.director.push(StartScene.StartScene())
-	
