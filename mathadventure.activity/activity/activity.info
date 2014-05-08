@@ -1,0 +1,6 @@
+[Activity]
+name = MathAdventure
+activity_version = 1
+bundle_id = org.bojangles.mathadventure
+icon = activity
+exec = sugar-activity activity.Activity

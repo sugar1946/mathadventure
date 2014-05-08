@@ -56,7 +56,6 @@ class PlayerSelectionSceneMain(spyral.Scene):
 
 	def chosePlayerOne(self):
 		self.player_choice = "game/images/Animations/stop2.bmp"
-        
 		self.startGame()
 
 	def chosePlayerTwo(self):
