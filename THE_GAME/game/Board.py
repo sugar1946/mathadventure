@@ -162,7 +162,7 @@ class Board(spyral.Scene):
                                         
                         ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
-                        self.player.fraction -= Fraction(1)
+                        self.player.fraction = 0;
                     print 'fraction' + str(self.player.fraction)
                     item.kill()
                 elif (item.name == 'key'):
