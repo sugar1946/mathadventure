@@ -1,0 +1,8 @@
+game/images/Animations/bl1.bmp
+game/images/Animations/bl2.bmp
+game/images/Animations/bl3.bmp
+game/images/Animations/bl4.bmp
+game/images/Animations/bl5.bmp
+game/images/Animations/bl6.bmp
+game/images/Animations/bl7.bmp
+game/images/Animations/bl8.bmp

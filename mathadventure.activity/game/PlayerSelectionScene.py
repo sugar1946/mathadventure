@@ -81,7 +81,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                     gameBoard.setMonster("game/images/m2_30_30.bmp")
                 print (len(gameBoard.ENEMY_LIST))
                 gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
-                character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp","game/images/Animations/upanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/downanimation.txt","game/images/Animations/stop2.bmp"]
+                character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/Boy/8.png","game/images/Animations/leftanimation.txt","game/images/Animations/Boy/4.png","game/images/Animations/upanimation.txt","game/images/Animations/Boy/12.png","game/images/Animations/downanimation.txt","game/images/Animations/Boy/0.png"]
                 gameBoard.setCharacter(character,character.ani_array)
 
                 gameBoard.setDoor(i, j)
@@ -97,6 +97,6 @@ class PlayerSelectionSceneMain(spyral.Scene):
         spyral.director.replace(scene_matrix[3][0])
         character.setScene(scene_matrix[3][0],3,0)
         character.setSceneMatrix(scene_matrix)
-        character.setStopImage("game/images/Animations/stop2l.bmp")
+        character.setStopImage("game/images/Animations/Boy/8.png")
         character.setImage(self.player_choice)
 
