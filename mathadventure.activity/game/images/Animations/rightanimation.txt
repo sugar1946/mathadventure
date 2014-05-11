@@ -1,8 +1,4 @@
-game/images/Animations/b1.bmp
-game/images/Animations/b2.bmp
-game/images/Animations/b3.bmp
-game/images/Animations/b4.bmp
-game/images/Animations/b5.bmp
-game/images/Animations/b6.bmp
-game/images/Animations/b7.bmp
-game/images/Animations/b8.bmp
+game/images/Animations/Boy/8.png
+game/images/Animations/Boy/10.png
+game/images/Animations/Boy/9.png
+game/images/Animations/Boy/11.png
