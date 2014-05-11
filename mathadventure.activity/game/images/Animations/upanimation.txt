@@ -1,1 +1,4 @@
-game/images/Animations/bl4.bmp
+game/images/Animations/Boy/14.png
+game/images/Animations/Boy/12.png
+game/images/Animations/Boy/15.png
+game/images/Animations/Boy/13.png

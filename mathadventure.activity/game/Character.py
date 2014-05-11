@@ -216,6 +216,14 @@ class Character(spyral.Sprite):
             self.moving = False
             self.animate(self.stop_l)
             self.stop_animation(self.stop_l)
+        elif (self.moving == 'down'):
+            self.moving = False
+            self.animate(self.stop_d)
+            self.stop_animation(self.stop_d)
+        elif (self.moving == 'up'):
+            self.moving = False
+            self.animate(self.stop_u)
+            self.stop_animation(self.stop_u)
         else:
             self.moving = False
             self.stop_all_animations()
