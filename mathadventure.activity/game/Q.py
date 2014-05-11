@@ -43,8 +43,8 @@ class Question(spyral.Sprite):
         self.addNumbers(alist)
 
     def addNumbers(self,alist):
-        names = ['Rai’zhana','Rikesh','Richard','Khalil','David','Moises','Angela','Lamar','Aiyana','Raymond','Rafiqe','Khadejah','Aaliyah','Fahim','Shanyia','Anashiah','Makyiah','Neonyae','Ceyrah']
-        food = ['apple','orange','cake', 'pie','pastry','cookie', 'apricot','mango', 'sushi', 'salmon', 'sandwhich', 'pizza', 'bacon', 'steak']
+        names = ['Raizhana','Rikesh','Richard','Khalil','David','Moises','Angela','Lamar','Aiyana','Raymond','Rafiqe','Khadejah','Aaliyah','Fahim','Shanyia','Anashiah','Makyiah','Neonyae','Ceyrah']
+        food = ['apple','orange','cake', 'pie','cookie', 'apricot','mango', 'pizza', 'burger', 'steak', 'chicken', 'watermelon','muffin','salad','egg', 'candy bar']
         numslow = range(3,12)
         numshigh = range(13,50)
         
@@ -137,8 +137,10 @@ class Question(spyral.Sprite):
             question_text = QuestionText(questionlines[i], 18).getImage()
             self.image.draw_image(question_text, position = (10,z))
             z += 25
-
+        print self.current_question
         self.answerList = self.current_question[1:4]
+
+        
             
         self.current_question[1] = random.choice(self.answerList)
         self.answerList.remove(self.current_question[1])
