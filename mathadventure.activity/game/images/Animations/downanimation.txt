@@ -1,4 +1,5 @@
-game/images/Animations/Boy/0.png
 game/images/Animations/Boy/2.png
-game/images/Animations/Boy/1.png
+game/images/Animations/Boy/0.png
 game/images/Animations/Boy/3.png
+game/images/Animations/Boy/1.png
+
