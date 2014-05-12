@@ -89,6 +89,7 @@ class Board(spyral.Scene):
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
+        self.ITEM_LIST = []
         self.EnemyNum = 4
 
         self.fraction =''
@@ -111,8 +112,9 @@ class Board(spyral.Scene):
         #print(self.EnemyNum)
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
+           
 
-        for item in ITEM_LIST:
+        for item in self.ITEM_LIST:
             if (self.player.collide_sprite(item)):
  
                 if (item.name == 'chest'):
@@ -138,7 +140,7 @@ class Board(spyral.Scene):
                                         else:
                                                 flag == False
 
-                                for item in ITEM_LIST:
+                                for item in self.ITEM_LIST:
                                         x = item.x
                                         y = item.y
                                         if(item.name == 'chest'):
@@ -155,7 +157,7 @@ class Board(spyral.Scene):
                                 if (flag == False):
                                         key.setImage('game/images/key_converted.bmp',w,h)
                                         
-                        ITEM_LIST.append(key)
+                        self.ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
                         self.player.fraction -= Fraction(1)
                     print 'fraction' + str(self.player.fraction)
@@ -169,25 +171,31 @@ class Board(spyral.Scene):
 
 
 
-                
+       # print "\n\n\nEnemies on this update:"                
         for enemy in self.ENEMY_LIST:
+ #           print "Enemy x:%d, y:%d" % (enemy.x, enemy.y)
             temp = self.ENEMY_LIST
             index = self.ENEMY_LIST.index(enemy)
-            enemy.collide_wall(wall)
+            ##for wall in WALL_LIST:
+##                enemy.collide_wall(wall)
  
             ##self.player.collide_monster(enemy)
             
-            for item in ITEM_LIST:
+            for item in self.ITEM_LIST:
+                ##print "setup the collide_monster(x)"
                 enemy.collide_item(item)
             for x in self.ENEMY_LIST:
+                ##print "setup the collide_monster(x)"
                 if(x != enemy):
                     enemy.collide_monster(x)
-            enemy.collide_player(self.player,self,index)
-            
+            #enemy.collide_player(self.player,self,index
+ #       enemy.update(delta)
+
         num = len(self.ENEMY_LIST)
         ##print ("num=len(self.E)")
         n = random.randint(0,num-1)
         chance = random.random()
+
 
         if (chance <0.03):
                 choices = ['up','down','left','right']
@@ -200,7 +208,6 @@ class Board(spyral.Scene):
         ##change the direction , during the move, the monster would change its direction by 30% possibil
 
             
-
     def healthTracker(self):
         if(self.player.health == 0):
             self.finalscreen = FinalScreen(self)
@@ -218,7 +225,7 @@ class Board(spyral.Scene):
                 w = random.randint(150,900-125)
                 
                 
-                for item in ITEM_LIST:
+                for item in self.ITEM_LIST:
                         x = item.x
                         y = item.y
                         if (item.name == 'chest'):
@@ -241,14 +248,18 @@ class Board(spyral.Scene):
                         else:
                                     flag=False
                 if(flag==False):
+                    if(self.player.image == "game/images/Animations/stop2.bmp"):
                         monster = Monster.Monster(self,"game/images/m2_30_30.bmp",l,w)
-                        monster.vel_x = 70
-                        monster.vel_y = 70
+                    else:
+                        monster = Monster.Monster(self,"game/images/m1_30_30.bmp",l,w)
+                        
+                    monster.vel_x = 70
+                    monster.vel_y = 70
                         #print ("the "+str(count) + " monster's x is "+ str(l))
                         #print ("the "+str(count) + " monster's y is "+ str(w))
-                        self.ENEMY_LIST.append(monster)
-                        monster.setUpdate(self)
-                        self.signal = 'close'
+                    self.ENEMY_LIST.append(monster)
+                    monster.setUpdate(self)
+                    self.signal = 'close'
                         
             
 
@@ -310,6 +321,8 @@ class Board(spyral.Scene):
         for enemy in self.ENEMY_LIST:
                 enemy.frozen = False
 
+
+
     def setMonster(self,image):
  
         count = 0
@@ -318,21 +331,21 @@ class Board(spyral.Scene):
                 w = random.randint(150,900-125)
                 
                 flag = True
-                for item in ITEM_LIST:
+                for item in self.ITEM_LIST:
                         x = item.x
                         y = item.y
                         if (item.name == 'chest'):
-                                if ((x-50 <= l <= x+140)and(y-125<= w <= y+65)):
+                                if ((x-50-100 <= l <= x+140+100)and(y-125-100<= w <= y+65+100)):
                                         flag = False
 
                         if (item.name == 'gem'):
-                                if ((x-55 <= l <= x+95)and(y-125<=w<=y+65)):
+                                if ((x-55-100 <= l <= x+95+100)and(y-125-100<=w<=y+65+100)):
                                         flag = False
 
                 for enemy in self.ENEMY_LIST:
                         x = enemy.x
                         y = enemy.y
-                        if ((x-90 < l < x+90) and (y-120 < w < y +120)):
+                        if ((x-90-100 < l < x+90+100) and (y-120-100 < w < y +120+100)):
                                   flag = False
                                   
                 if(flag==True):
@@ -365,7 +378,7 @@ class Board(spyral.Scene):
 	    item = Item.Item(self,"chest")
 	    item.setScene(self)
 	    item.setImage("game/images/chest.bmp",x,y)
-	    ITEM_LIST.append(item)
+	    self.ITEM_LIST.append(item)
 	    
 
         for i in range(random.randint(2,4)):
@@ -385,7 +398,7 @@ class Board(spyral.Scene):
 	    self.gems.append(item)
 	    item.setFraction()
 	    
-        ITEM_LIST.extend(self.gems)
+        self.ITEM_LIST.extend(self.gems)
 	    
     def setBackGround(self,imagePath):
         self.background = spyral.Image(filename=imagePath)
@@ -406,7 +419,7 @@ class Board(spyral.Scene):
         item.setImage("game/images/gem.bmp",x,y)
         self.gems.append(item)
         item.setFraction()
-        ITEM_LIST.extend(self.gems)
+        self.ITEM_LIST.extend(self.gems)
 
     def addChest(self):
         WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
@@ -422,7 +435,7 @@ class Board(spyral.Scene):
         item = Item.Item(self,"chest")
         item.setScene(self)
         item.setImage("game/images/chest.bmp",x,y)
-        ITEM_LIST.append(item)
+        self.ITEM_LIST.append(item)
 
     def setWalls(self,quadrantRow,quadrantColumn):
         if(quadrantRow == 0 and quadrantColumn == 0):
