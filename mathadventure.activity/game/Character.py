@@ -94,6 +94,7 @@ class Character(spyral.Sprite):
 
 
     def setScene(self,scene):
+
         super(Character, self).__init__(scene)
 
     
@@ -133,7 +134,10 @@ class Character(spyral.Sprite):
         self.hp.setKeyBoardCommands(scene)
 
     def setScene(self,scene,row,column):
+
         super(Character,self).__init__(scene)
+
+
         self.sceneRow = row
         self.sceneColumn = column
         self.hp.setScene(scene)
@@ -146,18 +150,35 @@ class Character(spyral.Sprite):
         column = self.sceneColumn
         distance = 100
         if(self.x < 0 and self.sceneColumn != 0):
+ 
+
             spyral.director.replace(self.sceneMatrix[row][column - 1])
+
+            
             self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array)
+            
+
             self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
+
+            self.scene.defreezeMonster()
+
             #self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
             self.setImage(self.stopImg)
             self.x = WIDTH - distance
             
         elif(self.x > WIDTH and self.sceneColumn != 3):
+  
+            
             spyral.director.replace(self.sceneMatrix[row][column + 1])
+
+
             self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
+
+
             self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
+            self.scene.defreezeMonster()
+            
             #self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
             self.setImage(self.stopImg)
@@ -173,6 +194,8 @@ class Character(spyral.Sprite):
             self.y = HEIGHT - distance
 
         elif(self.y > HEIGHT and self.sceneRow != 3):
+ 
+            
             spyral.director.replace(self.sceneMatrix[row + 1][column])
             self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array)
             self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
@@ -241,6 +264,8 @@ class Character(spyral.Sprite):
         self.leavingScene()
         self.hp.setImage(self.health)
 
+    
+
     def collide_wall(self,wall):
         if self.collide_sprite(wall):
             #self.vel = -self.vel
@@ -278,19 +303,8 @@ class Character(spyral.Sprite):
 
     def collide_monster(self,monster):
         if self.collide_sprite(monster):
-            if (self.moving == 'right'):
-                self.x-= 2
-                self.vel = 0
-            elif (self.moving == 'left'):
-                self.x+= 2
-                self.vel = 0
-            elif (self.moving == 'up'):
-                self.y+= 2
-                self.vel = 0
-            elif (self.moving == 'down'):
-                    self.y-= 2
-                    self.vel = 0
-            return True
+            monster.kill()
+            self.damage()
  
 
     def collide_item(self, item):
