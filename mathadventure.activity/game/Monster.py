@@ -31,9 +31,9 @@ class Monster(spyral.Sprite):
     ##def setScene(self,scene):
         #super(Monster,self).__init__(scene)
 
-   ## def setImage(self,imagePath,x,y):
+    def setImage(self,imagePath):
     #"game/images/stick.png"
- ##       self.image = spyral.Image(filename=imagePath)
+        self.image = spyral.Image(filename=imagePath)
 ##        self.anchor = "center"
  
         

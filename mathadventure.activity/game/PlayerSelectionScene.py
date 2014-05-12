@@ -62,6 +62,9 @@ class PlayerSelectionSceneMain(spyral.Scene):
         self.player_choice = "game/images/player2.bmp"
         self.startGame()
 
+    def setReturn(self,scene):
+	self.ReturnScene = scene
+
     def startGame(self):
         scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
         backGroundImage = 1
@@ -91,7 +94,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 
                 #gameBoard.setDoor(i, j)
 
-
+		gameBoard.setRestartButton()
                 gameBoard.setStoreButton()
                 gameBoard.setWalls(i,j)
                 scene_matrix[i][j] = gameBoard

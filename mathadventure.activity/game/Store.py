@@ -102,7 +102,11 @@ class Store(spyral.Scene):
 	def closeStore(self):
 		self.player.vel = 100
 		self.sceneReturn.setCharacter(self.player,self.player.ani_array)
-		spyral.director.pop()			
+		
+		spyral.director.pop()
+
+		spyral.director.get_scene().defreezeMonster()
+					
 				
 	def buyHealth(self):
 		#need to check if if player has enough points

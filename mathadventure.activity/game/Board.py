@@ -11,6 +11,9 @@ import HealthGUI
 import random
 import math
 import Door
+import PlayerSelectionScene
+import StartScene
+import RestartScene
 from fractions import Fraction
 FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
 
@@ -76,6 +79,11 @@ class StoreSetupForm(spyral.Form):
 	store_button = spyral.widgets.Button("Store")
 	whichButton = 1
 
+class RestartSetupForm(spyral.Form):
+
+	restart_button = spyral.widgets.Button("Restart")
+	whichButton = 2
+
 
 class Board(spyral.Scene):
     text = ''
@@ -122,7 +130,8 @@ class Board(spyral.Scene):
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
-                if (item.name == "chest"):
+ 		print "player collides item"
+                if (item.name == 'chest'):
                     self.freezeMonster()
                     self.question = Q.Question(self,self.player)
                     ITEM_LIST.remove(item)
@@ -229,8 +238,10 @@ class Board(spyral.Scene):
     def healthTracker(self):
         if(self.player.health == 0):
             self.finalscreen = FinalScreen(self)
+	    
             self.player.kill()
             self.freezeMonster()
+	    
 
 
     def addMonster(self):
@@ -309,6 +320,24 @@ class Board(spyral.Scene):
         self.player = character
         character.setAnimations(self,animation_array)
         character.setKeyBoardCommands(self)
+
+    def Restart(self,widget,form,value):
+
+	restart = RestartScene.Main()
+	restart.setCharacter(self.player)
+	spyral.director.replace(restart)
+	#print "startScene has been created"
+	return
+
+
+    def setRestartButton(self):
+	self.restartButton = RestartSetupForm(self)
+        self.restartButton.restart_button.x = WIDTH-80
+        self.restartButton.restart_button.y = HEIGHT-160
+        spyral.event.register("form.RestartSetupForm.restart_button.clicked",self.Restart)
+	    #temp.setButtonImage("game/store/gem.bmp")
+
+	
 
     def setStoreButton(self):
         self.storeButton = StoreSetupForm(self)

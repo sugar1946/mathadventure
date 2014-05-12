@@ -28,8 +28,20 @@ class Character(spyral.Sprite):
         self.totalScore = 0
         self.hp = HealthGUI.HealthGUI()
 
+    def reset(self):
+	score = 0
+        self.current_image = '';
+        self.health = 150
+        self.keys = 0
+        self.ownedItems = []
+        self.fraction = Fraction(0)
+        self.decimal = 0
+        self.percent = 0
+        self.totalScore = 0
+        #self.hp = HealthGUI.HealthGUI()
+
     def setStopImage(self,img):
-		self.stopImg = img
+	self.stopImg = img
 
 
     def updateScore(self,score):
