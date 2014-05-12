@@ -25,7 +25,7 @@ WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
 DOOR_LIST = []
-
+GEMS_LIST =[]
 
 class FinalScreen(spyral.Sprite):
     def __init__(self,scene):
@@ -189,16 +189,17 @@ class Board(spyral.Scene):
                     enemy.collide_monster(x)
             enemy.collide_player(self.player,self,index)
             
-        num = len(self.ENEMY_LIST)
-        ##print ("num=len(self.E)")
-        n = random.randint(0,num-1)
-        chance = random.random()
+        if (len(self.ENEMY_LIST) != 0):
+            num = len(self.ENEMY_LIST)
+            ##print ("num=len(self.E)")
+            n = random.randint(0,num-1)
+            chance = random.random()
 
-        if (chance <0.03):
-                choices = ['up','down','left','right']
-                choices.remove(self.ENEMY_LIST[n].direction)
-                direction = random.choice(choices)
-                self.ENEMY_LIST[n].direction = direction
+            if (chance <0.03):
+                    choices = ['up','down','left','right']
+                    choices.remove(self.ENEMY_LIST[n].direction)
+                    direction = random.choice(choices)
+                    self.ENEMY_LIST[n].direction = direction
         ##print("finish if chance<0.03")
 
 
@@ -361,7 +362,6 @@ class Board(spyral.Scene):
     def setchestsandgems(self):
         WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
         HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
-        self.gems = []
 
         for i in range(random.randint(1,3)):
             x = random.choice(WIDTH_COORD)
@@ -394,47 +394,36 @@ class Board(spyral.Scene):
 	    item = Item.Item(self,"gem")
 	    item.setScene(self)
 	    item.setImage("game/images/gem.bmp",x,y)
-	    self.gems.append(item)
 	    item.setFraction()
-	    
-        ITEM_LIST.extend(self.gems)
-	    
+            ITEM_LIST.append(item)
+        
+    def setEndGems(self):
+        WIDTH_COORD = range(30, WIDTH-120)
+        HEIGHT_COORD = range(120, HEIGHT-30)
+        self.gems = []
+
+        for i in range(15):
+            x = random.choice(WIDTH_COORD)
+            y = random.choice(HEIGHT_COORD)
+
+            for i in WIDTH_COORD:
+                if (x-40 < i < x+40):
+                    WIDTH_COORD.remove(i)
+            for i in HEIGHT_COORD:
+                if (y-60 < i < y+60):
+                    HEIGHT_COORD.remove(i)
+            
+            item = Item.Item(self,"gem")
+            item.setScene(self)
+            item.setImage("game/images/gem.bmp",x,y)
+            item.setFraction()
+            self.gems.append(item.fraction)
+
+        GEMS_LIST.extend(sorted(self.gems))   
+            
     def setBackGround(self,imagePath):
         self.background = spyral.Image(filename=imagePath)
 
-    def addGem(self):
-        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
-        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
-        x = random.choice(WIDTH_COORD)
-        y = random.choice(HEIGHT_COORD)
-        for i in WIDTH_COORD:
-            if (x-40 < i < x+40):
-                WIDTH_COORD.remove(i)
-        for i in HEIGHT_COORD:
-            if (y-60 < i < y+60):
-                HEIGHT_COORD.remove(i)
-        item = Item.Item(self,"gem")
-        item.setScene(self)
-        item.setImage("game/images/gem.bmp",x,y)
-        self.gems.append(item)
-        item.setFraction()
-        ITEM_LIST.extend(self.gems)
-
-    def addChest(self):
-        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
-        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
-        x = random.choice(WIDTH_COORD)
-        y = random.choice(HEIGHT_COORD)
-        for i in WIDTH_COORD:
-            if (x-95 < i and i < x+95):
-                WIDTH_COORD.remove(i)
-        for i in HEIGHT_COORD:
-            if (y-75 < i and i< y+75):
-                HEIGHT_COORD.remove(i)
-        item = Item.Item(self,"chest")
-        item.setScene(self)
-        item.setImage("game/images/chest.bmp",x,y)
-        ITEM_LIST.append(item)
 
     def setWalls(self,quadrantRow,quadrantColumn):
         if(quadrantRow == 0 and quadrantColumn == 0):
