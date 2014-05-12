@@ -96,7 +96,7 @@ class Character(spyral.Sprite):
     def setScene(self,scene):
 
         super(Character, self).__init__(scene)
-
+        self.layer = "bottom"
     
     def setImage(self,imagePath):
         #"game/images/stick.png"

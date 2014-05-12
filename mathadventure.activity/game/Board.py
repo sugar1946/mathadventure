@@ -92,6 +92,7 @@ class Board(spyral.Scene):
         self.ENEMY_LIST = []
         self.ITEM_LIST = []
         self.EnemyNum = 4
+        self.gem_index = 0
 
         self.fraction =''
         self.score = ''
@@ -121,8 +122,7 @@ class Board(spyral.Scene):
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
- 
-                if (item.name == 'chest'):
+                if (item.name == "chest"):
                     self.freezeMonster()
                     self.question = Q.Question(self,self.player)
                     ITEM_LIST.remove(item)
@@ -149,12 +149,12 @@ class Board(spyral.Scene):
                                 for item in self.ITEM_LIST:
                                         x = item.x
                                         y = item.y
-                                        if(item.name == 'chest'):
+                                        if(item.name == "chest"):
                                                 if ((x-20<w<x+105)and(y-80<h<y+20)):
                                                         flag == True
                                                 else:
                                                         flag=False
-                                        elif(item.name =='gem'):
+                                        elif(item.name =="gem"):
                                                 if((x-20<w<x+55)and(y-80<h<y+20)):
                                                         flag == True
                                                 else:
@@ -166,16 +166,29 @@ class Board(spyral.Scene):
                         self.ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
                         self.player.fraction = 0;
-                    print 'fraction' + str(self.player.fraction)
                     item.kill()
-                elif (item.name == 'key'):
+                    
+                elif (item.name == "key"):
                     item.kill()
                     self.player.keys += 1
                     self.signal = 'open'
-                    
-                    print "keys = " + str(self.player.keys)
 
+                elif (item.name == "End Gem"):
+                    if (item.fraction == GEMS_LIST[0] ):
+                        GEMS_LIST.pop(0)
+                        item.kill()
+                    else:
 
+                        GEMS_LIST.remove(item.fraction)
+                        item.kill()
+                        newgem = Item.Item(self,"End Gem")
+                        newgem.setScene(self)
+                        newgem.setImage("game/images/purplegem.png",random.randint(30,WIDTH-120),random.randint(120,HEIGHT-30))
+                        newgem.setFraction()
+                        GEMS_LIST.append(newgem.fraction)
+                        GEMS_LIST.sort()
+                        ITEM_LIST.append(newgem)
+                                         
 
        # print "\n\n\nEnemies on this update:"                
         for enemy in self.ENEMY_LIST:
@@ -192,7 +205,7 @@ class Board(spyral.Scene):
                 ##print "setup the collide_monster(x)"
                 if(x != enemy):
                     enemy.collide_monster(x)
-            enemy.collide_player(self.player,self,index)
+            enemy.collide_player(self.player)
  #       enemy.update(delta)
 
         if (len(self.ENEMY_LIST) != 0):
@@ -386,10 +399,10 @@ class Board(spyral.Scene):
                 if (y-75 < i and i< y+75):
                     HEIGHT_COORD.remove(i)
                 
-	    item = Item.Item(self,"chest")
-	    item.setScene(self)
-	    item.setImage("game/images/chest.bmp",x,y)
-	    self.ITEM_LIST.append(item)
+	    chest = Item.Item(self,"chest")
+	    chest.setScene(self)
+	    chest.setImage("game/images/chest.bmp",x,y)
+	    self.ITEM_LIST.append(chest)
 	    
 
         for i in range(random.randint(2,4)):
@@ -397,40 +410,41 @@ class Board(spyral.Scene):
             y = random.choice(HEIGHT_COORD)
 
             for i in WIDTH_COORD:
-                if (x-40 < i < x+40):
+                if (x-95 < i < x+95):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
-                if (y-60 < i < y+60):
+                if (y-75 < i < y+75):
                     HEIGHT_COORD.remove(i)
             
-	    item = Item.Item(self,"gem")
-	    item.setScene(self)
-	    item.setImage("game/images/gem.bmp",x,y)
-	    item.setFraction()
-            ITEM_LIST.append(item)
+	    gem = Item.Item(self,"gem")
+	    gem.setScene(self)
+	    gem.setImage("game/images/gem.bmp",x,y)
+	    gem.setFraction()
+            ITEM_LIST.append(gem)
         
     def setEndGems(self):
         WIDTH_COORD = range(30, WIDTH-120)
         HEIGHT_COORD = range(120, HEIGHT-30)
         self.gems = []
 
-        for i in range(15):
+        for i in range(8):
             x = random.choice(WIDTH_COORD)
             y = random.choice(HEIGHT_COORD)
 
             for i in WIDTH_COORD:
-                if (x-40 < i < x+40):
+                if (x-50 < i < x+50):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
                 if (y-60 < i < y+60):
                     HEIGHT_COORD.remove(i)
             
-            item = Item.Item(self,"gem")
+            item = Item.Item(self,"End Gem")
             item.setScene(self)
-            item.setImage("game/images/gem.bmp",x,y)
+            item.setImage("game/images/purplegem.png",x,y)
             item.setFraction()
             self.gems.append(item.fraction)
-
+            ITEM_LIST.append(item)
+                    
         GEMS_LIST.extend(sorted(self.gems))   
             
     def setBackGround(self,imagePath):
