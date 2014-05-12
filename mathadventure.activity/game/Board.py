@@ -407,7 +407,6 @@ class Board(spyral.Scene):
 	    item.setScene(self)
 	    item.setImage("game/images/gem.bmp",x,y)
 	    item.setFraction()
-<<<<<<< HEAD
             ITEM_LIST.append(item)
         
     def setEndGems(self):
@@ -437,47 +436,7 @@ class Board(spyral.Scene):
     def setBackGround(self,imagePath):
         self.background = spyral.Image(filename=imagePath)
 
-=======
-	    
-        self.ITEM_LIST.extend(self.gems)
-	    
-    def setBackGround(self,imagePath):
-        self.background = spyral.Image(filename=imagePath)
 
-    def addGem(self):
-        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
-        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
-        x = random.choice(WIDTH_COORD)
-        y = random.choice(HEIGHT_COORD)
-        for i in WIDTH_COORD:
-            if (x-40 < i < x+40):
-                WIDTH_COORD.remove(i)
-        for i in HEIGHT_COORD:
-            if (y-60 < i < y+60):
-                HEIGHT_COORD.remove(i)
-        item = Item.Item(self,"gem")
-        item.setScene(self)
-        item.setImage("game/images/gem.bmp",x,y)
-        self.gems.append(item)
-        item.setFraction()
-        self.ITEM_LIST.extend(self.gems)
-
-    def addChest(self):
-        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
-        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
-        x = random.choice(WIDTH_COORD)
-        y = random.choice(HEIGHT_COORD)
-        for i in WIDTH_COORD:
-            if (x-95 < i and i < x+95):
-                WIDTH_COORD.remove(i)
-        for i in HEIGHT_COORD:
-            if (y-75 < i and i< y+75):
-                HEIGHT_COORD.remove(i)
-        item = Item.Item(self,"chest")
-        item.setScene(self)
-        item.setImage("game/images/chest.bmp",x,y)
-        self.ITEM_LIST.append(item)
->>>>>>> 2aa91be7c26be94d91f91e2a54e2184b17ce9373
 
     def setWalls(self,quadrantRow,quadrantColumn):
         if(quadrantRow == 0 and quadrantColumn == 0):
