@@ -62,6 +62,9 @@ class PlayerSelectionSceneMain(spyral.Scene):
         self.player_choice = "game/images/player2.bmp"
         self.startGame()
 
+    def setReturn(self,scene):
+	self.ReturnScene = scene
+
     def startGame(self):
         scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
         backGroundImage = 1
@@ -70,23 +73,28 @@ class PlayerSelectionSceneMain(spyral.Scene):
         for i in range(4):
             for j in range(4):
                 gameBoard = Board.Board()
-                gameBoard.setchestsandgems()
                 #if(j == 1):
                 #    gameBoard.setBackGround("game/sceneImages/2.jpg")
                 #else:
-                if (self.player_choice == "game/images/Animations/stop2.bmp"):
-                    gameBoard.setMonster("game/images/m1_30_30.bmp")
-                
+                if (i == 0 and j == 3):
+                    gameBoard.setEndGems()
+                    
                 else:
-                    gameBoard.setMonster("game/images/m2_30_30.bmp")
-                print (len(gameBoard.ENEMY_LIST))
+                    gameBoard.setchestsandgems()
+                    if (self.player_choice == "game/images/Animations/stop2.bmp"):
+                        gameBoard.setMonster("game/images/m1_30_30.bmp")
+                    
+                    else:
+                        gameBoard.setMonster("game/images/m2_30_30.bmp")
+                        print (len(gameBoard.ENEMY_LIST))
+                        
                 gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
                 character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/Boy/8.png","game/images/Animations/leftanimation.txt","game/images/Animations/Boy/4.png","game/images/Animations/upanimation.txt","game/images/Animations/Boy/12.png","game/images/Animations/downanimation.txt","game/images/Animations/Boy/0.png"]
                 gameBoard.setCharacter(character,character.ani_array)
 
-                gameBoard.setDoor(i, j)
+                #gameBoard.setDoor(i, j)
 
-
+		gameBoard.setRestartButton()
                 gameBoard.setStoreButton()
                 gameBoard.setWalls(i,j)
                 scene_matrix[i][j] = gameBoard

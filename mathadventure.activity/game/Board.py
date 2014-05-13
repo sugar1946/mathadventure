@@ -11,6 +11,9 @@ import HealthGUI
 import random
 import math
 import Door
+import PlayerSelectionScene
+import StartScene
+import RestartScene
 from fractions import Fraction
 FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
 
@@ -25,7 +28,7 @@ WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
 DOOR_LIST = []
-
+GEMS_LIST =[]
 
 class FinalScreen(spyral.Sprite):
     def __init__(self,scene):
@@ -76,6 +79,11 @@ class StoreSetupForm(spyral.Form):
 	store_button = spyral.widgets.Button("Store")
 	whichButton = 1
 
+class RestartSetupForm(spyral.Form):
+
+	restart_button = spyral.widgets.Button("Restart")
+	whichButton = 2
+
 
 class Board(spyral.Scene):
     text = ''
@@ -90,7 +98,9 @@ class Board(spyral.Scene):
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
+        self.ITEM_LIST = []
         self.EnemyNum = 4
+        self.gem_index = 0
 
         self.fraction =''
         self.score = ''
@@ -112,13 +122,15 @@ class Board(spyral.Scene):
         #print(self.EnemyNum)
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
+           
+
 
         for door in DOOR_LIST:
             self.player.collide_door(door)
 
         for item in ITEM_LIST:
             if (self.player.collide_sprite(item)):
- 
+ 		print "player collides item"
                 if (item.name == 'chest'):
                     self.freezeMonster()
                     self.question = Q.Question(self,self.player)
@@ -143,15 +155,15 @@ class Board(spyral.Scene):
                                         else:
                                                 flag == False
 
-                                for item in ITEM_LIST:
+                                for item in self.ITEM_LIST:
                                         x = item.x
                                         y = item.y
-                                        if(item.name == 'chest'):
+                                        if(item.name == "chest"):
                                                 if ((x-20<w<x+105)and(y-80<h<y+20)):
                                                         flag == True
                                                 else:
                                                         flag=False
-                                        elif(item.name =='gem'):
+                                        elif(item.name =="gem"):
                                                 if((x-20<w<x+55)and(y-80<h<y+20)):
                                                         flag == True
                                                 else:
@@ -160,57 +172,76 @@ class Board(spyral.Scene):
                                 if (flag == False):
                                         key.setImage('game/images/key_converted.bmp',w,h)
                                         
-                        ITEM_LIST.append(key)
+                        self.ITEM_LIST.append(key)
                     elif (self.player.fraction > Fraction(1)):
-                        self.player.fraction -= Fraction(1)
-                    print 'fraction' + str(self.player.fraction)
+                        self.player.fraction = 0;
                     item.kill()
-                elif (item.name == 'key'):
+                    
+                elif (item.name == "key"):
                     item.kill()
                     self.player.keys += 1
                     self.signal = 'open'
-                    
-                    print "keys = " + str(self.player.keys)
 
+                elif (item.name == "End Gem"):
+                    if (item.fraction == GEMS_LIST[0] ):
+                        GEMS_LIST.pop(0)
+                        item.kill()
+                    else:
 
+                        GEMS_LIST.remove(item.fraction)
+                        item.kill()
+                        newgem = Item.Item(self,"End Gem")
+                        newgem.setScene(self)
+                        newgem.setImage("game/images/purplegem.png",random.randint(30,WIDTH-120),random.randint(120,HEIGHT-30))
+                        newgem.setFraction()
+                        GEMS_LIST.append(newgem.fraction)
+                        GEMS_LIST.sort()
+                        ITEM_LIST.append(newgem)
+                                         
 
-                
+       # print "\n\n\nEnemies on this update:"                
         for enemy in self.ENEMY_LIST:
+ #           print "Enemy x:%d, y:%d" % (enemy.x, enemy.y)
             temp = self.ENEMY_LIST
             index = self.ENEMY_LIST.index(enemy)
-            enemy.collide_wall(wall)
  
-            ##self.player.collide_monster(enemy)
+
             
-            for item in ITEM_LIST:
+            for item in self.ITEM_LIST:
+                ##print "setup the collide_monster(x)"
                 enemy.collide_item(item)
             for x in self.ENEMY_LIST:
+                ##print "setup the collide_monster(x)"
                 if(x != enemy):
                     enemy.collide_monster(x)
-            enemy.collide_player(self.player,self,index)
-            
-        num = len(self.ENEMY_LIST)
-        ##print ("num=len(self.E)")
-        n = random.randint(0,num-1)
-        chance = random.random()
+            enemy.collide_player(self.player)
+ #       enemy.update(delta)
 
-        if (chance <0.03):
-                choices = ['up','down','left','right']
-                choices.remove(self.ENEMY_LIST[n].direction)
-                direction = random.choice(choices)
-                self.ENEMY_LIST[n].direction = direction
+        if (len(self.ENEMY_LIST) != 0):
+            num = len(self.ENEMY_LIST)
+            ##print ("num=len(self.E)")
+            n = random.randint(0,num-1)
+            chance = random.random()
+
+            if (chance <0.03):
+                    choices = ['up','down','left','right']
+                    choices.remove(self.ENEMY_LIST[n].direction)
+                    direction = random.choice(choices)
+                    self.ENEMY_LIST[n].direction = direction
+
         ##print("finish if chance<0.03")
 
 
         ##change the direction , during the move, the monster would change its direction by 30% possibil
 
             
-
     def healthTracker(self):
         if(self.player.health == 0):
             self.finalscreen = FinalScreen(self)
+	    
             self.player.kill()
             self.freezeMonster()
+	    
 
 
     def addMonster(self):
@@ -223,7 +254,7 @@ class Board(spyral.Scene):
                 w = random.randint(150,900-125)
                 
                 
-                for item in ITEM_LIST:
+                for item in self.ITEM_LIST:
                         x = item.x
                         y = item.y
                         if (item.name == 'chest'):
@@ -246,14 +277,18 @@ class Board(spyral.Scene):
                         else:
                                     flag=False
                 if(flag==False):
+                    if(self.player.image == "game/images/Animations/stop2.bmp"):
                         monster = Monster.Monster(self,"game/images/m2_30_30.bmp",l,w)
-                        monster.vel_x = 70
-                        monster.vel_y = 70
+                    else:
+                        monster = Monster.Monster(self,"game/images/m1_30_30.bmp",l,w)
+                        
+                    monster.vel_x = 70
+                    monster.vel_y = 70
                         #print ("the "+str(count) + " monster's x is "+ str(l))
                         #print ("the "+str(count) + " monster's y is "+ str(w))
-                        self.ENEMY_LIST.append(monster)
-                        monster.setUpdate(self)
-                        self.signal = 'close'
+                    self.ENEMY_LIST.append(monster)
+                    monster.setUpdate(self)
+                    self.signal = 'close'
                         
             
 
@@ -285,6 +320,24 @@ class Board(spyral.Scene):
         self.player = character
         character.setAnimations(self,animation_array)
         character.setKeyBoardCommands(self)
+
+    def Restart(self,widget,form,value):
+
+	restart = RestartScene.Main()
+	restart.setCharacter(self.player)
+	spyral.director.replace(restart)
+	#print "startScene has been created"
+	return
+
+
+    def setRestartButton(self):
+	self.restartButton = RestartSetupForm(self)
+        self.restartButton.restart_button.x = WIDTH-80
+        self.restartButton.restart_button.y = HEIGHT-160
+        spyral.event.register("form.RestartSetupForm.restart_button.clicked",self.Restart)
+	    #temp.setButtonImage("game/store/gem.bmp")
+
+	
 
     def setStoreButton(self):
         self.storeButton = StoreSetupForm(self)
@@ -322,6 +375,8 @@ class Board(spyral.Scene):
         for enemy in self.ENEMY_LIST:
                 enemy.frozen = False
 
+
+
     def setMonster(self,image):
  
         count = 0
@@ -330,21 +385,21 @@ class Board(spyral.Scene):
                 w = random.randint(150,900-125)
                 
                 flag = True
-                for item in ITEM_LIST:
+                for item in self.ITEM_LIST:
                         x = item.x
                         y = item.y
                         if (item.name == 'chest'):
-                                if ((x-50 <= l <= x+140)and(y-125<= w <= y+65)):
+                                if ((x-50-100 <= l <= x+140+100)and(y-125-100<= w <= y+65+100)):
                                         flag = False
 
                         if (item.name == 'gem'):
-                                if ((x-55 <= l <= x+95)and(y-125<=w<=y+65)):
+                                if ((x-55-100 <= l <= x+95+100)and(y-125-100<=w<=y+65+100)):
                                         flag = False
 
                 for enemy in self.ENEMY_LIST:
                         x = enemy.x
                         y = enemy.y
-                        if ((x-90 < l < x+90) and (y-120 < w < y +120)):
+                        if ((x-90-100 < l < x+90+100) and (y-120-100 < w < y +120+100)):
                                   flag = False
                                   
                 if(flag==True):
@@ -361,7 +416,6 @@ class Board(spyral.Scene):
     def setchestsandgems(self):
         WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
         HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
-        self.gems = []
 
         for i in range(random.randint(1,3)):
             x = random.choice(WIDTH_COORD)
@@ -374,10 +428,10 @@ class Board(spyral.Scene):
                 if (y-75 < i and i< y+75):
                     HEIGHT_COORD.remove(i)
                 
-	    item = Item.Item(self,"chest")
-	    item.setScene(self)
-	    item.setImage("game/images/chest.bmp",x,y)
-	    ITEM_LIST.append(item)
+	    chest = Item.Item(self,"chest")
+	    chest.setScene(self)
+	    chest.setImage("game/images/chest.bmp",x,y)
+	    self.ITEM_LIST.append(chest)
 	    
 
         for i in range(random.randint(2,4)):
@@ -385,56 +439,47 @@ class Board(spyral.Scene):
             y = random.choice(HEIGHT_COORD)
 
             for i in WIDTH_COORD:
-                if (x-40 < i < x+40):
+                if (x-95 < i < x+95):
+                    WIDTH_COORD.remove(i)
+            for i in HEIGHT_COORD:
+                if (y-75 < i < y+75):
+                    HEIGHT_COORD.remove(i)
+            
+	    gem = Item.Item(self,"gem")
+	    gem.setScene(self)
+	    gem.setImage("game/images/gem.bmp",x,y)
+	    gem.setFraction()
+            ITEM_LIST.append(gem)
+        
+    def setEndGems(self):
+        WIDTH_COORD = range(30, WIDTH-120)
+        HEIGHT_COORD = range(120, HEIGHT-30)
+        self.gems = []
+
+        for i in range(8):
+            x = random.choice(WIDTH_COORD)
+            y = random.choice(HEIGHT_COORD)
+
+            for i in WIDTH_COORD:
+                if (x-50 < i < x+50):
                     WIDTH_COORD.remove(i)
             for i in HEIGHT_COORD:
                 if (y-60 < i < y+60):
                     HEIGHT_COORD.remove(i)
             
-	    item = Item.Item(self,"gem")
-	    item.setScene(self)
-	    item.setImage("game/images/gem.bmp",x,y)
-	    self.gems.append(item)
-	    item.setFraction()
-	    
-        ITEM_LIST.extend(self.gems)
-	    
+            item = Item.Item(self,"End Gem")
+            item.setScene(self)
+            item.setImage("game/images/purplegem.png",x,y)
+            item.setFraction()
+            self.gems.append(item.fraction)
+            ITEM_LIST.append(item)
+                    
+        GEMS_LIST.extend(sorted(self.gems))   
+            
     def setBackGround(self,imagePath):
         self.background = spyral.Image(filename=imagePath)
 
-    def addGem(self):
-        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
-        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
-        x = random.choice(WIDTH_COORD)
-        y = random.choice(HEIGHT_COORD)
-        for i in WIDTH_COORD:
-            if (x-40 < i < x+40):
-                WIDTH_COORD.remove(i)
-        for i in HEIGHT_COORD:
-            if (y-60 < i < y+60):
-                HEIGHT_COORD.remove(i)
-        item = Item.Item(self,"gem")
-        item.setScene(self)
-        item.setImage("game/images/gem.bmp",x,y)
-        self.gems.append(item)
-        item.setFraction()
-        ITEM_LIST.extend(self.gems)
 
-    def addChest(self):
-        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
-        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
-        x = random.choice(WIDTH_COORD)
-        y = random.choice(HEIGHT_COORD)
-        for i in WIDTH_COORD:
-            if (x-95 < i and i < x+95):
-                WIDTH_COORD.remove(i)
-        for i in HEIGHT_COORD:
-            if (y-75 < i and i< y+75):
-                HEIGHT_COORD.remove(i)
-        item = Item.Item(self,"chest")
-        item.setScene(self)
-        item.setImage("game/images/chest.bmp",x,y)
-        ITEM_LIST.append(item)
 
     def setWalls(self,quadrantRow,quadrantColumn):
         if(quadrantRow == 0 and quadrantColumn == 0):
