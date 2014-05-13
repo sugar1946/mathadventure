@@ -114,7 +114,8 @@ class Store(spyral.Scene):
 		self.sceneReturn.defreezeMonster()
 	
 	def points(self):
-		self.player.totalScore = 1200				
+		self.player.totalScore = 1200
+		self.player.keys = 3				
 				
 	def buyHealth(self):
 		#need to check if if player has enough points
