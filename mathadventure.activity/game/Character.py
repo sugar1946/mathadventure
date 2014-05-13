@@ -40,8 +40,15 @@ class Character(spyral.Sprite):
         self.totalScore = 0
         #self.hp = HealthGUI.HealthGUI()
 
-    def setStopImage(self,img):
-	self.stopImg = img
+    def setStopImage(self,animation_array):
+        if(animation_array[1] != ''):
+            self.stopImgR = animation_array[1]
+        if(animation_array[3] != ''):
+            self.stopImgL = animation_array[3]
+        if(animation_array[5] != ''):
+            self.stopImgU = animation_array[5]
+        if(animation_array[7] != ''):
+            self.stopImgD = animation_array[7]
 
 
     def updateScore(self,score):
@@ -74,7 +81,7 @@ class Character(spyral.Sprite):
             images = [spyral.Image(filename=f) for f in right]
             #right stop animation sequence
             stopR = [spyral.Image(filename=animation_array[1])]
-            self.animation = Animation('image', easing.Iterate(images), duration = 1, loop=True)
+            self.animation = Animation('image', easing.Iterate(images), duration = 0.5, loop=True)
             self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1)
         
         # left walk animation sequence
@@ -83,7 +90,7 @@ class Character(spyral.Sprite):
             images2 = [spyral.Image(filename=f) for f in left]
             #left stop animation sequence
             stopL = [spyral.Image(filename=animation_array[3])]
-            self.animation2 = Animation('image', easing.Iterate(images2), duration = 1, loop=True)
+            self.animation2 = Animation('image', easing.Iterate(images2), duration = 0.5, loop=True)
             self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1)
 
 		# up walk animation sequence
@@ -92,7 +99,7 @@ class Character(spyral.Sprite):
             images3 = [spyral.Image(filename=f) for f in up]
             #left stop animation sequence
             stopU = [spyral.Image(filename=animation_array[5])]
-            self.animation3 = Animation('image', easing.Iterate(images3), duration = 1, loop=True)
+            self.animation3 = Animation('image', easing.Iterate(images3), duration = 0.5, loop=True)
             self.stop_u = Animation('image', easing.Iterate(stopU), duration = 1)
 
         # down walk animation sequence
@@ -101,7 +108,7 @@ class Character(spyral.Sprite):
             images4 = [spyral.Image(filename=f) for f in down]
             #up stop animation sequence
             stopD = [spyral.Image(filename=animation_array[7])]
-            self.animation4 = Animation('image', easing.Iterate(images4), duration = 1, loop=True)
+            self.animation4 = Animation('image', easing.Iterate(images4), duration = 0.5, loop=True)
             self.stop_d = Animation('image', easing.Iterate(stopD), duration = 1)
 
 
@@ -176,7 +183,7 @@ class Character(spyral.Sprite):
 
             #self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
-            self.setImage(self.stopImg)
+            self.setImage(self.stopImgL)
             self.x = WIDTH - distance
             
         elif(self.x > WIDTH and self.sceneColumn != 3):
@@ -193,7 +200,7 @@ class Character(spyral.Sprite):
             
             #self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
-            self.setImage(self.stopImg)
+            self.setImage(self.stopImgR)
             self.x = distance
 
         elif(self.y < 0 and self.sceneRow != 0):
@@ -202,7 +209,7 @@ class Character(spyral.Sprite):
             self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
             #self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
-            self.setImage(self.stopImg)
+            self.setImage(self.stopImgU)
             self.y = HEIGHT - distance
 
         elif(self.y > HEIGHT and self.sceneRow != 3):
@@ -213,7 +220,7 @@ class Character(spyral.Sprite):
             self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
             #self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
-            self.setImage(self.stopImg)
+            self.setImage(self.stopImgD)
             self.y = distance
 
     def move_left(self):
