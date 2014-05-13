@@ -42,6 +42,7 @@ class Store(spyral.Scene):
 		spyral.event.register("input.keyboard.down.a", self.buyHealth)#buy health
 		spyral.event.register("input.keyboard.down.b", self.buyGem)#buy gem
 		spyral.event.register("input.keyboard.down.c", self.buyChest)#buy gem
+		spyral.event.register("input.keyboard.down.d", self.buyKey)#buy key
 		spyral.event.register("input.keyboard.down.e", self.buySprite1)#buy sprite1
 		spyral.event.register("input.keyboard.down.f", self.buySprite2)#buy sprite1
 		self.shopFont = spyral.Font(FONT_PATH,24,(0,0,0))#font used for header
@@ -61,7 +62,7 @@ class Store(spyral.Scene):
 		row_val = [(HEIGHT/4.5),(HEIGHT/2),(HEIGHT/1.286)]
 		column_val = [0,(WIDTH/4),(WIDTH/2),(WIDTH/1.34)]
 		itemSelection = ["a)","b)","c)","d)","e)","f)","g)","h)","i)","j)","k)","l)"]
-		itemPrice = ["10","20","20","90","Free","120","N/A","N/A","N/A","N/A","N/A","N/A"]
+		itemPrice = ["10","20","20","200","Free","120","N/A","N/A","N/A","N/A","N/A","N/A"]
 		itemImageArray = self.setItemImgArray("game/store/imgFile.txt")
 		itemDescrip = self.setItemImgArray("game/store/itemText.txt")
 		itemSelectionIndex = 0
@@ -128,6 +129,16 @@ class Store(spyral.Scene):
 			self.message = "A Chest was added to the Map!"
 		else:
 			self.message = "You don't have a enough points!"
+
+	def buyKey(self):
+		if(self.player.totalScore >= 200):
+			self.player.keys = self.player.keys + 1
+			self.player.totalScore -= 200
+			self.message = "A Key was added to your Invetory!"
+		else:
+			self.message = "You don't have a enough points!"
+			
+			
 
 	def buySprite1(self):
 		self.player.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/leftanimation.txt","game/images/Animations/stop2l.bmp","game/images/Animations/upanimation.txt","game/images/Animations/stop2.bmp","game/images/Animations/downanimation.txt","game/images/Animations/stop2.bmp"]
