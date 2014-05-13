@@ -1,4 +1,0 @@
-game/images/Animations/linkAnimation/linkup.bmp
-game/images/Animations/linkAnimation/linkup1.bmp
-game/images/Animations/linkAnimation/linkup.bmp
-game/images/Animations/linkAnimation/linkup2.bmp

@@ -431,7 +431,7 @@ class Board(spyral.Scene):
 	    chest = Item.Item(self,"chest")
 	    chest.setScene(self)
 	    chest.setImage("game/images/chest.bmp",x,y)
-	    self.ITEM_LIST.append(chest)
+	    ITEM_LIST.append(chest)
 	    
 
         for i in range(random.randint(2,4)):
@@ -449,7 +449,7 @@ class Board(spyral.Scene):
 	    gem.setScene(self)
 	    gem.setImage("game/images/gem.bmp",x,y)
 	    gem.setFraction()
-            ITEM_LIST.append(gem)
+	    ITEM_LIST.append(gem)
         
     def setEndGems(self):
         WIDTH_COORD = range(30, WIDTH-120)

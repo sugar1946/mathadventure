@@ -1,4 +1,4 @@
-game/images/Animations/Boy/8.png
-game/images/Animations/Boy/9.png
-game/images/Animations/Boy/10.png
-game/images/Animations/Boy/11.png
+game/images/Animations/Girl/8.png
+game/images/Animations/Girl/9.png
+game/images/Animations/Girl/10.png
+game/images/Animations/Girl/11.png
