@@ -80,7 +80,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                     gameBoard.setEndGems()
                     
                 else:
-                    gameBoard.setchestsandgems()
+                    gameBoard.setchestsandgems2()
                     if (self.player_choice == "game/images/Animations/stop2.bmp"):
                         gameBoard.setMonster("game/images/m1_30_30.bmp")
                     
