@@ -13,14 +13,6 @@ class HealthGUI(spyral.Sprite):
                                 self.y = 60
                                 self.health = 150'''
 
-    def setKeyBoardCommands(self,scene):
-        # Key down
-        spyral.event.register("input.keyboard.down.p", self.subten)
-
-        # Key up
-        '''spyral.event.register("input.keyboard.up.l", self.stop_move)
-                                spyral.event.register('director.update', self.update)'''
-
     def setScene(self,scene):
         super(HealthGUI,self).__init__(scene)
             
@@ -30,17 +22,20 @@ class HealthGUI(spyral.Sprite):
         self.x = WIDTH - 200
         self.y = 60
         self.health = x
-    
+
+    # This initializes a health container to 
+    # better display how much health is left
+    def setContainer(self,x):
+        self.image = spyral.Image(size=(x,25))
+        self.image.draw_rect((100, 150, 100), (0,-1), (x,25), border_width=6,)
+        self.anchor = "midleft"
+        self.x = WIDTH - 200
+        self.y = 60
+
+    # This is for updating health amount
     def sub(self, x):
         self.health = x
         self.setImage(x)
-
-    def subten(self):
-        if (self.health - 10 >= 0):
-            self.health-=10
-            self.setImage(self.health)
-
-    #def update(self,delta):
-        #blah
+        
     def setUpdate(self,scene):
         spyral.event.register('director.update', self.update)

@@ -20,6 +20,7 @@ class Character(spyral.Sprite):
         score = 0
         self.current_image = '';
         self.health = 150
+        self.max = self.health
         self.keys = 0
         self.ownedItems = []
         self.fraction = Fraction(0)
@@ -27,6 +28,7 @@ class Character(spyral.Sprite):
         self.percent = 0
         self.totalScore = 0
         self.hp = HealthGUI.HealthGUI()
+        self.container = HealthGUI.HealthGUI()
 
     def reset(self):
         score = 0
@@ -40,9 +42,20 @@ class Character(spyral.Sprite):
         self.totalScore = 0
         #self.hp = HealthGUI.HealthGUI()
 
-    def setStopImage(self,img):
-	    self.stopImg = img
+    def setStopImage(self,animation_array):
+        right = self.setAnimationArray(animation_array[0])
+        left = self.setAnimationArray(animation_array[1])
+        up = self.setAnimationArray(animation_array[2])
+        down = self.setAnimationArray(animation_array[3])
 
+        if(right[1] != ''):
+            self.stopImgR = right[1]
+        if(left[1] != ''):
+            self.stopImgL = left[1]
+        if(up[1] != ''):
+            self.stopImgU = up[1]
+        if(down[1] != ''):
+            self.stopImgD = down[1]
 
     def updateScore(self,score):
         self.totalScore += score
@@ -73,35 +86,35 @@ class Character(spyral.Sprite):
             right = self.setAnimationArray(animation_array[0])
             images = [spyral.Image(filename=f) for f in right]
             #right stop animation sequence
-            stopR = [spyral.Image(filename=animation_array[1])]
-            self.animation = Animation('image', easing.Iterate(images), duration = 1, loop=True)
+            stopR = [spyral.Image(filename=right[1])]
+            self.animation = Animation('image', easing.Iterate(images), duration = 0.5, loop=True)
             self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1)
         
         # left walk animation sequence
-        if(animation_array[2] != ''):
-            left = self.setAnimationArray(animation_array[2])
+        if(animation_array[1] != ''):
+            left = self.setAnimationArray(animation_array[1])
             images2 = [spyral.Image(filename=f) for f in left]
             #left stop animation sequence
-            stopL = [spyral.Image(filename=animation_array[3])]
-            self.animation2 = Animation('image', easing.Iterate(images2), duration = 1, loop=True)
+            stopL = [spyral.Image(filename=left[1])]
+            self.animation2 = Animation('image', easing.Iterate(images2), duration = 0.5, loop=True)
             self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1)
 
 		# up walk animation sequence
-        if(animation_array[4] != ''):
-            up = self.setAnimationArray(animation_array[4])
+        if(animation_array[2] != ''):
+            up = self.setAnimationArray(animation_array[2])
             images3 = [spyral.Image(filename=f) for f in up]
             #left stop animation sequence
-            stopU = [spyral.Image(filename=animation_array[5])]
-            self.animation3 = Animation('image', easing.Iterate(images3), duration = 1, loop=True)
+            stopU = [spyral.Image(filename=up[1])]
+            self.animation3 = Animation('image', easing.Iterate(images3), duration = 0.5, loop=True)
             self.stop_u = Animation('image', easing.Iterate(stopU), duration = 1)
 
         # down walk animation sequence
-        if(animation_array[6] != ''):
-            down = self.setAnimationArray(animation_array[6])
+        if(animation_array[3] != ''):
+            down = self.setAnimationArray(animation_array[3])
             images4 = [spyral.Image(filename=f) for f in down]
             #up stop animation sequence
-            stopD = [spyral.Image(filename=animation_array[7])]
-            self.animation4 = Animation('image', easing.Iterate(images4), duration = 1, loop=True)
+            stopD = [spyral.Image(filename=down[1])]
+            self.animation4 = Animation('image', easing.Iterate(images4), duration = 0.5, loop=True)
             self.stop_d = Animation('image', easing.Iterate(stopD), duration = 1)
 
 
@@ -120,7 +133,9 @@ class Character(spyral.Sprite):
         self.moving = False 
         self.vel = 100
         self.hp.setImage(self.health)
-        
+        self.container.setContainer(self.max)
+
+    # Handles character health damage
     def damage(self):
         if (self.health - 10 >= 0):
             self.health-=10
@@ -141,7 +156,6 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.up.up", self.stop_move)
         spyral.event.register('director.update', self.update)
 
-        self.hp.setKeyBoardCommands(scene)
 
     def setScene(self,scene,row,column):
 
@@ -151,6 +165,7 @@ class Character(spyral.Sprite):
         self.sceneRow = row
         self.sceneColumn = column
         self.hp.setScene(scene)
+        self.container.setScene(scene)
 
     def setSceneMatrix(self,matrix):
         self.sceneMatrix = matrix
@@ -174,7 +189,7 @@ class Character(spyral.Sprite):
 
             #self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
-            self.setImage(self.stopImg)
+            self.setImage(self.stopImgL)
             self.x = WIDTH - distance
             
         elif(self.x > WIDTH and self.sceneColumn != 3):
@@ -191,7 +206,7 @@ class Character(spyral.Sprite):
             
             #self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
-            self.setImage(self.stopImg)
+            self.setImage(self.stopImgR)
             self.x = distance
 
         elif(self.y < 0 and self.sceneRow != 0):
@@ -200,7 +215,7 @@ class Character(spyral.Sprite):
             self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
             #self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
-            self.setImage(self.stopImg)
+            self.setImage(self.stopImgU)
             self.y = HEIGHT - distance
 
         elif(self.y > HEIGHT and self.sceneRow != 3):
@@ -211,7 +226,7 @@ class Character(spyral.Sprite):
             self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
             #self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array)
             #self.setImage(self.current_image)
-            self.setImage(self.stopImg)
+            self.setImage(self.stopImgD)
             self.y = distance
 
     def move_left(self):
