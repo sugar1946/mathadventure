@@ -1,4 +1,4 @@
-game/images/Animations/Boy/12.png
-game/images/Animations/Boy/13.png
-game/images/Animations/Boy/14.png
-game/images/Animations/Boy/15.png
+game/images/Animations/Stache/12.png
+game/images/Animations/Stache/13.png
+game/images/Animations/Stache/14.png
+game/images/Animations/Stache/15.png

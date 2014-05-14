@@ -1,4 +1,4 @@
-game/images/Animations/Boy/8.png
-game/images/Animations/Boy/9.png
-game/images/Animations/Boy/10.png
-game/images/Animations/Boy/11.png
+game/images/Animations/Bald/8.png
+game/images/Animations/Bald/9.png
+game/images/Animations/Bald/10.png
+game/images/Animations/Bald/11.png

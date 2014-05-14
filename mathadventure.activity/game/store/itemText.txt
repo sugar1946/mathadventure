@@ -4,11 +4,8 @@ Add Chest to Map
 Add key to Inventory
 Change Character Image
 Change Character Image
-Item Not Available
-Item Not Available
-Item Not Available
-Item Not Available
-Item Not Available
-Item Not Available
-Item Not Available
-Item Not Available
+Change Character Image
+Change Character Image
+Change Character Image
+Change Character Image
+Change Character Image

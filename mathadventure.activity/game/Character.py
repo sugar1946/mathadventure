@@ -29,7 +29,7 @@ class Character(spyral.Sprite):
         self.hp = HealthGUI.HealthGUI()
 
     def reset(self):
-	score = 0
+        score = 0
         self.current_image = '';
         self.health = 150
         self.keys = 0
@@ -41,7 +41,7 @@ class Character(spyral.Sprite):
         #self.hp = HealthGUI.HealthGUI()
 
     def setStopImage(self,img):
-	self.stopImg = img
+	    self.stopImg = img
 
 
     def updateScore(self,score):
@@ -132,7 +132,6 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.down.right", self.move_right)
         spyral.event.register("input.keyboard.down.down", self.move_down)
         spyral.event.register("input.keyboard.down.up", self.move_up)
-        spyral.event.register("input.keyboard.down.y", self.changeImage)
         spyral.event.register("input.keyboard.down.g", self.grab)
 
         # Key up
@@ -140,7 +139,6 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.up.right", self.stop_move)
         spyral.event.register("input.keyboard.up.down", self.stop_move)
         spyral.event.register("input.keyboard.up.up", self.stop_move)
-        #spyral.event.register("input.keyboard.up.g", self.stop_move)
         spyral.event.register('director.update', self.update)
 
         self.hp.setKeyBoardCommands(scene)
@@ -335,7 +333,7 @@ class Character(spyral.Sprite):
             self.vel = 0
         return True
 
-
+    '''
     def changeImage(self):
          self.current_image = "game/images/stick.bmp";
          x = self.x
@@ -343,4 +341,4 @@ class Character(spyral.Sprite):
          self.setImage(self.current_image)
          self.x = x
          self.y = y
-         
+    '''        

@@ -1,4 +1,4 @@
-game/images/Animations/Boy/4.png
-game/images/Animations/Boy/6.png
-game/images/Animations/Boy/5.png
-game/images/Animations/Boy/7.png
+game/images/Animations/Ninja/4.png
+game/images/Animations/Ninja/5.png
+game/images/Animations/Ninja/6.png
+game/images/Animations/Ninja/7.png

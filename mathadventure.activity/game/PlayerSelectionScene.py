@@ -38,8 +38,8 @@ class PlayerSelectionSceneMain(spyral.Scene):
             spyral.Scene.__init__(self, SIZE)
             self.player_choice = "";
             self.background = spyral.Image(size=SIZE).fill((255,255,255))
-            self.selfplayerOneImage = PlayerImage(self,"game/images/Animations/stop2.bmp","left")
-            self.selfplayerTwoImage = PlayerImage(self,"game/images/player2.bmp","right")
+            self.selfplayerOneImage = PlayerImage(self,"game/images/Animations/Boy/1.png","left")
+            self.selfplayerTwoImage = PlayerImage(self,"game/images/Animations/Girl/1.png","right")
 
             font = spyral.Font(FONT_PATH,24,(0,0,0))
             message1 = font.render("Press a Key To Select a Character:")
@@ -55,15 +55,15 @@ class PlayerSelectionSceneMain(spyral.Scene):
             spyral.event.register("input.keyboard.down.right", self.chosePlayerTwo)
 
     def chosePlayerOne(self):
-        self.player_choice = "game/images/Animations/stop2.bmp"
+        self.player_choice = "game/images/Animations/Boy/1.png"
         self.startGame()
 
     def chosePlayerTwo(self):
-        self.player_choice = "game/images/player2.bmp"
+        self.player_choice = "game/images/Animations/Girl/1.png"
         self.startGame()
 
     def setReturn(self,scene):
-	self.ReturnScene = scene
+        self.ReturnScene = scene
 
     def startGame(self):
         scene_matrix = [[0 for x in xrange(4)] for x in xrange(4)]#sets up the 4x4 game board
@@ -80,8 +80,10 @@ class PlayerSelectionSceneMain(spyral.Scene):
                     gameBoard.setEndGems()
                     
                 else:
-                    gameBoard.setchestsandgems2()
-                    if (self.player_choice == "game/images/Animations/stop2.bmp"):
+
+                    gameBoard.setchestsandgems()
+                    if (self.player_choice == "game/images/Animations/Boy/1.png"):
+
                         gameBoard.setMonster("game/images/m1_30_30.bmp")
                     
                     else:
@@ -89,7 +91,10 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         print (len(gameBoard.ENEMY_LIST))
                         
                 gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
-                character.ani_array = ["game/images/Animations/rightanimation.txt","game/images/Animations/Boy/8.png","game/images/Animations/leftanimation.txt","game/images/Animations/Boy/4.png","game/images/Animations/upanimation.txt","game/images/Animations/Boy/12.png","game/images/Animations/downanimation.txt","game/images/Animations/Boy/0.png"]
+                if(self.player_choice == "game/images/Animations/Boy/1.png"):
+                    character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/8.png","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/4.png","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/12.png","game/images/Animations/Boy/downanimation.txt","game/images/Animations/Boy/0.png"]
+                else:
+                    character.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/8.png","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/4.png","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/12.png","game/images/Animations/Girl/downanimation.txt","game/images/Animations/Girl/0.png"]
                 gameBoard.setCharacter(character,character.ani_array)
 
                 #gameBoard.setDoor(i, j)
@@ -105,6 +110,6 @@ class PlayerSelectionSceneMain(spyral.Scene):
         spyral.director.replace(scene_matrix[3][0])
         character.setScene(scene_matrix[3][0],3,0)
         character.setSceneMatrix(scene_matrix)
-        character.setStopImage("game/images/Animations/Boy/8.png")
+        character.setStopImage(self.player_choice)
         character.setImage(self.player_choice)
 

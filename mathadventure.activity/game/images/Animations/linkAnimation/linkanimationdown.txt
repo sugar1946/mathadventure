@@ -1,4 +1,0 @@
-game/images/Animations/linkAnimation/linkdown.bmp
-game/images/Animations/linkAnimation/linkdown1.bmp
-game/images/Animations/linkAnimation/linkdown.bmp
-game/images/Animations/linkAnimation/linkdown2.bmp
