@@ -8,7 +8,6 @@ WIDTH = 1200
 HEIGHT = 900
 SIZE = (WIDTH, HEIGHT)
 FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
-ITEM_BOUGHT_LIST = []
 
 class ItemSprite(spyral.Sprite):
 	def __init__(self,scene,img,x,y):

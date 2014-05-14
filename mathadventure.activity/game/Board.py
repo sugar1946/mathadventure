@@ -8,11 +8,9 @@ import Item
 import Store
 import Q
 import HealthGUI
-import random
-import math
 import Door
-import PlayerSelectionScene
-import StartScene
+#import PlayerSelectionScene
+#import StartScene
 import RestartScene
 from fractions import Fraction
 FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
@@ -65,17 +63,6 @@ class KeySprite(spyral.Sprite):
     
 
 class StoreSetupForm(spyral.Form):
-	'''
-	def setButtomImage(self,item):
-		image_up: item
-		image_up_hovered: item
-		image_up_focused: item
-		image_down: item
-		image_down_hovered: item
-		image_down_focused: item
-		nine_slice: True
-	'''
-	#answer_input = spyral.widgets.TextInput(100, "")
 	store_button = spyral.widgets.Button("Store")
 	whichButton = 1
 
@@ -96,6 +83,7 @@ class Board(spyral.Scene):
         self.layers = ['bottom','top']
         spyral.event.register("system.quit", spyral.director.pop)
         spyral.event.register("input.keyboard.down.q", spyral.director.pop)
+        spyral.event.register("input.keyboard.down.o", self.printItems)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
         self.ITEM_LIST = []
@@ -109,17 +97,20 @@ class Board(spyral.Scene):
         frozen = False
 
 
-
+    def printItems(self):
+        for item in self.ITEM_LIST:
+            print item.name
+        print "_________________"    
+        for item in self.ENEMY_LIST:
+            print item.x
+            print item.y   
 
     def update(self,delta):
-        ##print ("where is she")
         self.showScore()
         self.showFraction()
         self.showKeys()
         self.healthTracker()
         self.addMonster()
-        ##print("finish healthTracker()")
-        #print(self.EnemyNum)
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
            
@@ -127,14 +118,14 @@ class Board(spyral.Scene):
 
         for door in DOOR_LIST:
             self.player.collide_door(door)
-
-        for item in ITEM_LIST:
+#remove self
+        for item in self.ITEM_LIST:
             if (self.player.collide_sprite(item)):
  		print "player collides item"
                 if (item.name == 'chest'):
                     self.freezeMonster()
                     self.question = Q.Question(self,self.player)
-                    ITEM_LIST.remove(item)
+                    self.ITEM_LIST.remove(item)#remove self
                     item.kill()
                     
                 elif (item.name == "gem"):
@@ -173,8 +164,9 @@ class Board(spyral.Scene):
                                         key.setImage('game/images/key_converted.bmp',w,h)
                                         
                         self.ITEM_LIST.append(key)
-                    elif (self.player.fraction > Fraction(1)):
+                    elif (self.player.fraction >= Fraction(1)):
                         self.player.fraction = 0;
+                    self.ITEM_LIST.remove(item)#remove self
                     item.kill()
                     
                 elif (item.name == "key"):
@@ -196,7 +188,7 @@ class Board(spyral.Scene):
                         newgem.setFraction()
                         GEMS_LIST.append(newgem.fraction)
                         GEMS_LIST.sort()
-                        ITEM_LIST.append(newgem)
+                        self.ITEM_LIST.append(newgem)
                                          
 
        # print "\n\n\nEnemies on this update:"                
@@ -214,7 +206,13 @@ class Board(spyral.Scene):
                 ##print "setup the collide_monster(x)"
                 if(x != enemy):
                     enemy.collide_monster(x)
-            enemy.collide_player(self.player)
+            if(enemy.collide_player(self.player) == True):
+                tempEnemyList = []
+                for tempEnemy in temp:
+                    if(temp.index(tempEnemy) != index):
+                        tempEnemyList.append(tempEnemy)
+                self.ENEMY_LIST = tempEnemyList
+                enemy.kill()
  #       enemy.update(delta)
 
         if (len(self.ENEMY_LIST) != 0):
@@ -431,7 +429,7 @@ class Board(spyral.Scene):
 	    chest = Item.Item(self,"chest")
 	    chest.setScene(self)
 	    chest.setImage("game/images/chest.bmp",x,y)
-	    ITEM_LIST.append(chest)
+	    self.ITEM_LIST.append(chest)
 	    
 
         for i in range(random.randint(2,4)):
@@ -449,7 +447,7 @@ class Board(spyral.Scene):
 	    gem.setScene(self)
 	    gem.setImage("game/images/gem.bmp",x,y)
 	    gem.setFraction()
-	    ITEM_LIST.append(gem)
+	    self.ITEM_LIST.append(gem)#remove self
         
     def setEndGems(self):
         WIDTH_COORD = range(30, WIDTH-120)
@@ -472,7 +470,7 @@ class Board(spyral.Scene):
             item.setImage("game/images/purplegem.png",x,y)
             item.setFraction()
             self.gems.append(item.fraction)
-            ITEM_LIST.append(item)
+            self.ITEM_LIST.append(item)#remove self
                     
         GEMS_LIST.extend(sorted(self.gems))   
             

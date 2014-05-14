@@ -137,11 +137,11 @@ class Monster(spyral.Sprite):
 ##                self.vel_x = -self.vel_x
 ##            self.scene.ENEMY_LIST.remove(self)
             ##if (self.scene.EnemyNum>0):
- 
-            self.kill()
+            #self.kill()
             character.damage()
-          
-        
+            return True          
+        else:
+            return False
     
 
     def collide_item(self,item):
