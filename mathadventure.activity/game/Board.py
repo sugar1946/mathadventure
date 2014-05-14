@@ -410,8 +410,66 @@ class Board(spyral.Scene):
                         monster.setUpdate(self)
                         count = count+1
 
+
+
+    def setchestsandgems2(self):
+ 
+        count = 0
+        while (count < 4):
+                l = random.randint(160,1200-160)
+                w = random.randint(150,900-125)
                 
+                flag = True
+                for item in self.ITEM_LIST:
+                        x = item.x
+                        y = item.y
+                        if (item.name == 'chest'):
+                                if ((x-95 <= l <= x+95)and(y-75<= w <= y+75)):
+                                        flag = False
+
+                        if (item.name == 'gem'):
+                                if ((x-95 <= l <= x+90)and(y-75<=w<=y+75)):
+                                        flag = False
+
                 
+                                  
+                if(flag==True):
+						gem = Item.Item(self,"gem")
+						gem.setScene(self)
+						gem.setImage("game/images/gem.bmp",l,w)
+	   					gem.setFraction()
+						ITEM_LIST.append(gem)
+						count = count +1   
+
+
+
+		count = 0
+		while (count < 4):
+				l = random.randint(160,1200-160)
+				w = random.randint(150,900-125)
+                
+				flag = True
+				for item in self.ITEM_LIST:
+						x = item.x
+						y = item.y
+						if (item.name == 'chest'):
+							if ((x-95 <= l <= x+95)and(y-75<= w <= y+75)):
+								flag = False
+
+						if (item.name == 'gem'):
+							if ((x-95 <= l <= x+90)and(y-75<=w<=y+75)):
+								flag = False
+
+                
+                                  
+				if(flag==True):
+					chest = Item.Item(self,"chest")
+					chest.setScene(self)
+					chest.setImage("game/images/chest.bmp",l,w)
+					chest.setFraction()
+					ITEM_LIST.append(chest)
+					count = count +1      
+    
  
     def setchestsandgems(self):
         WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)

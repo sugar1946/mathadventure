@@ -192,8 +192,10 @@ class PlayerSelectionSceneMain(spyral.Scene):
                     gameBoard.setEndGems()
                     
                 else:
+
                     gameBoard.setchestsandgems()
                     if (self.player_choice == "game/images/Animations/Boy/1.png"):
+
                         gameBoard.setMonster("game/images/m1_30_30.bmp")
                     
                     else:
