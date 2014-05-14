@@ -1,0 +1,15 @@
+game/sceneImages/Selector.png
+game/sceneImages/Selector2.png
+game/sceneImages/Selector3.png
+game/sceneImages/Selector.png
+game/sceneImages/Selector2.png
+game/sceneImages/Selector3.png
+game/sceneImages/Selector.png
+game/sceneImages/Selector2.png
+game/sceneImages/Selector3.png
+game/sceneImages/Selector.png
+game/sceneImages/Selector2.png
+game/sceneImages/Selector3.png
+game/sceneImages/Selector.png
+game/sceneImages/Selector2.png
+game/sceneImages/Selector3.png

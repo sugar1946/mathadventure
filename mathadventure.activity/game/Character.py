@@ -20,6 +20,7 @@ class Character(spyral.Sprite):
         score = 0
         self.current_image = '';
         self.health = 150
+        self.max = self.health
         self.keys = 0
         self.ownedItems = []
         self.fraction = Fraction(0)
@@ -27,6 +28,7 @@ class Character(spyral.Sprite):
         self.percent = 0
         self.totalScore = 0
         self.hp = HealthGUI.HealthGUI()
+        self.container = HealthGUI.HealthGUI()
 
     def reset(self):
         score = 0
@@ -40,19 +42,15 @@ class Character(spyral.Sprite):
         self.totalScore = 0
         #self.hp = HealthGUI.HealthGUI()
 
-    '''def setStopImage(self,animation_array):
-                    if(animation_array[1] != ''):
-                        self.stopImgR = animation_array[1]
-                    if(animation_array[3] != ''):
-                        self.stopImgL = animation_array[3]
-                    if(animation_array[5] != ''):
-                        self.stopImgU = animation_array[5]
-                    if(animation_array[7] != ''):
-                        self.stopImgD = animation_array[7]'''
-
-    def setStopImage(self,img):
-	    self.stopImg = img
-
+    def setStopImage(self,animation_array):
+        if(animation_array[1] != ''):
+            self.stopImgR = animation_array[1]
+        if(animation_array[3] != ''):
+            self.stopImgL = animation_array[3]
+        if(animation_array[5] != ''):
+            self.stopImgU = animation_array[5]
+        if(animation_array[7] != ''):
+            self.stopImgD = animation_array[7]
 
     def updateScore(self,score):
         self.totalScore += score
@@ -130,7 +128,9 @@ class Character(spyral.Sprite):
         self.moving = False 
         self.vel = 100
         self.hp.setImage(self.health)
-        
+        self.container.setContainer(self.max)
+
+    # Handles character health damage
     def damage(self):
         if (self.health - 10 >= 0):
             self.health-=10
@@ -151,7 +151,6 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.up.up", self.stop_move)
         spyral.event.register('director.update', self.update)
 
-        self.hp.setKeyBoardCommands(scene)
 
     def setScene(self,scene,row,column):
 
@@ -161,6 +160,7 @@ class Character(spyral.Sprite):
         self.sceneRow = row
         self.sceneColumn = column
         self.hp.setScene(scene)
+        self.container.setScene(scene)
 
     def setSceneMatrix(self,matrix):
         self.sceneMatrix = matrix
