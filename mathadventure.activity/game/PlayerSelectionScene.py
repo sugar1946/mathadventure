@@ -207,9 +207,9 @@ class PlayerSelectionSceneMain(spyral.Scene):
                 #character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/9.png","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/5.png","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/13.png","game/images/Animations/Boy/downanimation.txt","game/images/Animations/Boy/1.png"]
 
                 if(self.player_choice == "game/images/Animations/Boy/1.png"):
-                    character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/8.png","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/4.png","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/12.png","game/images/Animations/Boy/downanimation.txt","game/images/Animations/Boy/0.png"]
+                    character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/downanimation.txt"]
                 else:
-                    character.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/8.png","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/4.png","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/12.png","game/images/Animations/Girl/downanimation.txt","game/images/Animations/Girl/0.png"]
+                    character.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/downanimation.txt"]
 
                 gameBoard.setCharacter(character,character.ani_array)
 

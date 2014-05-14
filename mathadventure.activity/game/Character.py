@@ -43,14 +43,19 @@ class Character(spyral.Sprite):
         #self.hp = HealthGUI.HealthGUI()
 
     def setStopImage(self,animation_array):
-        if(animation_array[1] != ''):
-            self.stopImgR = animation_array[1]
-        if(animation_array[3] != ''):
-            self.stopImgL = animation_array[3]
-        if(animation_array[5] != ''):
-            self.stopImgU = animation_array[5]
-        if(animation_array[7] != ''):
-            self.stopImgD = animation_array[7]
+        right = self.setAnimationArray(animation_array[0])
+        left = self.setAnimationArray(animation_array[1])
+        up = self.setAnimationArray(animation_array[2])
+        down = self.setAnimationArray(animation_array[3])
+
+        if(right[1] != ''):
+            self.stopImgR = right[1]
+        if(left[1] != ''):
+            self.stopImgL = left[1]
+        if(up[1] != ''):
+            self.stopImgU = up[1]
+        if(down[1] != ''):
+            self.stopImgD = down[1]
 
     def updateScore(self,score):
         self.totalScore += score
@@ -81,34 +86,34 @@ class Character(spyral.Sprite):
             right = self.setAnimationArray(animation_array[0])
             images = [spyral.Image(filename=f) for f in right]
             #right stop animation sequence
-            stopR = [spyral.Image(filename=animation_array[1])]
+            stopR = [spyral.Image(filename=right[1])]
             self.animation = Animation('image', easing.Iterate(images), duration = 0.5, loop=True)
             self.stop_r = Animation('image', easing.Iterate(stopR), duration = 1)
         
         # left walk animation sequence
-        if(animation_array[2] != ''):
-            left = self.setAnimationArray(animation_array[2])
+        if(animation_array[1] != ''):
+            left = self.setAnimationArray(animation_array[1])
             images2 = [spyral.Image(filename=f) for f in left]
             #left stop animation sequence
-            stopL = [spyral.Image(filename=animation_array[3])]
+            stopL = [spyral.Image(filename=left[1])]
             self.animation2 = Animation('image', easing.Iterate(images2), duration = 0.5, loop=True)
             self.stop_l = Animation('image', easing.Iterate(stopL), duration = 1)
 
 		# up walk animation sequence
-        if(animation_array[4] != ''):
-            up = self.setAnimationArray(animation_array[4])
+        if(animation_array[2] != ''):
+            up = self.setAnimationArray(animation_array[2])
             images3 = [spyral.Image(filename=f) for f in up]
             #left stop animation sequence
-            stopU = [spyral.Image(filename=animation_array[5])]
+            stopU = [spyral.Image(filename=up[1])]
             self.animation3 = Animation('image', easing.Iterate(images3), duration = 0.5, loop=True)
             self.stop_u = Animation('image', easing.Iterate(stopU), duration = 1)
 
         # down walk animation sequence
-        if(animation_array[6] != ''):
-            down = self.setAnimationArray(animation_array[6])
+        if(animation_array[3] != ''):
+            down = self.setAnimationArray(animation_array[3])
             images4 = [spyral.Image(filename=f) for f in down]
             #up stop animation sequence
-            stopD = [spyral.Image(filename=animation_array[7])]
+            stopD = [spyral.Image(filename=down[1])]
             self.animation4 = Animation('image', easing.Iterate(images4), duration = 0.5, loop=True)
             self.stop_d = Animation('image', easing.Iterate(stopD), duration = 1)
 
