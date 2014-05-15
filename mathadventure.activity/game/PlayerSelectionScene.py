@@ -213,7 +213,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
 
                 gameBoard.setCharacter(character,character.ani_array)
 
-                gameBoard.setDoor(i, j)
+                gameBoard.setDoor(j, i)
 
                 gameBoard.setRestartButton()
                 gameBoard.setStoreButton()
