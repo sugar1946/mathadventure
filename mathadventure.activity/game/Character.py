@@ -348,13 +348,4 @@ class Character(spyral.Sprite):
             self.y-= 2
             self.vel = 0
         return True
-
-    '''
-    def changeImage(self):
-         self.current_image = "game/images/stick.bmp";
-         x = self.x
-         y = self.y
-         self.setImage(self.current_image)
-         self.x = x
-         self.y = y
-    '''        
+       

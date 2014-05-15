@@ -200,7 +200,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                     
                     else:
                         gameBoard.setMonster("game/images/m2_30_30.bmp")
-                        #print (len(gameBoard.ENEMY_LIST))
+
                         
                 gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
 
