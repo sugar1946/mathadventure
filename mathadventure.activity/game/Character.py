@@ -251,6 +251,7 @@ class Character(spyral.Sprite):
         self.animate(self.animation3)
         
     def grab(self):
+        self.keys+=1
         self.stop_all_animations()
         #self.animate(self.grab_r)
         
@@ -308,7 +309,7 @@ class Character(spyral.Sprite):
                 self.y-= 4
                 self.vel = 0
 
-    def collide_door(self, door):
+    def collide_door(self, door, keys):
         if self.collide_sprite(door):
             if (self.moving == 'right'):
                 self.x-= 4
@@ -322,7 +323,7 @@ class Character(spyral.Sprite):
             elif (self.moving == 'down'):
                 self.y-= 4
                 self.vel = 0
-            if (self.keys >= 3):
+            if (keys >= 1):
                 door.collide()
 
 

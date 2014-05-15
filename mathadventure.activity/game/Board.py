@@ -117,11 +117,10 @@ class Board(spyral.Scene):
 
 
         for door in DOOR_LIST:
-            self.player.collide_door(door)
-#remove self
+            self.player.collide_door(door, self.player.keys)
+        
         for item in self.ITEM_LIST:
             if (self.player.collide_sprite(item)):
- 		print "player collides item"
                 if (item.name == 'chest'):
                     self.freezeMonster()
                     self.question = Q.Question(self,self.player)
@@ -351,12 +350,12 @@ class Board(spyral.Scene):
 
     def setDoor(self, qRow, qCol):
         # Testing door rendering
-        if(qRow == 1 and qCol == 3):
+        if(qRow == 3 and qCol == 0):
             door = Door.Door(self)
             door.setImage("1")
             DOOR_LIST.append(door)
 
-        if(qRow == 0 and qCol == 2):
+        if(qRow == 3 and qCol == 0):
             door = Door.Door(self)
             door.setImage("2")
             DOOR_LIST.append(door)
