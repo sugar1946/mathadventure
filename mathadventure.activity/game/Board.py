@@ -165,7 +165,7 @@ class Board(spyral.Scene):
                         self.ITEM_LIST.append(key)
                     elif (self.player.fraction >= Fraction(1)):
                         self.player.fraction = 0;
-                    self.ITEM_LIST.remove(item)#remove self
+                        self.ITEM_LIST.remove(item)#remove self
                     item.kill()
                     
                 elif (item.name == "key"):
@@ -206,11 +206,13 @@ class Board(spyral.Scene):
                 if(x != enemy):
                     enemy.collide_monster(x)
             if(enemy.collide_player(self.player) == True):
+                '''
                 tempEnemyList = []
                 for tempEnemy in temp:
                     if(temp.index(tempEnemy) != index):
                         tempEnemyList.append(tempEnemy)
                 self.ENEMY_LIST = tempEnemyList
+                '''
                 enemy.kill()
  #       enemy.update(delta)
 
