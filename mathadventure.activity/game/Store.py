@@ -8,7 +8,6 @@ WIDTH = 1200
 HEIGHT = 900
 SIZE = (WIDTH, HEIGHT)
 FONT_PATH = "libraries/spyral/resources/fonts/DejaVuSans.ttf"
-ITEM_BOUGHT_LIST = []
 
 class ItemSprite(spyral.Sprite):
 	def __init__(self,scene,img,x,y):
@@ -108,7 +107,6 @@ class Store(spyral.Scene):
 				self.message = ''
 						
 	def closeStore(self):
-		self.player.vel = 100
 		self.sceneReturn.setCharacter(self.player,self.player.ani_array)
 		spyral.director.pop()
 		self.sceneReturn.defreezeMonster()
@@ -153,21 +151,21 @@ class Store(spyral.Scene):
 			
 
 	def buySprite1(self):
-		self.player.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/8.png","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/4.png","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/12.png","game/images/Animations/Boy/downanimation.txt","game/images/Animations/Boy/0.png"]
-		self.player.setStopImage("game/images/Animations/Boy/1.png")
+		self.player.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/downanimation.txt"]
+		self.player.setStopImage(self.player.ani_array)
 		self.player.setImage("game/images/Animations/Boy/1.png")
 		self.message = "You changed your character!"
 
 	def buySprite2(self):
-		self.player.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/8.png","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/4.png","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/12.png","game/images/Animations/Girl/downanimation.txt","game/images/Animations/Girl/0.png"]
-		self.player.setStopImage("game/images/Animations/Girl/1.png")
+		self.player.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/downanimation.txt"]
+		self.player.setStopImage(self.player.ani_array)
 		self.player.setImage("game/images/Animations/Girl/1.png")
 		self.message = "You changed your character!"	
 
 	def buySprite3(self):
 		if(self.player.totalScore >= 120):
-			self.player.ani_array = ["game/images/Animations/Cape/rightanimation.txt","game/images/Animations/Cape/8.png","game/images/Animations/Cape/leftanimation.txt","game/images/Animations/Cape/4.png","game/images/Animations/Cape/upanimation.txt","game/images/Animations/Cape/12.png","game/images/Animations/Cape/downanimation.txt","game/images/Animations/Cape/0.png"]
-			self.player.setStopImage("game/images/Animations/Cape/1.png")
+			self.player.ani_array = ["game/images/Animations/Cape/rightanimation.txt","game/images/Animations/Cape/leftanimation.txt","game/images/Animations/Cape/upanimation.txt","game/images/Animations/Cape/downanimation.txt"]
+			self.player.setStopImage(self.player.ani_array)
 			self.player.setImage("game/images/Animations/Cape/1.png")
 			self.player.totalScore -= 120
 			self.message = "You changed your character!"
@@ -176,8 +174,8 @@ class Store(spyral.Scene):
 
 	def buySprite4(self):
 		if(self.player.totalScore >= 120):
-			self.player.ani_array = ["game/images/Animations/Bald/rightanimation.txt","game/images/Animations/Bald/8.png","game/images/Animations/Bald/leftanimation.txt","game/images/Animations/Bald/4.png","game/images/Animations/Bald/upanimation.txt","game/images/Animations/Bald/12.png","game/images/Animations/Bald/downanimation.txt","game/images/Animations/Bald/0.png"]
-			self.player.setStopImage("game/images/Animations/Bald/1.png")
+			self.player.ani_array = ["game/images/Animations/Bald/rightanimation.txt","game/images/Animations/Bald/leftanimation.txt","game/images/Animations/Bald/upanimation.txt","game/images/Animations/Bald/downanimation.txt"]
+			self.player.setStopImage(self.player.ani_array)
 			self.player.setImage("game/images/Animations/Bald/1.png")
 			self.player.totalScore -= 120
 			self.message = "You changed your character!"
@@ -186,8 +184,8 @@ class Store(spyral.Scene):
 
 	def buySprite5(self):
 		if(self.player.totalScore >= 120):
-			self.player.ani_array = ["game/images/Animations/Princess/rightanimation.txt","game/images/Animations/Princess/8.png","game/images/Animations/Princess/leftanimation.txt","game/images/Animations/Princess/4.png","game/images/Animations/Princess/upanimation.txt","game/images/Animations/Princess/12.png","game/images/Animations/Princess/downanimation.txt","game/images/Animations/Princess/0.png"]
-			self.player.setStopImage("game/images/Animations/Princess/1.png")
+			self.player.ani_array = ["game/images/Animations/Princess/rightanimation.txt","game/images/Animations/Princess/leftanimation.txt","game/images/Animations/Princess/upanimation.txt","game/images/Animations/Princess/downanimation.txt"]
+			self.player.setStopImage(self.player.ani_array)
 			self.player.setImage("game/images/Animations/Princess/1.png")
 			self.player.totalScore -= 120
 			self.message = "You changed your character!"
@@ -196,8 +194,8 @@ class Store(spyral.Scene):
 
 	def buySprite6(self):
 		if(self.player.totalScore >= 120):
-			self.player.ani_array = ["game/images/Animations/Ninja/rightanimation.txt","game/images/Animations/Ninja/8.png","game/images/Animations/Ninja/leftanimation.txt","game/images/Animations/Ninja/4.png","game/images/Animations/Ninja/upanimation.txt","game/images/Animations/Ninja/12.png","game/images/Animations/Ninja/downanimation.txt","game/images/Animations/Ninja/0.png"]
-			self.player.setStopImage("game/images/Animations/Ninja/1.png")
+			self.player.ani_array = ["game/images/Animations/Ninja/rightanimation.txt","game/images/Animations/Ninja/leftanimation.txt","game/images/Animations/Ninja/upanimation.txt","game/images/Animations/Ninja/downanimation.txt"]
+			self.player.setStopImage(self.player.ani_array)
 			self.player.setImage("game/images/Animations/Ninja/1.png")
 			self.player.totalScore -= 120
 			self.message = "You changed your character!"
@@ -206,8 +204,8 @@ class Store(spyral.Scene):
 
 	def buySprite7(self):
 		if(self.player.totalScore >= 120):
-			self.player.ani_array = ["game/images/Animations/Stache/rightanimation.txt","game/images/Animations/Stache/8.png","game/images/Animations/Stache/leftanimation.txt","game/images/Animations/Stache/4.png","game/images/Animations/Stache/upanimation.txt","game/images/Animations/Stache/12.png","game/images/Animations/Stache/downanimation.txt","game/images/Animations/Stache/0.png"]
-			self.player.setStopImage("game/images/Animations/Stache/1.png")
+			self.player.ani_array = ["game/images/Animations/Stache/rightanimation.txt","game/images/Animations/Stache/leftanimation.txt","game/images/Animations/Stache/upanimation.txt","game/images/Animations/Stache/downanimation.txt"]
+			self.player.setStopImage(self.player.ani_array)
 			self.player.setImage("game/images/Animations/Stache/1.png")
 			self.player.totalScore -= 120
 			self.message = "You changed your character!"
