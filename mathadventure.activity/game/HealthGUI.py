@@ -27,7 +27,7 @@ class HealthGUI(spyral.Sprite):
     # better display remaining health
     def setContainer(self,x):
         self.image = spyral.Image(size=(x,25))
-        self.image.draw_rect((150,150,150), (0,-1), (x,25), border_width=6,)
+        self.image.draw_rect((175,175,175), (0,-1), (x,25), border_width=6,)
         self.anchor = "midleft"
         self.x = WIDTH - 200
         self.y = 60
