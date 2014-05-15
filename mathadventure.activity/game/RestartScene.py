@@ -113,32 +113,35 @@ class Main(spyral.Scene):
 		spyral.Scene.__init__(self, SIZE)
 		self.player_choice = "";
 		self.background = spyral.Image(filename="game/sceneImages/start1.png")
-		self.selfplayerOneImage = RePlayerImage(self,"game/images/Animations/Boy/1.png","left")
-		self.selfplayerTwoImage = RePlayerImage(self,"game/images/Animations/Girl/1.png","right")
-
 		font = spyral.Font(FONT_PATH,24,(0,0,0))
 		message1 = font.render("Press a Key To Select a Character:")
 		self.TopMessage = ReSelectionMessage(self,message1,WIDTH/3,HEIGHT/3)
+		self.selector = Selector(self)
+		self.selfplayerOneImage = RePlayerImage(self,"game/images/Animations/Boy/1.png","left")
+		self.selfplayerTwoImage = RePlayerImage(self,"game/images/Animations/Girl/1.png","right")
 		message2 = font.render("(<--)")
 		self.LeftMessage = ReSelectionMessage(self,message2,self.selfplayerOneImage.x,self.selfplayerOneImage.y + 160)
 		message3 = font.render("(-->)")
 		self.RightMessage = ReSelectionMessage(self,message3,self.selfplayerTwoImage.x,self.selfplayerTwoImage.y + 160)
-        self.selector = Selector(self)
-
-
 		spyral.event.register("input.keyboard.down.q", spyral.director.pop)
-		#spyral.event.register("input.keyboard.down.s", self.startGame)
-		#spyral.event.register("input.keyboard.down.left", self.chosePlayerOne)
-		#spyral.event.register("input.keyboard.down.right", self.chosePlayerTwo)
+		spyral.event.register("Selector.image.animation.end", self.startGame)
+		spyral.event.register("input.keyboard.down.s", self.selector.select)
+		spyral.event.register("input.keyboard.down.return", self.selector.select)
+		spyral.event.register("input.keyboard.down.left", self.selector.left)
+		spyral.event.register("input.keyboard.down.left", self.display)
+		spyral.event.register("input.keyboard.down.right", self.selector.right)
+		spyral.event.register("input.keyboard.down.right", self.display)
 
+	def display(self):
+		font = spyral.Font(FONT_PATH,24,(0,0,0))
+		self.selfplayerTwoImage.kill()
+		self.selfplayerOneImage.kill()
 
-        spyral.event.register("Selector.image.animation.end", self.startGame)
-        spyral.event.register("input.keyboard.down.s", self.selector.select)
-        spyral.event.register("input.keyboard.down.return", self.selector.select)
-        spyral.event.register("input.keyboard.down.left", self.selector.left)
-        spyral.event.register("input.keyboard.down.left", self.display)
-        spyral.event.register("input.keyboard.down.right", self.selector.right)
-        spyral.event.register("input.keyboard.down.right", self.display)
+		if (self.selector.pick == "right"):
+			self.selfplayerOneImage = RePlayerImage(self,"game/images/Animations/Boy/1.png","left")
+		
+		elif (self.selector.pick == "left"):
+			self.selfplayerTwoImage = RePlayerImage(self,"game/images/Animations/Girl/1.png","right")
 
 	def chosePlayerOne(self):
 		self.player_choice = "game/images/Animations/Boy/1.png"
@@ -155,6 +158,11 @@ class Main(spyral.Scene):
 		self.character.reset()
 
 	def startGame(self):
+		if (self.selector.pick == "left"):
+			self.player_choice = "game/images/Animations/Boy/1.png"
+		elif (self.selector.pick == "right"):
+			self.player_choice = "game/images/Animations/Girl/1.png"
+
 		if (self.player_choice == "game/images/Animations/stop2.bmp"):
 			for i in range(4):
 				for j in range(4):
@@ -169,11 +177,11 @@ class Main(spyral.Scene):
 		spyral.director.replace(self.character.sceneMatrix[3][0])
 		self.resetCharacter()
 		if(self.player_choice == "game/images/Animations/Boy/1.png"):
-			self.character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/8.png","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/4.png","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/12.png","game/images/Animations/Boy/downanimation.txt","game/images/Animations/Boy/0.png"]
+			self.character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/downanimation.txt"]
 		else:
-			self.character.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/8.png","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/4.png","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/12.png","game/images/Animations/Girl/downanimation.txt","game/images/Animations/Girl/0.png"]
+			self.character.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/downanimation.txt"]
 		self.character.sceneMatrix[3][0].setCharacter(self.character,self.character.ani_array)
 		self.character.setScene(self.character.sceneMatrix[3][0],3,0)
-		self.character.setStopImage(self.player_choice)
+		self.character.setStopImage(self.character.ani_array)
 		self.character.setImage(self.player_choice)
 	

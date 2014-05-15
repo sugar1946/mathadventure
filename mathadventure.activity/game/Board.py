@@ -324,7 +324,9 @@ class Board(spyral.Scene):
 
 	restart = RestartScene.Main()
 	restart.setCharacter(self.player)
+	self.finalscreen.kill()
 	spyral.director.replace(restart)
+
 	#print "startScene has been created"
 	return
 
