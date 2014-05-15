@@ -24,10 +24,10 @@ class HealthGUI(spyral.Sprite):
         self.health = x
 
     # This initializes a health container to 
-    # better display how much health is left
+    # better display remaining health
     def setContainer(self,x):
         self.image = spyral.Image(size=(x,25))
-        self.image.draw_rect((100, 150, 100), (0,-1), (x,25), border_width=6,)
+        self.image.draw_rect((150,150,150), (0,-1), (x,25), border_width=6,)
         self.anchor = "midleft"
         self.x = WIDTH - 200
         self.y = 60
@@ -36,6 +36,6 @@ class HealthGUI(spyral.Sprite):
     def sub(self, x):
         self.health = x
         self.setImage(x)
-        
+
     def setUpdate(self,scene):
         spyral.event.register('director.update', self.update)
