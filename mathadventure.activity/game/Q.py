@@ -45,8 +45,8 @@ class Question(spyral.Sprite):
     def addNumbers(self,alist):
         names = ['Raizhana','Rikesh','Richard','Khalil','David','Moises','Angela','Lamar','Aiyana','Raymond','Rafiqe','Khadejah','Aaliyah','Fahim','Shanyia','Anashiah','Makyiah','Neonyae','Ceyrah']
         food = ['apple','orange','cake', 'pie','cookie', 'apricot','mango', 'pizza', 'burger', 'steak', 'chicken', 'watermelon','muffin','salad','egg', 'candy bar']
-        numslow = range(3,12)
-        numshigh = range(13,50)
+        numslow = [3,4,5,6,8,9,10,12]
+        numshigh = range(14,50,2)
         
         n = random.choice(names)
         names.remove(n)
