@@ -107,7 +107,8 @@ class Store(spyral.Scene):
 				self.message = ''
 						
 	def closeStore(self):
-		self.sceneReturn.setCharacter(self.player,self.player.ani_array)
+		#self.sceneReturn.setCharacter(self.player,self.player.ani_array)
+		self.player.initialize(self.sceneReturn,self.player.ani_array)
 		spyral.director.pop()
 		self.sceneReturn.defreezeMonster()
 	

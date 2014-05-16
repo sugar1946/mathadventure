@@ -211,9 +211,15 @@ class PlayerSelectionSceneMain(spyral.Scene):
                 else:
                     character.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/downanimation.txt"]
 
-                gameBoard.setCharacter(character,character.ani_array)
+                # This will initialize keyboard commands in the first scene only
+                self.set = False
+                if (i == 3 and j == 0):
+                    self.set = True
+                else:
+                    self.set = False
+                gameBoard.setCharacter(character,character.ani_array,self.set)
 
-                gameBoard.setDoor(i, j)
+                #gameBoard.setDoor(i, j)
 
                 gameBoard.setRestartButton()
                 gameBoard.setStoreButton()

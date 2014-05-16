@@ -81,8 +81,8 @@ class Board(spyral.Scene):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
         self.layers = ['bottom','top']
-        spyral.event.register("system.quit", spyral.director.pop)
-        spyral.event.register("input.keyboard.down.q", spyral.director.pop)
+        spyral.event.register("system.quit", spyral.director.quit)
+        spyral.event.register("input.keyboard.down.q", spyral.director.quit)
         spyral.event.register("input.keyboard.down.o", self.printItems)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
@@ -268,10 +268,13 @@ class Board(spyral.Scene):
         self.keys = KeySprite(self,key_img,60,100)
 
 		        
-    def setCharacter(self,character,animation_array):
+    def setCharacter(self,character,animation_array,isAlive):
+        if (isAlive == True):
+            character.setKeyBoardCommands(self)
+            print("set")
         self.player = character
         character.setAnimations(self,animation_array)
-        character.setKeyBoardCommands(self)
+        
 
     def Restart(self,widget,form,value):
 
@@ -309,12 +312,12 @@ class Board(spyral.Scene):
 
     def setDoor(self, qRow, qCol):
         # Testing door rendering
-        if(qRow == 1 and qCol == 3):
+        if(qRow == 3 and qCol == 0):
             door = Door.Door(self)
             door.setImage("1")
             DOOR_LIST.append(door)
 
-        if(qRow == 0 and qCol == 2):
+        if(qRow == 3 and qCol == 0):
             door = Door.Door(self)
             door.setImage("2")
             DOOR_LIST.append(door)
