@@ -81,8 +81,8 @@ class Board(spyral.Scene):
         spyral.Scene.__init__(self, SIZE)
         # self.monster = Monster.Monster(self)
         self.layers = ['bottom','top']
-        spyral.event.register("system.quit", spyral.director.pop)
-        spyral.event.register("input.keyboard.down.q", spyral.director.pop)
+        spyral.event.register("system.quit", spyral.director.quit)
+        spyral.event.register("input.keyboard.down.q", spyral.director.quit)
         spyral.event.register("input.keyboard.down.o", self.printItems)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []

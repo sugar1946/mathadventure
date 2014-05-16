@@ -131,7 +131,7 @@ class Character(spyral.Sprite):
         self.x = WIDTH/2
         self.y = HEIGHT/2
         self.moving = False 
-        self.vel = 100
+        self.vel = 0
         self.hp.setImage(self.health)
         self.container.setContainer(self.max)
 
@@ -170,13 +170,19 @@ class Character(spyral.Sprite):
     def setSceneMatrix(self,matrix):
         self.sceneMatrix = matrix
 
+    def initialize(self,board,ani_array):
+        self.setAnimations(board,ani_array)
+
+
     def leavingScene(self):
         row = self.sceneRow
         column = self.sceneColumn
         distance = 100
-        if(self.x < 0 and self.sceneColumn != 0):
- 
 
+
+        # left exit
+        if(self.x < 0 and self.sceneColumn != 0):
+            self.kill()
             spyral.director.replace(self.sceneMatrix[row][column - 1])
 
             
@@ -191,12 +197,11 @@ class Character(spyral.Sprite):
             #self.setImage(self.current_image)
             self.setImage(self.stopImgL)
             self.x = WIDTH - distance
-            
+        
+        # right exit
         elif(self.x > WIDTH and self.sceneColumn != 3):
-  
-            
-            spyral.director.replace(self.sceneMatrix[row][column + 1])
-
+            self.kill()
+            spyral.director.push(self.sceneMatrix[row][column + 1])
 
             self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
 
@@ -209,7 +214,10 @@ class Character(spyral.Sprite):
             self.setImage(self.stopImgR)
             self.x = distance
 
+
+        # top exit
         elif(self.y < 0 and self.sceneRow != 0):
+            self.kill()
             spyral.director.replace(self.sceneMatrix[row - 1][column])
             self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array)
             self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
@@ -218,9 +226,9 @@ class Character(spyral.Sprite):
             self.setImage(self.stopImgU)
             self.y = HEIGHT - distance
 
+        # bottom exit
         elif(self.y > HEIGHT and self.sceneRow != 3):
- 
-            
+            self.kill()
             spyral.director.replace(self.sceneMatrix[row + 1][column])
             self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array)
             self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
@@ -252,6 +260,7 @@ class Character(spyral.Sprite):
         
     def grab(self):
         self.keys+=1
+        self.totalScore+=100
         self.stop_all_animations()
         #self.animate(self.grab_r)
         
@@ -283,6 +292,7 @@ class Character(spyral.Sprite):
             self.x -= self.vel * delta
         elif self.moving == 'right':
             self.x += self.vel * delta
+            print(self.x)
         elif self.moving == 'down':
             self.y += self.vel * delta
         elif self.moving == 'up':
@@ -323,7 +333,7 @@ class Character(spyral.Sprite):
             elif (self.moving == 'down'):
                 self.y-= 4
                 self.vel = 0
-            if (keys >= 1):
+            if (keys >= 3):
                 door.collide()
 
 
