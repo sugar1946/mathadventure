@@ -89,10 +89,11 @@ class Board(spyral.Scene):
         self.ITEM_LIST = []
         self.EnemyNum = 4
         self.gem_index = 0
-
+        self.enemyDeleteIndex = 5
         self.fraction =''
         self.score = ''
         self.keys=''
+        self.finalscreen = ''
         self.signal = 'close'
         frozen = False
 
@@ -113,8 +114,6 @@ class Board(spyral.Scene):
         self.addMonster()
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
-           
-
 
         for door in DOOR_LIST:
             self.player.collide_door(door, self.player.keys)
@@ -130,48 +129,13 @@ class Board(spyral.Scene):
                 elif (item.name == "gem"):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)
                     if (self.player.fraction == Fraction(1)):
-                        key = Item.Item(self, "key")
-                        key.setScene(self)
-
-                        flag = True
-                        while (flag == True):
-                                w = random.randint(150,1050)
-                                h = random.randint(100,800)
-                                for enemy in self.ENEMY_LIST:
-                                        x=enemy.x
-                                        y=enemy.y
-                                        if ((x-50<w<x+50)and(y-60<h<y+60)):
-                                                flag == True
-                                        else:
-                                                flag == False
-
-                                for item in self.ITEM_LIST:
-                                        x = item.x
-                                        y = item.y
-                                        if(item.name == "chest"):
-                                                if ((x-20<w<x+105)and(y-80<h<y+20)):
-                                                        flag == True
-                                                else:
-                                                        flag=False
-                                        elif(item.name =="gem"):
-                                                if((x-20<w<x+55)and(y-80<h<y+20)):
-                                                        flag == True
-                                                else:
-                                                        flag=False
-                                        
-                                if (flag == False):
-                                        key.setImage('game/images/key_converted.bmp',w,h)
-                                        
-                        self.ITEM_LIST.append(key)
+                        self.player.keys += 1
+                        self.player.fraction = 0
+                        
                     elif (self.player.fraction >= Fraction(1)):
                         self.player.fraction = 0;
                         self.ITEM_LIST.remove(item)#remove self
                     item.kill()
-                    
-                elif (item.name == "key"):
-                    item.kill()
-                    self.player.keys += 1
-                    self.signal = 'open'
 
                 elif (item.name == "End Gem"):
                     if (item.fraction == GEMS_LIST[0] ):
@@ -188,33 +152,19 @@ class Board(spyral.Scene):
                         GEMS_LIST.append(newgem.fraction)
                         GEMS_LIST.sort()
                         self.ITEM_LIST.append(newgem)
-                                         
-
-       # print "\n\n\nEnemies on this update:"                
+               
         for enemy in self.ENEMY_LIST:
- #           print "Enemy x:%d, y:%d" % (enemy.x, enemy.y)
             temp = self.ENEMY_LIST
             index = self.ENEMY_LIST.index(enemy)
- 
-
-            
+  
             for item in self.ITEM_LIST:
-                ##print "setup the collide_monster(x)"
                 enemy.collide_item(item)
             for x in self.ENEMY_LIST:
-                ##print "setup the collide_monster(x)"
                 if(x != enemy):
                     enemy.collide_monster(x)
             if(enemy.collide_player(self.player) == True):
-                '''
-                tempEnemyList = []
-                for tempEnemy in temp:
-                    if(temp.index(tempEnemy) != index):
-                        tempEnemyList.append(tempEnemy)
-                self.ENEMY_LIST = tempEnemyList
-                '''
+                self.enemyDeleteIndex = index
                 enemy.kill()
- #       enemy.update(delta)
 
         if (len(self.ENEMY_LIST) != 0):
             num = len(self.ENEMY_LIST)
@@ -227,13 +177,10 @@ class Board(spyral.Scene):
                     choices.remove(self.ENEMY_LIST[n].direction)
                     direction = random.choice(choices)
                     self.ENEMY_LIST[n].direction = direction
+        if(self.enemyDeleteIndex != 5):
+            #del self.ENEMY_LIST[self.enemyDeleteIndex]
+            self.enemyDeleteIndex = 5
 
-        ##print("finish if chance<0.03")
-
-
-        ##change the direction , during the move, the monster would change its direction by 30% possibil
-
-            
     def healthTracker(self):
         if(self.player.health == 0):
             self.finalscreen = FinalScreen(self)
@@ -288,10 +235,7 @@ class Board(spyral.Scene):
                     self.ENEMY_LIST.append(monster)
                     monster.setUpdate(self)
                     self.signal = 'close'
-                        
-            
-
-        
+    
     def showScore(self):
         scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
         score_img = scoreFont.render("Score: "+str(self.player.totalScore))
@@ -324,7 +268,9 @@ class Board(spyral.Scene):
 
 	restart = RestartScene.Main()
 	restart.setCharacter(self.player)
-	self.finalscreen.kill()
+	if(self.finalscreen != ''):
+		self.finalscreen.kill()
+		self.finalscreen = ''
 	spyral.director.replace(restart)
 
 	#print "startScene has been created"

@@ -220,9 +220,6 @@ class PlayerSelectionSceneMain(spyral.Scene):
                 gameBoard.setWalls(i,j)
                 scene_matrix[i][j] = gameBoard
 
-                #once everything works uncomment these and fix images sizes
-                #gameBoard.setBackGround("game/sceneImages/"+str(backGroundImage)+".jpg")
-                #backGroundImage = backGroundImage + 1
         spyral.director.replace(scene_matrix[3][0])
         character.setScene(scene_matrix[3][0],3,0)
         character.setSceneMatrix(scene_matrix)
