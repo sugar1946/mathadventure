@@ -1,5 +1,0 @@
-h = str[]
-file = open('EasyAddition.txt', 'r')
-for line in file:
-    h.append(line)
-    print line 

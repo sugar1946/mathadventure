@@ -1,7 +1,0 @@
-* owns a gem shop. In her shop you can buy ^ gems for $1.00, ^ gems for $1.25, ^ gems for $1.50, or ^ gems for $1.75. What is the cost of 1 gem? (include units);
-
-* went to the ◊ with $#.#, when she left she had $#.#. How much did they spend?
-
-* spends $#.# on armor, $16.50 on a sword, and $5.75 on a new helmet. How much money did Joe spend?;67.90
-You must walk tirelessly for days to reach the other side of the kingdom to deliver your freshly baked cake before it goes stale. On the first day you must walk 26.34 miles, on the second you must walk 23.78 miles, on the third you must walk 24.19, and on the fourth day you must walk 30.65 miles in order to reach your destination. How far is it to the other side of the kingdom? (include units);104.96 miles
-The hen lays 3 gold eggs, 4 whites eggs, and 7 brown eggs. What fraction of the eggs are gold?;3/14

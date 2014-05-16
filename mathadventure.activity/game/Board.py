@@ -130,6 +130,7 @@ class Board(spyral.Scene):
                 elif (item.name == "gem"):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)
                     if (self.player.fraction == Fraction(1)):
+                        self.player.fraction = 0
                         key = Item.Item(self, "key")
                         key.setScene(self)
 
@@ -167,16 +168,18 @@ class Board(spyral.Scene):
                         self.player.fraction = 0;
                         self.ITEM_LIST.remove(item)#remove self
                     item.kill()
-                    
-                elif (item.name == "key"):
-                    item.kill()
-                    self.player.keys += 1
-                    self.signal = 'open'
+
+
 
                 elif (item.name == "End Gem"):
                     if (item.fraction == GEMS_LIST[0] ):
                         GEMS_LIST.pop(0)
                         item.kill()
+                        if (len(GEMS_LIST) == 0):
+                            vortex = Item.Item(self, "vortex")
+                            vortex.setScene(self)
+                            vortex.setImage("game/images/blue_vortex.png",random.randint(30,WIDTH-120),random.randint(120,HEIGHT-30))
+                            self.ITEM_LIST.append(vortex)
                     else:
 
                         GEMS_LIST.remove(item.fraction)
@@ -188,7 +191,12 @@ class Board(spyral.Scene):
                         GEMS_LIST.append(newgem.fraction)
                         GEMS_LIST.sort()
                         self.ITEM_LIST.append(newgem)
-                                         
+                        
+                elif (item.name == "vortex"):
+                    item.kill()
+                    self.player.kill()
+                    
+                                     
 
        # print "\n\n\nEnemies on this update:"                
         for enemy in self.ENEMY_LIST:
@@ -354,12 +362,12 @@ class Board(spyral.Scene):
 
     def setDoor(self, qRow, qCol):
         # Testing door rendering
-        if(qRow == 3 and qCol == 0):
+        if(qRow == 1 and qCol == 3):
             door = Door.Door(self)
             door.setImage("1")
             DOOR_LIST.append(door)
 
-        if(qRow == 3 and qCol == 0):
+        if(qRow == 0 and qCol == 2):
             door = Door.Door(self)
             door.setImage("2")
             DOOR_LIST.append(door)
