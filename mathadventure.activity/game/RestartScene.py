@@ -192,7 +192,7 @@ class Main(spyral.Scene):
 			self.character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/downanimation.txt"]
 		else:
 			self.character.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/downanimation.txt"]
-		self.character.sceneMatrix[3][0].setCharacter(self.character,self.character.ani_array)
+		self.character.sceneMatrix[3][0].setCharacter(self.character,self.character.ani_array,True)
 		self.character.setScene(self.character.sceneMatrix[3][0],3,0)
 		self.character.setStopImage(self.character.ani_array)
 		self.character.setImage(self.player_choice)
