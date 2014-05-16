@@ -141,6 +141,11 @@ class Board(spyral.Scene):
                     if (item.fraction == GEMS_LIST[0] ):
                         GEMS_LIST.pop(0)
                         item.kill()
+                        if (len(GEMS_LIST) == 0):
+                            vortex = Item.Item(self, "vortex")
+                            vortex.setScene(self)
+                            vortex.setImage("game/images/blue_vortex.png",random.randint(30,WIDTH-120),random.randint(120,HEIGHT-30))
+                            self.ITEM_LIST.append(vortex)
                     else:
 
                         GEMS_LIST.remove(item.fraction)
@@ -152,7 +157,11 @@ class Board(spyral.Scene):
                         GEMS_LIST.append(newgem.fraction)
                         GEMS_LIST.sort()
                         self.ITEM_LIST.append(newgem)
-               
+       
+                elif (item.name == "vortex"):
+                    item.kill()
+                    self.player.kill()
+
         for enemy in self.ENEMY_LIST:
             temp = self.ENEMY_LIST
             index = self.ENEMY_LIST.index(enemy)
@@ -300,12 +309,12 @@ class Board(spyral.Scene):
 
     def setDoor(self, qRow, qCol):
         # Testing door rendering
-        if(qRow == 3 and qCol == 0):
+        if(qRow == 1 and qCol == 3):
             door = Door.Door(self)
             door.setImage("1")
             DOOR_LIST.append(door)
 
-        if(qRow == 3 and qCol == 0):
+        if(qRow == 0 and qCol == 2):
             door = Door.Door(self)
             door.setImage("2")
             DOOR_LIST.append(door)
