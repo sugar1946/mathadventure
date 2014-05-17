@@ -180,9 +180,6 @@ class Character(spyral.Sprite):
             self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
 
             self.scene.defreezeMonster()
-
-            #self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array)
-            #self.setImage(self.current_image)
             self.setImage(self.stopImgL)
             self.x = WIDTH - distance
         
@@ -191,11 +188,7 @@ class Character(spyral.Sprite):
             self.kill()
             spyral.director.push(self.sceneMatrix[row][column + 1])
 
-            # These few lines help regulate character speed consistency
-            #if (self.flagH == True):
             self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array,True)
-            #self.flagH = True
-
 
             self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
             self.scene.defreezeMonster()
@@ -209,10 +202,7 @@ class Character(spyral.Sprite):
             self.kill()
             spyral.director.replace(self.sceneMatrix[row - 1][column])
 
-            # These few lines help regulate character speed consistency
-            #if (self.flagV == True):
             self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array,True)
-            #self.flagV = True
 
             self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
 
@@ -233,22 +223,22 @@ class Character(spyral.Sprite):
 
     def move_left(self):
         self.moving = 'left'
-        self.vel = 100
+        self.vel = 175
         self.stop_all_animations()
         self.animate(self.animation2)
     def move_right(self):
         self.moving = 'right'
-        self.vel = 100
+        self.vel = 175
         self.stop_all_animations()
         self.animate(self.animation)
     def move_down(self):
         self.moving = 'down'
-        self.vel = 100
+        self.vel = 175
         self.stop_all_animations()
         self.animate(self.animation4)
     def move_up(self):
         self.moving = 'up'
-        self.vel = 100
+        self.vel = 175
         self.stop_all_animations()
         self.animate(self.animation3)
         

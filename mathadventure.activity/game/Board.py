@@ -326,7 +326,6 @@ class Board(spyral.Scene):
     def setCharacter(self,character,animation_array,isAlive):
         if (isAlive == True):
             character.setKeyBoardCommands(self)
-            print("set")
         self.player = character
         character.setAnimations(self,animation_array)
         
