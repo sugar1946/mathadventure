@@ -200,7 +200,7 @@ class Question(spyral.Sprite):
         self.image.draw_image(sub_text, position = (15,150))
 
     def returnScene(self):
-        self.sceneReturn.setCharacter(self.player,self.player.ani_array)
+        self.sceneReturn.setCharacter(self.player,self.player.ani_array,False)
         self.kill()
         self.scene.defreezeMonster()
 

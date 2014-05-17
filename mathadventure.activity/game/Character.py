@@ -27,6 +27,8 @@ class Character(spyral.Sprite):
         self.decimal = 0
         self.percent = 0
         self.totalScore = 0
+        self.flagH = False
+        self.flagV = False
         self.hp = HealthGUI.HealthGUI()
         self.container = HealthGUI.HealthGUI()
 
@@ -71,15 +73,6 @@ class Character(spyral.Sprite):
 
     # Character animations
     def setAnimations(self,scene,animation_array):
-		#animationArray being passed in to the setAnimations function has setup:
-		#animation_array[0] = right movement file path
-		#animation_array[1] = right stop image path
-		#animation_array[2] = left movement file path
-		#animation_array[3] = left stop image path
-		#animation_array[4] = up movement file path
-		#animation_array[5] = up stop image path
-		#animation_array[6] = down movement path
-		#animation_array[7] = down stop image path
 
         # right walk animation sequence
         if(animation_array[0] != ''):
@@ -131,7 +124,7 @@ class Character(spyral.Sprite):
         self.x = WIDTH/2
         self.y = HEIGHT/2
         self.moving = False 
-        self.vel = 100
+        self.vel = 0
         self.hp.setImage(self.health)
         self.container.setContainer(self.max)
 
@@ -158,10 +151,7 @@ class Character(spyral.Sprite):
 
 
     def setScene(self,scene,row,column):
-
         super(Character,self).__init__(scene)
-
-
         self.sceneRow = row
         self.sceneColumn = column
         self.hp.setScene(scene)
@@ -170,19 +160,23 @@ class Character(spyral.Sprite):
     def setSceneMatrix(self,matrix):
         self.sceneMatrix = matrix
 
+    def initialize(self,board,ani_array):
+        self.setAnimations(board,ani_array)
+
+
     def leavingScene(self):
         row = self.sceneRow
         column = self.sceneColumn
         distance = 100
-        if(self.x < 0 and self.sceneColumn != 0):
- 
 
+
+        # left exit
+        if(self.x < 0 and self.sceneColumn != 0):
+            self.kill()
             spyral.director.replace(self.sceneMatrix[row][column - 1])
 
+            self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array,True)
             
-            self.sceneMatrix[row][column - 1].setCharacter(self,self.ani_array)
-            
-
             self.setScene(self.sceneMatrix[row][column - 1],row,column - 1)
 
             self.scene.defreezeMonster()
@@ -191,41 +185,49 @@ class Character(spyral.Sprite):
             #self.setImage(self.current_image)
             self.setImage(self.stopImgL)
             self.x = WIDTH - distance
-            
+        
+        # right exit
         elif(self.x > WIDTH and self.sceneColumn != 3):
-  
-            
-            spyral.director.replace(self.sceneMatrix[row][column + 1])
+            self.kill()
+            spyral.director.push(self.sceneMatrix[row][column + 1])
 
-
-            self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
+            # These few lines help regulate character speed consistency
+            #if (self.flagH == True):
+            self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array,True)
+            #self.flagH = True
 
 
             self.setScene(self.sceneMatrix[row][column + 1],row,column + 1)
             self.scene.defreezeMonster()
             
-            #self.sceneMatrix[row][column + 1].setCharacter(self,self.ani_array)
-            #self.setImage(self.current_image)
             self.setImage(self.stopImgR)
             self.x = distance
 
+
+        # top exit
         elif(self.y < 0 and self.sceneRow != 0):
+            self.kill()
             spyral.director.replace(self.sceneMatrix[row - 1][column])
-            self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array)
+
+            # These few lines help regulate character speed consistency
+            #if (self.flagV == True):
+            self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array,True)
+            #self.flagV = True
+
             self.setScene(self.sceneMatrix[row - 1][column],row - 1,column)
-            #self.sceneMatrix[row - 1][column].setCharacter(self,self.ani_array)
-            #self.setImage(self.current_image)
+
             self.setImage(self.stopImgU)
             self.y = HEIGHT - distance
 
+        # bottom exit
         elif(self.y > HEIGHT and self.sceneRow != 3):
- 
-            
+            self.kill()
             spyral.director.replace(self.sceneMatrix[row + 1][column])
-            self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array)
+            
+            self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array,True)
+            
             self.setScene(self.sceneMatrix[row + 1][column],row + 1,column)
-            #self.sceneMatrix[row + 1][column].setCharacter(self,self.ani_array)
-            #self.setImage(self.current_image)
+
             self.setImage(self.stopImgD)
             self.y = distance
 
@@ -252,6 +254,7 @@ class Character(spyral.Sprite):
         
     def grab(self):
         self.keys+=1
+        self.totalScore+=100
         self.stop_all_animations()
         #self.animate(self.grab_r)
         
@@ -323,7 +326,7 @@ class Character(spyral.Sprite):
             elif (self.moving == 'down'):
                 self.y-= 4
                 self.vel = 0
-            if (keys >= 1):
+            if (keys >= 3):
                 door.collide()
 
 

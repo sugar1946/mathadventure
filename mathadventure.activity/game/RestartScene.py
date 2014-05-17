@@ -163,16 +163,28 @@ class Main(spyral.Scene):
 		elif (self.selector.pick == "right"):
 			self.player_choice = "game/images/Animations/Girl/1.png"
 
-		if (self.player_choice == "game/images/Animations/stop2.bmp"):
+		if (self.player_choice == "game/images/Animations/Boy/1.png"):
 			for i in range(4):
 				for j in range(4):
-					for x in (self.character.sceneMatrix[i][j].ENEMY_LIST):
-						x.setImage("game/images/m1_30_30.bmp")
+					for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
+						enemy.kill()
+					self.character.sceneMatrix[i][j].ENEMY_LIST = []
+					self.character.sceneMatrix[i][j].setMonster("game/images/m1_30_30.bmp")
+					for item in self.character.sceneMatrix[i][j].ITEM_LIST:
+						item.kill()					
+					self.character.sceneMatrix[i][j].ITEM_LIST = []
+					self.character.sceneMatrix[i][j].setchestsandgems()
 		else:
 			for i in range(4):
 				for j in range(4):
-					for x in (self.character.sceneMatrix[i][j].ENEMY_LIST):
-						x.setImage("game/images/m2_30_30.bmp")
+					for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
+						enemy.kill()
+					self.character.sceneMatrix[i][j].ENEMY_LIST = []
+					self.character.sceneMatrix[i][j].setMonster("game/images/m2_30_30.bmp")
+					for item in self.character.sceneMatrix[i][j].ITEM_LIST:
+						item.kill()					
+					self.character.sceneMatrix[i][j].ITEM_LIST = []
+					self.character.sceneMatrix[i][j].setchestsandgems()
         
 		spyral.director.replace(self.character.sceneMatrix[3][0])
 		self.resetCharacter()
@@ -180,7 +192,7 @@ class Main(spyral.Scene):
 			self.character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/downanimation.txt"]
 		else:
 			self.character.ani_array = ["game/images/Animations/Girl/rightanimation.txt","game/images/Animations/Girl/leftanimation.txt","game/images/Animations/Girl/upanimation.txt","game/images/Animations/Girl/downanimation.txt"]
-		self.character.sceneMatrix[3][0].setCharacter(self.character,self.character.ani_array)
+		self.character.sceneMatrix[3][0].setCharacter(self.character,self.character.ani_array,True)
 		self.character.setScene(self.character.sceneMatrix[3][0],3,0)
 		self.character.setStopImage(self.character.ani_array)
 		self.character.setImage(self.player_choice)
