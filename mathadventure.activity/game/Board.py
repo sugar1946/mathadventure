@@ -71,6 +71,12 @@ class RestartSetupForm(spyral.Form):
 	restart_button = spyral.widgets.Button("Restart")
 	whichButton = 2
 
+class QuitSetupForm(spyral.Form):
+
+	quit_button = spyral.widgets.Button("Quit")
+	whichButton = 2
+
+
 
 class Board(spyral.Scene):
     text = ''
@@ -130,6 +136,7 @@ class Board(spyral.Scene):
                     self.player.fraction += Fraction(item.top_number, item.bottom_number)
                     if (self.player.fraction == Fraction(1)):
                         self.player.keys += 1
+			self.signal = 'open'
                         self.player.fraction = 0
                         
                     elif (self.player.fraction >= Fraction(1)):
@@ -198,18 +205,31 @@ class Board(spyral.Scene):
             self.freezeMonster()
 	    
 
+    def setBoss(self):
+        l = random.randint(160,1200-160)
+        w = random.randint(150,900-125)
+        monster = Monster.Monster(self,"game/images/boss.jpg",l,w)
+        monster.vel_y =150
+        monster.vel_x = 150
+        monster.setUpdate(self)
+        self.ENEMY_LIST.append(monster)
+		
 
     def addMonster(self):
         #temp = self.player.keys
-        if (self.signal=='open') :
-            flag=True
+        
+        if (self.signal=='open'):
+            for n in range(2):
+                flag=True
             
-            while (flag==True):
-                l = random.randint(160,1200-160)
-                w = random.randint(150,900-125)
+            
+                print ("add monster")
+                while (flag==True):
+                    l = random.randint(160,1200-160)
+                    w = random.randint(150,900-125)
                 
                 
-                for item in self.ITEM_LIST:
+                    for item in self.ITEM_LIST:
                         x = item.x
                         y = item.y
                         if (item.name == 'chest'):
@@ -232,18 +252,20 @@ class Board(spyral.Scene):
                         else:
                                     flag=False
                 if(flag==False):
-                    if(self.player.image == "game/images/Animations/stop2.bmp"):
-                        monster = Monster.Monster(self,"game/images/m2_30_30.bmp",l,w)
-                    else:
-                        monster = Monster.Monster(self,"game/images/m1_30_30.bmp",l,w)
+                    
+                   
+                        if(self.player.image == "game/images/Animations/Boy/1.png"):
+                            monster = Monster.Monster(self,"game/images/m2_30_30.bmp",l,w)
+                        else:
+                            monster = Monster.Monster(self,"game/images/m1_30_30.bmp",l,w)
                         
-                    monster.vel_x = 70
-                    monster.vel_y = 70
+                        monster.vel_x = 70
+                        monster.vel_y = 70
                         #print ("the "+str(count) + " monster's x is "+ str(l))
                         #print ("the "+str(count) + " monster's y is "+ str(w))
-                    self.ENEMY_LIST.append(monster)
-                    monster.setUpdate(self)
-                    self.signal = 'close'
+                        self.ENEMY_LIST.append(monster)
+                        monster.setUpdate(self)
+                        self.signal = 'close'
     
     def showScore(self):
         scoreFont = spyral.Font(FONT_PATH,36,(245,221,7))
@@ -273,6 +295,10 @@ class Board(spyral.Scene):
             character.setKeyBoardCommands(self)
         self.player = character
         character.setAnimations(self,animation_array)
+
+
+    def Quit(self,widget,form,value):
+        spyral.director.quit()
         
 
     def Restart(self,widget,form,value):
@@ -289,13 +315,19 @@ class Board(spyral.Scene):
 
 
     def setRestartButton(self):
-	self.restartButton = RestartSetupForm(self)
+        self.restartButton = RestartSetupForm(self)
         self.restartButton.restart_button.x = WIDTH-80
         self.restartButton.restart_button.y = HEIGHT-160
         spyral.event.register("form.RestartSetupForm.restart_button.clicked",self.Restart)
 	    #temp.setButtonImage("game/store/gem.bmp")
 
-	
+    def setQuitButton(self):
+        self.quitButton = QuitSetupForm(self)
+        self.quitButton.quit_button.x = WIDTH -80
+        self.quitButton.quit_button.y = HEIGHT-240
+		
+        spyral.event.register("form.QuitSetupForm.quit_button.clicked",self.Quit)
+
 
     def setStoreButton(self):
         self.storeButton = StoreSetupForm(self)
@@ -463,7 +495,7 @@ class Board(spyral.Scene):
             
 	    gem = Item.Item(self,"gem")
 	    gem.setScene(self)
-	    gem.setImage("game/images/gem.bmp",x,y)
+	    gem.setImage("game/images/purplegem.png",x,y)
 	    gem.setFraction()
 	    self.ITEM_LIST.append(gem)#remove self
         
