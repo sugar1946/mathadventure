@@ -171,23 +171,31 @@ class Main(spyral.Scene):
                                         for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
                                                 enemy.kill()
                                         self.character.sceneMatrix[i][j].ENEMY_LIST = []
-                                        self.character.sceneMatrix[i][j].setMonster("game/images/m1_30_30.bmp")
                                         for item in self.character.sceneMatrix[i][j].ITEM_LIST:
-                                                item.kill()					
+                                                item.kill()
                                         self.character.sceneMatrix[i][j].ITEM_LIST = []
-                                        self.character.sceneMatrix[i][j].setchestsandgems()
+
+                                        if (i == 0 and j ==3):
+                                                self.character.sceneMatrix[i][j].setEndGems();
+                                        else:
+                                                self.character.sceneMatrix[i][j].setMonster("game/images/m1_30_30.bmp")
+                                                self.character.sceneMatrix[i][j].setchestsandgems()
 
 		else:
 			for i in range(4):
 				for j in range(4):
-					for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
-						enemy.kill()
-					self.character.sceneMatrix[i][j].ENEMY_LIST = []
-					self.character.sceneMatrix[i][j].setMonster("game/images/m2_30_30.bmp")
-					for item in self.character.sceneMatrix[i][j].ITEM_LIST:
-						item.kill()					
-					self.character.sceneMatrix[i][j].ITEM_LIST = []
-					self.character.sceneMatrix[i][j].setchestsandgems()
+                                        for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
+                                                enemy.kill()
+                                        self.character.sceneMatrix[i][j].ENEMY_LIST = []
+                                        for item in self.character.sceneMatrix[i][j].ITEM_LIST:
+                                                item.kill()
+                                        self.character.sceneMatrix[i][j].ITEM_LIST = []
+
+                                        if (i == 0 and j ==3):
+                                                self.character.sceneMatrix[i][j].setEndGems();
+                                        else:
+                                                self.character.sceneMatrix[i][j].setMonster("game/images/m2_30_30.bmp")
+                                                self.character.sceneMatrix[i][j].setchestsandgems()
                 spyral.director.replace(self.character.sceneMatrix[3][0])
 		self.resetCharacter()
 		if(self.player_choice == "game/images/Animations/Boy/1.png"):
