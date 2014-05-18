@@ -302,7 +302,7 @@ class Character(spyral.Sprite):
                 self.y-= 4
                 self.vel = 0
 
-    def collide_door(self, door, keys):
+    def collide_door(self, scene, door, keys):
         if self.collide_sprite(door):
             if (self.moving == 'right'):
                 self.x-= 4
@@ -318,6 +318,8 @@ class Character(spyral.Sprite):
                 self.vel = 0
             if (keys >= 3):
                 door.collide()
+                scene.DOOR_LIST.remove(door)
+                
 
     '''
     def collide_monster(self,monster):

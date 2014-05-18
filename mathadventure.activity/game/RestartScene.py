@@ -165,9 +165,7 @@ class Main(spyral.Scene):
 
 		if (self.player_choice == "game/images/Animations/Boy/1.png"):
 			for i in range(4):
-				for j in range(4):
-
-                                                
+				for j in range(4):  
                                         for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
                                                 enemy.kill()
                                         self.character.sceneMatrix[i][j].ENEMY_LIST = []
@@ -180,6 +178,12 @@ class Main(spyral.Scene):
                                         else:
                                                 self.character.sceneMatrix[i][j].setMonster("game/images/m1_30_30.bmp")
                                                 self.character.sceneMatrix[i][j].setchestsandgems()
+                                        if(self.character.sceneMatrix[i][j].finalscreen != ''):
+                                            self.character.sceneMatrix[i][j].finalscreen.killScene()
+                                            self.character.sceneMatrix[i][j].finalscreen = ''
+                                        if(self.character.sceneMatrix[i][j].winscreen != ''):
+                                            self.character.sceneMatrix[i][j].winscreen.killScene()
+                                            self.character.sceneMatrix[i][j].winscreen = ''
 
 		else:
 			for i in range(4):
@@ -196,6 +200,12 @@ class Main(spyral.Scene):
                                         else:
                                                 self.character.sceneMatrix[i][j].setMonster("game/images/m2_30_30.bmp")
                                                 self.character.sceneMatrix[i][j].setchestsandgems()
+                                        if(self.character.sceneMatrix[i][j].finalscreen != ''):
+                                            self.character.sceneMatrix[i][j].finalscreen.killScene()
+                                            self.character.sceneMatrix[i][j].finalscreen = ''
+                                        if(self.character.sceneMatrix[i][j].winscreen != ''):
+                                            self.character.sceneMatrix[i][j].winscreen.killScene()
+                                            self.character.sceneMatrix[i][j].winscreen = ''
                 spyral.director.replace(self.character.sceneMatrix[3][0])
 		self.resetCharacter()
 		if(self.player_choice == "game/images/Animations/Boy/1.png"):
