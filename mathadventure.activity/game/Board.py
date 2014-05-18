@@ -25,15 +25,16 @@ SIZE2 = (WIDTH/2, HEIGHT/2)
 WALL_LIST = []
 ##ENEMY_LIST = []
 ITEM_LIST = []
-DOOR_LIST = []
+#DOOR_LIST = []
 GEMS_LIST =[]
 
 class FinalScreen(spyral.Sprite):
     def __init__(self,scene):
         spyral.Sprite.__init__(self,scene)
-        self.image = spyral.Image(filename=('game/images/lost.png'))
+        self.image = spyral.Image(filename=('game/images/lose.png'))
         self.pos = (150,50)
         self.layer = 'top'
+        
         
 class WinScreen(spyral.Sprite):
     def __init__(self,scene):
@@ -101,6 +102,7 @@ class Board(spyral.Scene):
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
         self.ITEM_LIST = []
+        self.DOOR_LIST = []
         self.EnemyNum = 4
         self.gem_index = 0
         self.enemyDeleteIndex = 5
@@ -131,8 +133,9 @@ class Board(spyral.Scene):
         for wall in WALL_LIST:
             self.player.collide_wall(wall)
 
-        for door in DOOR_LIST:
-            self.player.collide_door(door, self.player.keys)
+        for door in self.DOOR_LIST:
+            self.player.collide_door(self, door, self.player.keys)
+
         
         for item in self.ITEM_LIST:
             if (self.player.collide_sprite(item)):
@@ -172,7 +175,6 @@ class Board(spyral.Scene):
                         newgem.setFraction()
                         GEMS_LIST.append(newgem.fraction)
                         GEMS_LIST.sort()
-                        print GEMS_LIST
                         self.ITEM_LIST.append(newgem)
        
                 elif (item.name == "vortex"):
@@ -294,15 +296,14 @@ class Board(spyral.Scene):
         
 
     def Restart(self,widget,form,value):
-
-	restart = RestartScene.Main()
-	restart.setCharacter(self.player)
-	if(self.finalscreen != ''):
+        if(self.finalscreen != ''):
             self.finalscreen.kill()
             self.finalscreen = ''
+	restart = RestartScene.Main()
+	restart.setCharacter(self.player)
         spyral.director.replace(restart)
 	#print "startScene has been created"
-	return
+	#return
 
 
     def setRestartButton(self):
@@ -328,15 +329,15 @@ class Board(spyral.Scene):
 
     def setDoor(self, qRow, qCol):
         # Testing door rendering
-        if(qRow == 3 and qCol == 0):
+        if(qRow == 1 and qCol == 3):
             door = Door.Door(self)
             door.setImage("1")
-            DOOR_LIST.append(door)
+            self.DOOR_LIST.append(door)
 
-        if(qRow == 3 and qCol == 0):
+        if(qRow == 0 and qCol == 2):
             door = Door.Door(self)
             door.setImage("2")
-            DOOR_LIST.append(door)
+            self.DOOR_LIST.append(door)
 
     def setHealth(self):
         gui = HealthGUI.HealthGUI()

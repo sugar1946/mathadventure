@@ -165,9 +165,7 @@ class Main(spyral.Scene):
 
 		if (self.player_choice == "game/images/Animations/Boy/1.png"):
 			for i in range(4):
-				for j in range(4):
-
-                                                
+				for j in range(4):  
                                         for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
                                                 enemy.kill()
                                         self.character.sceneMatrix[i][j].ENEMY_LIST = []

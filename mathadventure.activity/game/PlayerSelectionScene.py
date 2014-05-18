@@ -219,7 +219,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                     self.set = False
                 gameBoard.setCharacter(character,character.ani_array,self.set)
 
-                #gameBoard.setDoor(i, j)
+                gameBoard.setDoor(i, j)
 
                 gameBoard.setRestartButton()
                 gameBoard.setStoreButton()
