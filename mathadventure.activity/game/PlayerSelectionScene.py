@@ -73,14 +73,15 @@ class AnimateSprite(spyral.Sprite):
             #up animation sequence
             self.animation = Animation('image', easing.Iterate(images), duration = 1, loop=True)
 
+# The box for selecting a character
 class Selector(spyral.Sprite):
     def __init__(self,scene):
         spyral.Sprite.__init__(self, scene)
         self.image = spyral.Image(filename="game/sceneImages/Selector.png")
         self.anchor = 'topleft'
-        self.x = WIDTH/2 - 207
+        self.x = WIDTH/2 - 35
         self.y = HEIGHT/2 - 128
-        self.pick = "left"
+        self.pick = "None"
         self.selection = AnimateSprite(scene)
 
     def right(self):
@@ -132,9 +133,9 @@ class PlayerSelectionSceneMain(spyral.Scene):
             self.selfplayerOneImage = PlayerImage(self,"game/images/Animations/Boy/1.png","left")
             self.selfplayerTwoImage = PlayerImage(self,"game/images/Animations/Girl/1.png","right")
             message2 = font.render("(<--)")
-            self.LeftMessage = SelectionMessage(self,message2,self.selfplayerOneImage.x,self.selfplayerOneImage.y + 160)
+            self.LeftMessage = SelectionMessage(self,message2,self.selfplayerOneImage.x,self.selfplayerOneImage.y + 150)
             message3 = font.render("(-->)")
-            self.RightMessage = SelectionMessage(self,message3,self.selfplayerTwoImage.x,self.selfplayerTwoImage.y + 160)
+            self.RightMessage = SelectionMessage(self,message3,self.selfplayerTwoImage.x,self.selfplayerTwoImage.y + 150)
 
 
             spyral.event.register("input.keyboard.down.q", spyral.director.pop)
