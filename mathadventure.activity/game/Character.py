@@ -321,12 +321,12 @@ class Character(spyral.Sprite):
                 scene.DOOR_LIST.remove(door)
                 
 
-
+    '''
     def collide_monster(self,monster):
         if self.collide_sprite(monster):
             monster.kill()
             self.damage()
- 
+    '''
 
     def collide_item(self, item):
 
