@@ -26,11 +26,11 @@ class Item(spyral.Sprite):
         self.fraction = float(self.top_number)/self.bottom_number
         
         if (self.name == "gem"):
-            self.image.draw_image(top, position=(12, 5))
+            self.image.draw_image(top, position=(40, 25))
             if (self.bottom_number > 9):
-                self.image.draw_image(bottom,position=(6,25))
+                self.image.draw_image(bottom,position=(35,50))
             elif(self.bottom_number <= 9):
-                self.image.draw_image(bottom,position=(12,25))
+                self.image.draw_image(bottom,position=(40,50))
         elif (self.name == "End Gem"):
             self.image.draw_image(top, position=(40, 25))
             if (self.bottom_number > 9):

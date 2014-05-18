@@ -190,6 +190,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                 #else:
                 if (i == 0 and j == 3):
                     gameBoard.setEndGems()
+		    gameBoard.setBoss()
                     
                 else:
 
@@ -222,6 +223,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                 #gameBoard.setDoor(i, j)
 
                 gameBoard.setRestartButton()
+		gameBoard.setQuitButton()
                 gameBoard.setStoreButton()
                 gameBoard.setWalls(i,j)
                 scene_matrix[i][j] = gameBoard
