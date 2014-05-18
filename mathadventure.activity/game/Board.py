@@ -385,7 +385,7 @@ class Board(spyral.Scene):
                                   
                 if(flag==True):
                         monster = Monster.Monster(self)
-                        monster.setImage(image,l,x)
+                        monster.setImage(image,l,w)
                         #print ("the "+str(count) + " monster's x is "+ str(l))
                         #print ("the "+str(count) + " monster's y is "+ str(w))
                         self.ENEMY_LIST.append(monster)
