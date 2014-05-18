@@ -327,15 +327,16 @@ class Board(spyral.Scene):
         
 
     def Restart(self,widget,form,value):
-
-	restart = RestartScene.Main()
-	restart.setCharacter(self.player)
-	if(self.finalscreen != ''):
-            self.finalscreen.kill()
-            self.finalscreen = ''
-        spyral.director.replace(restart)
+         if(self.finalscreen != ''):
+              self.finalscreen.kill()
+              self.finalscreen = '' 
+       
+         restart = RestartScene.Main()
+         restart.setCharacter(self.player)
+         
+         spyral.director.replace(restart)
 	#print "startScene has been created"
-	return
+         return
 
 
     def setRestartButton(self):
