@@ -166,14 +166,17 @@ class Main(spyral.Scene):
 		if (self.player_choice == "game/images/Animations/Boy/1.png"):
 			for i in range(4):
 				for j in range(4):
-					for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
-						enemy.kill()
-					self.character.sceneMatrix[i][j].ENEMY_LIST = []
-					self.character.sceneMatrix[i][j].setMonster("game/images/m1_30_30.bmp")
-					for item in self.character.sceneMatrix[i][j].ITEM_LIST:
-						item.kill()					
-					self.character.sceneMatrix[i][j].ITEM_LIST = []
-					self.character.sceneMatrix[i][j].setchestsandgems()
+
+                                                
+                                        for enemy in self.character.sceneMatrix[i][j].ENEMY_LIST:
+                                                enemy.kill()
+                                        self.character.sceneMatrix[i][j].ENEMY_LIST = []
+                                        self.character.sceneMatrix[i][j].setMonster("game/images/m1_30_30.bmp")
+                                        for item in self.character.sceneMatrix[i][j].ITEM_LIST:
+                                                item.kill()					
+                                        self.character.sceneMatrix[i][j].ITEM_LIST = []
+                                        self.character.sceneMatrix[i][j].setchestsandgems()
+
 		else:
 			for i in range(4):
 				for j in range(4):
@@ -185,8 +188,7 @@ class Main(spyral.Scene):
 						item.kill()					
 					self.character.sceneMatrix[i][j].ITEM_LIST = []
 					self.character.sceneMatrix[i][j].setchestsandgems()
-        
-		spyral.director.replace(self.character.sceneMatrix[3][0])
+                spyral.director.replace(self.character.sceneMatrix[3][0])
 		self.resetCharacter()
 		if(self.player_choice == "game/images/Animations/Boy/1.png"):
 			self.character.ani_array = ["game/images/Animations/Boy/rightanimation.txt","game/images/Animations/Boy/leftanimation.txt","game/images/Animations/Boy/upanimation.txt","game/images/Animations/Boy/downanimation.txt"]
