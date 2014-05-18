@@ -31,11 +31,30 @@ GEMS_LIST =[]
 class FinalScreen(spyral.Sprite):
     def __init__(self,scene):
         spyral.Sprite.__init__(self,scene)
-        self.image = spyral.Image(filename=('game/images/FianlScreen.bmp'))
-        self.pos = (350,50)
+        self.image = spyral.Image(filename=('game/images/lost.png'))
+        self.pos = (150,50)
         self.layer = 'top'
         
+class WinScreen(spyral.Sprite):
+    def __init__(self,scene):
+        spyral.Sprite.__init__(self,scene)
+        self.image = spyral.Image(filename=('game/images/won.png'))
+        self.pos = (150,50)
+        self.layer = 'top'
+        
+class EndInstructions(spyral.Sprite):
+    def __init__(self,scene):
+        spyral.Sprite.__init__(self,scene)
+        self.image = spyral.Image(filename=('game/images/end_instructions.png'))
+        self.pos = (225,150)
+        self.layer = 'top'
+        spyral.event.register("input.keyboard.down.x", self.close)
+        
+    def close(self):
+        self.kill()
 
+    
+                            
 class ScoreSprite(spyral.Sprite):
     def __init__(self,scene,img,x,y):
         spyral.Sprite.__init__(self,scene)
@@ -58,16 +77,11 @@ class KeySprite(spyral.Sprite):
         self.x = x
         self.y = y
 
-        
-
-    
-
 class StoreSetupForm(spyral.Form):
 	store_button = spyral.widgets.Button("Store")
 	whichButton = 1
 
 class RestartSetupForm(spyral.Form):
-
 	restart_button = spyral.widgets.Button("Restart")
 	whichButton = 2
 
@@ -89,7 +103,6 @@ class Board(spyral.Scene):
         self.layers = ['bottom','top']
         spyral.event.register("system.quit", spyral.director.quit)
         spyral.event.register("input.keyboard.down.q", spyral.director.quit)
-        spyral.event.register("input.keyboard.down.o", self.printItems)
         spyral.event.register('director.update', self.update)
         self.ENEMY_LIST = []
         self.ITEM_LIST = []
@@ -100,17 +113,10 @@ class Board(spyral.Scene):
         self.score = ''
         self.keys=''
         self.finalscreen = ''
+        self.winscreen = ''
         self.signal = 'close'
         frozen = False
-
-
-    def printItems(self):
-        for item in self.ITEM_LIST:
-            print item.name
-        print "_________________"    
-        for item in self.ENEMY_LIST:
-            print item.x
-            print item.y   
+           
 
     def update(self,delta):
         self.showScore()
@@ -129,7 +135,13 @@ class Board(spyral.Scene):
                 if (item.name == 'chest'):
                     self.freezeMonster()
                     self.question = Q.Question(self,self.player)
-                    self.ITEM_LIST.remove(item)#remove self
+                    newList = []
+                    for tempItem in  self.ITEM_LIST:
+                        if(tempItem != item):
+                            newList.append(tempItem)
+                    self.ITEM_LIST = []
+                    self.ITEM_LIST = newList    
+                    #self.ITEM_LIST.remove(item)#remove self
                     item.kill()
                     
                 elif (item.name == "gem"):
@@ -141,7 +153,13 @@ class Board(spyral.Scene):
                         
                     elif (self.player.fraction >= Fraction(1)):
                         self.player.fraction = 0;
-                        self.ITEM_LIST.remove(item)#remove self
+                        #self.ITEM_LIST.remove(item)#remove self
+                    newList = []
+                    for tempItem in  self.ITEM_LIST:
+                        if(tempItem != item):
+                            newList.append(tempItem)
+                    self.ITEM_LIST = []
+                    self.ITEM_LIST = newList
                     item.kill()
 
                 elif (item.name == "End Gem"):
@@ -163,15 +181,17 @@ class Board(spyral.Scene):
                         newgem.setFraction()
                         GEMS_LIST.append(newgem.fraction)
                         GEMS_LIST.sort()
+                        print GEMS_LIST
                         self.ITEM_LIST.append(newgem)
        
                 elif (item.name == "vortex"):
                     item.kill()
                     self.player.kill()
+                    self.winscreen = WinScreen(self)
 
         for enemy in self.ENEMY_LIST:
-            temp = self.ENEMY_LIST
-            index = self.ENEMY_LIST.index(enemy)
+            #temp = self.ENEMY_LIST
+            #index = self.ENEMY_LIST.index(enemy)
   
             for item in self.ITEM_LIST:
                 enemy.collide_item(item)
@@ -179,7 +199,14 @@ class Board(spyral.Scene):
                 if(x != enemy):
                     enemy.collide_monster(x)
             if(enemy.collide_player(self.player) == True):
-                self.enemyDeleteIndex = index
+                '''
+                tempEnemyList = []
+                for tempEnemy in self.ENEMY_LIST:
+                    if(tempEnemy != enemy):
+                        tempEnemyList.append(tempEnemy)
+                #self.ENEMY_LIST = []
+                #self.ENEMY_LIST = tempEnemyList
+                '''
                 enemy.kill()
 
         if (len(self.ENEMY_LIST) != 0):
@@ -193,9 +220,6 @@ class Board(spyral.Scene):
                     choices.remove(self.ENEMY_LIST[n].direction)
                     direction = random.choice(choices)
                     self.ENEMY_LIST[n].direction = direction
-        if(self.enemyDeleteIndex != 5):
-            #del self.ENEMY_LIST[self.enemyDeleteIndex]
-            self.enemyDeleteIndex = 5
 
     def healthTracker(self):
         if(self.player.health == 0):
@@ -208,7 +232,8 @@ class Board(spyral.Scene):
     def setBoss(self):
         l = random.randint(160,1200-160)
         w = random.randint(150,900-125)
-        monster = Monster.Monster(self,"game/images/boss.jpg",l,w)
+        monster = Monster.Monster(self)
+        monster.setImage("game/images/boss.jpg",l,w)
         monster.vel_y =150
         monster.vel_x = 150
         monster.setUpdate(self)
@@ -306,17 +331,18 @@ class Board(spyral.Scene):
 	restart = RestartScene.Main()
 	restart.setCharacter(self.player)
 	if(self.finalscreen != ''):
-		self.finalscreen.kill()
-		self.finalscreen = ''
-	spyral.director.replace(restart)
-
+            self.finalscreen.kill()
+            self.finalscreen = ''
+        spyral.director.replace(restart)
 	#print "startScene has been created"
 	return
 
 
     def setRestartButton(self):
+
         self.restartButton = RestartSetupForm(self)
         self.restartButton.restart_button.x = WIDTH-80
+
         self.restartButton.restart_button.y = HEIGHT-160
         spyral.event.register("form.RestartSetupForm.restart_button.clicked",self.Restart)
 	    #temp.setButtonImage("game/store/gem.bmp")
@@ -332,7 +358,7 @@ class Board(spyral.Scene):
     def setStoreButton(self):
         self.storeButton = StoreSetupForm(self)
         self.storeButton.store_button.x = WIDTH - 80
-        self.storeButton.store_button.y = HEIGHT - 80
+        self.storeButton.store_button.y = HEIGHT - 200
         spyral.event.register("form.StoreSetupForm.store_button.clicked",self.openStore)
 	    #temp.setButtonImage("game/store/gem.bmp")
 
@@ -393,7 +419,8 @@ class Board(spyral.Scene):
                                   flag = False
                                   
                 if(flag==True):
-                        monster = Monster.Monster(self,image,l,w)
+                        monster = Monster.Monster(self)
+                        monster.setImage(image,l,w)
                         #print ("the "+str(count) + " monster's x is "+ str(l))
                         #print ("the "+str(count) + " monster's y is "+ str(w))
                         self.ENEMY_LIST.append(monster)
@@ -426,7 +453,7 @@ class Board(spyral.Scene):
                 if(flag==True):
 						gem = Item.Item(self,"gem")
 						gem.setScene(self)
-						gem.setImage("game/images/gem.bmp",l,w)
+						gem.setImage("game/images/gem.png",l,w)
 	   					gem.setFraction()
 						ITEM_LIST.append(gem)
 						count = count +1   
@@ -496,6 +523,7 @@ class Board(spyral.Scene):
 	    gem = Item.Item(self,"gem")
 	    gem.setScene(self)
 	    gem.setImage("game/images/purplegem.png",x,y)
+
 	    gem.setFraction()
 	    self.ITEM_LIST.append(gem)#remove self
         
@@ -523,11 +551,31 @@ class Board(spyral.Scene):
             self.ITEM_LIST.append(item)#remove self
                     
         GEMS_LIST.extend(sorted(self.gems))   
-            
+        self.end_instructions = EndInstructions(self)
+
     def setBackGround(self,imagePath):
         self.background = spyral.Image(filename=imagePath)
 
+    def addChest(self):
+        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
+        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
+        x = random.choice(WIDTH_COORD)
+        y = random.choice(HEIGHT_COORD)   
+        chest = Item.Item(self,"chest")
+        chest.setScene(self)
+        chest.setImage("game/images/chest.bmp",x,y)
+        self.ITEM_LIST.append(chest)
 
+    def addGem(self):
+        WIDTH_COORD = range(30, (WIDTH/2)-150) + range((WIDTH/2)+60, WIDTH-120)
+        HEIGHT_COORD = range(120, (HEIGHT/2) - 85) + range((HEIGHT/2) + 150, HEIGHT-30)
+        x = random.choice(WIDTH_COORD)
+        y = random.choice(HEIGHT_COORD)
+        gem = Item.Item(self,"gem")
+        gem.setScene(self)
+        gem.setImage("game/images/gem.png",x,y)
+        gem.setFraction()
+        self.ITEM_LIST.append(gem)#remove self        
 
     def setWalls(self,quadrantRow,quadrantColumn):
         if(quadrantRow == 0 and quadrantColumn == 0):

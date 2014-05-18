@@ -319,12 +319,12 @@ class Character(spyral.Sprite):
             if (keys >= 3):
                 door.collide()
 
-
+    '''
     def collide_monster(self,monster):
         if self.collide_sprite(monster):
             monster.kill()
             self.damage()
- 
+    '''
 
     def collide_item(self, item):
 
