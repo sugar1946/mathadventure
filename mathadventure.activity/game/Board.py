@@ -31,7 +31,7 @@ GEMS_LIST =[]
 class FinalScreen(spyral.Sprite):
     def __init__(self,scene):
         spyral.Sprite.__init__(self,scene)
-        self.image = spyral.Image(filename=('game/images/lose.png'))
+        self.image = spyral.Image(filename=('game/images/lost.png'))
         self.pos = (150,50)
         self.layer = 'top'
 
@@ -44,6 +44,9 @@ class WinScreen(spyral.Sprite):
         self.image = spyral.Image(filename=('game/images/won.png'))
         self.pos = (150,50)
         self.layer = 'top'
+        
+    def killScene(self):
+        self.kill()
         
 class EndInstructions(spyral.Sprite):
     def __init__(self,scene):
@@ -334,6 +337,9 @@ class Board(spyral.Scene):
         if(self.finalscreen != ''):
             self.finalscreen.killScene()
             self.finalscreen = ''
+        if(self.winscreen != ''):
+            self.winscreen.killScene()
+            self.winscreen = ''
         restart = RestartScene.Main()
         restart.setCharacter(self.player)
         spyral.director.replace(restart)

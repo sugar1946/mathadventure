@@ -181,6 +181,9 @@ class Main(spyral.Scene):
                                         if(self.character.sceneMatrix[i][j].finalscreen != ''):
                                             self.character.sceneMatrix[i][j].finalscreen.killScene()
                                             self.character.sceneMatrix[i][j].finalscreen = ''
+                                        if(self.character.sceneMatrix[i][j].winscreen != ''):
+                                            self.character.sceneMatrix[i][j].winscreen.killScene()
+                                            self.character.sceneMatrix[i][j].winscreen = ''
 
 		else:
 			for i in range(4):
@@ -200,7 +203,9 @@ class Main(spyral.Scene):
                                         if(self.character.sceneMatrix[i][j].finalscreen != ''):
                                             self.character.sceneMatrix[i][j].finalscreen.killScene()
                                             self.character.sceneMatrix[i][j].finalscreen = ''
-
+                                        if(self.character.sceneMatrix[i][j].winscreen != ''):
+                                            self.character.sceneMatrix[i][j].winscreen.killScene()
+                                            self.character.sceneMatrix[i][j].winscreen = ''
                 spyral.director.replace(self.character.sceneMatrix[3][0])
 		self.resetCharacter()
 		if(self.player_choice == "game/images/Animations/Boy/1.png"):

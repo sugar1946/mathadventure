@@ -49,7 +49,6 @@ class Store(spyral.Scene):
 		spyral.event.register("input.keyboard.down.i", self.buySprite5)#buy sprite5
 		spyral.event.register("input.keyboard.down.j", self.buySprite6)#buy sprite6
 		spyral.event.register("input.keyboard.down.k", self.buySprite7)#buy sprite7
-		spyral.event.register("input.keyboard.down.m", self.points)#buy sprite7
 		self.playerScoreFont = spyral.Font(FONT_PATH,18,(0,255,0))#font used for header
 		self.shopFont = spyral.Font(FONT_PATH,24,(0,0,0))#font used for header
 		self.itemFont = spyral.Font(FONT_PATH,14,(0,0,0))#font used for prices
