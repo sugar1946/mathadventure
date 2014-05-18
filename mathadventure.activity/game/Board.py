@@ -531,7 +531,7 @@ class Board(spyral.Scene):
             
 	    gem = Item.Item(self,"gem")
 	    gem.setScene(self)
-	    gem.setImage("game/images/purplegem.png",x,y)
+	    gem.setImage("game/images/redgem.png",x,y)
 
 	    gem.setFraction()
 	    self.ITEM_LIST.append(gem)#remove self
