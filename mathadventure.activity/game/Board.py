@@ -35,6 +35,9 @@ class FinalScreen(spyral.Sprite):
         self.pos = (150,50)
         self.layer = 'top'
         
+    def killScene(self):
+        self.kill()
+
 class WinScreen(spyral.Sprite):
     def __init__(self,scene):
         spyral.Sprite.__init__(self,scene)
@@ -216,8 +219,8 @@ class Board(spyral.Scene):
 
     def healthTracker(self):
         if(self.player.health == 0):
-            self.finalscreen = FinalScreen(self)
-	    
+            if(self.finalscreen == ''):
+                self.finalscreen = FinalScreen(self)
             self.player.kill()
             self.freezeMonster()
 	    
@@ -300,12 +303,11 @@ class Board(spyral.Scene):
         
 
     def Restart(self,widget,form,value):
-
-	restart = RestartScene.Main()
-	restart.setCharacter(self.player)
-	if(self.finalscreen != ''):
-            self.finalscreen.kill()
+        if(self.finalscreen != ''):
+            self.finalscreen.killScene()
             self.finalscreen = ''
+        restart = RestartScene.Main()
+        restart.setCharacter(self.player)
         spyral.director.replace(restart)
 	#print "startScene has been created"
 	return
