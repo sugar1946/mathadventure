@@ -156,7 +156,6 @@ class Question(spyral.Sprite):
             question_text = QuestionText(questionlines[i], 18).getImage()
             self.image.draw_image(question_text, position = (10,z))
             z += 25
-        print self.current_question
         self.answerList = self.current_question[1:4]
 
         

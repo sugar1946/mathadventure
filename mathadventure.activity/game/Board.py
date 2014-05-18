@@ -174,6 +174,7 @@ class Board(spyral.Scene):
                         newgem.setFraction()
                         GEMS_LIST.append(newgem.fraction)
                         GEMS_LIST.sort()
+                        print GEMS_LIST
                         self.ITEM_LIST.append(newgem)
        
                 elif (item.name == "vortex"):
@@ -312,7 +313,7 @@ class Board(spyral.Scene):
 
     def setRestartButton(self):
 	self.restartButton = RestartSetupForm(self)
-        self.restartButton.restart_button.x = WIDTH-80
+        self.restartButton.restart_button.x = WIDTH-100
         self.restartButton.restart_button.y = HEIGHT-160
         spyral.event.register("form.RestartSetupForm.restart_button.clicked",self.Restart)
 	    #temp.setButtonImage("game/store/gem.bmp")
@@ -321,8 +322,8 @@ class Board(spyral.Scene):
 
     def setStoreButton(self):
         self.storeButton = StoreSetupForm(self)
-        self.storeButton.store_button.x = WIDTH - 80
-        self.storeButton.store_button.y = HEIGHT - 80
+        self.storeButton.store_button.x = WIDTH - 100
+        self.storeButton.store_button.y = HEIGHT - 200
         spyral.event.register("form.StoreSetupForm.store_button.clicked",self.openStore)
 	    #temp.setButtonImage("game/store/gem.bmp")
 
