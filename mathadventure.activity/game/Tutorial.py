@@ -11,6 +11,7 @@ class Tutorial(spyral.Scene):
                         self.image_index=0
 			spyral.event.register("input.keyboard.down.q", spyral.director.pop)
 			spyral.event.register("input.keyboard.down.s", self.startGame)
+                        spyral.event.register("input.keyboard.down.return", self.startGame)
                         spyral.event.register("input.keyboard.down.right", self.setNextImage)
                         spyral.event.register("input.keyboard.up.left", self.setBackImage)
 
