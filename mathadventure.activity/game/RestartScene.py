@@ -174,7 +174,8 @@ class Main(spyral.Scene):
                                         self.character.sceneMatrix[i][j].ITEM_LIST = []
 
                                         if (i == 0 and j ==3):
-                                                self.character.sceneMatrix[i][j].setEndGems();
+                                                self.character.sceneMatrix[i][j].setEndGems()
+                                                self.character.sceneMatrix[i][j].setBoss()
                                         else:
                                                 self.character.sceneMatrix[i][j].setMonster("game/images/m1_30_30.bmp")
                                                 self.character.sceneMatrix[i][j].setchestsandgems()
@@ -196,9 +197,10 @@ class Main(spyral.Scene):
                                         self.character.sceneMatrix[i][j].ITEM_LIST = []
 
                                         if (i == 0 and j ==3):
-                                                self.character.sceneMatrix[i][j].setEndGems();
+                                                self.character.sceneMatrix[i][j].setEndGems()
+                                                self.character.sceneMatrix[i][j].setBoss()
                                         else:
-                                                self.character.sceneMatrix[i][j].setMonster("game/images/m2_30_30.bmp")
+                                                self.character.sceneMatrix[i][j].setMonster("game/images/monster2.png")
                                                 self.character.sceneMatrix[i][j].setchestsandgems()
                                         if(self.character.sceneMatrix[i][j].finalscreen != ''):
                                             self.character.sceneMatrix[i][j].finalscreen.killScene()
