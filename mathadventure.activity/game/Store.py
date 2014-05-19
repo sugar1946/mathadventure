@@ -49,7 +49,7 @@ class Store(spyral.Scene):
 		spyral.event.register("input.keyboard.down.i", self.buySprite5)#buy sprite5
 		spyral.event.register("input.keyboard.down.j", self.buySprite6)#buy sprite6
 		spyral.event.register("input.keyboard.down.k", self.buySprite7)#buy sprite7
-		spyral.event.register("input.keyboard.down.m", self.points)#buy sprite7
+		self.playerScoreFont = spyral.Font(FONT_PATH,18,(0,255,0))#font used for header
 		self.shopFont = spyral.Font(FONT_PATH,24,(0,0,0))#font used for header
 		self.itemFont = spyral.Font(FONT_PATH,14,(0,0,0))#font used for prices
 		self.purchaseFont = spyral.Font(FONT_PATH,18,(255,0,0))#font used for purchase status
@@ -72,6 +72,8 @@ class Store(spyral.Scene):
 		itemDescrip = self.setItemImgArray("game/store/itemText.txt")
 		itemSelectionIndex = 0
 		self.player = character
+		self.playerScoreImage = self.playerScoreFont.render("Available Points to Spend: "+str(self.player.totalScore))
+		self.scoreImg = ItemText(self,self.playerScoreImage,20, 100)
 
 		for row_value in row_val:
 			for column_value in column_val:
@@ -105,6 +107,9 @@ class Store(spyral.Scene):
 				img = self.purchaseFont.render(self.message)
 				self.purchaseMessage = PurchaseText(self,img,(WIDTH/1.34),50)
 				self.message = ''
+		self.playerScoreImage = self.playerScoreFont.render("Available Points to Spend: "+str(self.player.totalScore))
+		self.scoreImg.kill()
+		self.scoreImg = ItemText(self,self.playerScoreImage,20, 100)
 						
 	def closeStore(self):
 		#self.sceneReturn.setCharacter(self.player,self.player.ani_array)
@@ -122,6 +127,7 @@ class Store(spyral.Scene):
 			self.player.health = 150
 			self.player.totalScore -= 10
 			self.message = "Health was replenished!"
+
 		else:
 			self.message = "You don't have a enough points!"
 
@@ -216,4 +222,5 @@ class Store(spyral.Scene):
 
 	def setSceneReturn(self,scene):
 		self.sceneReturn = scene
+		
 

@@ -191,6 +191,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                 #else:
                 if (i == 0 and j == 3):
                     gameBoard.setEndGems()
+		    gameBoard.setBoss()
                     
                 else:
 
@@ -200,7 +201,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
                         gameBoard.setMonster("game/images/m1_30_30.bmp")
                     
                     else:
-                        gameBoard.setMonster("game/images/m2_30_30.bmp")
+                        gameBoard.setMonster("game/images/monster2.png")
                         #print (len(gameBoard.ENEMY_LIST))
                         
                 gameBoard.setBackGround("game/sceneImages/14_12_9.bmp")
@@ -220,9 +221,10 @@ class PlayerSelectionSceneMain(spyral.Scene):
                     self.set = False
                 gameBoard.setCharacter(character,character.ani_array,self.set)
 
-                #gameBoard.setDoor(i, j)
+                gameBoard.setDoor(i, j)
 
                 gameBoard.setRestartButton()
+		gameBoard.setQuitButton()
                 gameBoard.setStoreButton()
                 gameBoard.setWalls(i,j)
                 scene_matrix[i][j] = gameBoard

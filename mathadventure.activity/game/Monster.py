@@ -13,14 +13,14 @@ MONSTER = "game/images/m1.bmp"
 
 
 class Monster(spyral.Sprite):
-    def __init__(self,scene,image,x,y):
+    def __init__(self,scene):
         super(Monster, self).__init__(scene)
-        self.image = spyral.Image(filename=(image))
+        #self.image = spyral.Image(filename=(image))
         self.score = 0
         self.anchor ='center'
         direction = random.choice(['up','down','left','right'])
-        self.x = x
-        self.y = y
+        #self.x = x
+        #self.y = y
         self.direction = direction
         self.frozen = False
         self.vel_x = 25
@@ -31,12 +31,11 @@ class Monster(spyral.Sprite):
     ##def setScene(self,scene):
         #super(Monster,self).__init__(scene)
 
-    def setImage(self,imagePath):
-    #"game/images/stick.png"
-        self.image = spyral.Image(filename=imagePath)
-##        self.anchor = "center"
- 
-        
+    def setImage(self,image,x,y):
+        self.image = spyral.Image(filename=image)
+        self.x = x
+        self.y = y
+
     def update(self,delta):
  
         if (self.frozen == False):
