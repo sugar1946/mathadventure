@@ -125,7 +125,7 @@ class PlayerSelectionSceneMain(spyral.Scene):
             self.background = spyral.Image(filename="game/sceneImages/start1.png")
             #self.background = spyral.Image(size=SIZE).fill((255,255,255))
 
-            font = spyral.Font(FONT_PATH,24,(0,0,0))
+            font = spyral.Font(FONT_PATH,24,(250,250,250))
             message1 = font.render("Select a Character:")
             self.TopMessage = SelectionMessage(self,message1,WIDTH/3 + 100,HEIGHT/3 - 100)
             self.selector = Selector(self)

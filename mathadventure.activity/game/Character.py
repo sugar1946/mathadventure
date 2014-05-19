@@ -140,7 +140,7 @@ class Character(spyral.Sprite):
         spyral.event.register("input.keyboard.down.right", self.move_right)
         spyral.event.register("input.keyboard.down.down", self.move_down)
         spyral.event.register("input.keyboard.down.up", self.move_up)
-        spyral.event.register("input.keyboard.down.g", self.grab)
+        #spyral.event.register("input.keyboard.down.g", self.grab)
 
         # Key up
         spyral.event.register("input.keyboard.up.left", self.stop_move)
