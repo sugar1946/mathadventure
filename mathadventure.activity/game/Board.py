@@ -287,9 +287,11 @@ class Board(spyral.Scene):
                     
                    
                         if(self.player.image == "game/images/Animations/Boy/1.png"):
-                            monster = Monster.Monster(self,"game/images/m2_30_30.bmp",l,w)
+                            monster = Monster.Monster(self)
+                            monster.setImage("game/images/m2_30_30.bmp",l,w)
                         else:
-                            monster = Monster.Monster(self,"game/images/m1_30_30.bmp",l,w)
+                            monster = Monster.Monster(self)
+                            monster.setImage("game/images/m1_30_30.bmp",l,w)
                         
                         monster.vel_x = 70
                         monster.vel_y = 70
