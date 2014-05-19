@@ -5,7 +5,7 @@ import Walls
 import Character
 import Monster
 import Item
-import Question
+import Q
 import Board
 import Door
 from spyral import Animation, easing

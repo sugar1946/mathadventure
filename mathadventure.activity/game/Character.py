@@ -1,7 +1,7 @@
 import spyral
 import random
 import math
-import Question
+import Q
 import Monster
 import HealthGUI
 import sys
