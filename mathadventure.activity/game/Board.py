@@ -240,7 +240,7 @@ class Board(spyral.Scene):
         l = random.randint(160,1200-160)
         w = random.randint(150,900-125)
         monster = Monster.Monster(self)
-        monster.setImage("game/images/boss.jpg",l,w)
+        monster.setImage("game/images/Boss.png",l,w)
         monster.vel_y =150
         monster.vel_x = 150
         monster.setUpdate(self)
@@ -287,9 +287,12 @@ class Board(spyral.Scene):
                     
                    
                         if(self.player.image == "game/images/Animations/Boy/1.png"):
-                            monster = Monster.Monster(self,"game/images/m2_30_30.bmp",l,w)
+                            monster = Monster.Monster(self)
+                            monster.setImage("game/images/m2_30_30.bmp",l,w)
+							
                         else:
-                            monster = Monster.Monster(self,"game/images/m1_30_30.bmp",l,w)
+                            monster = Monster.Monster(self)
+                            monster.setImage("game/images/m1_30_30.bmp",l,w)
                         
                         monster.vel_x = 70
                         monster.vel_y = 70
@@ -374,8 +377,11 @@ class Board(spyral.Scene):
 	    #temp.setButtonImage("game/store/gem.bmp")
 
     def openStore(self,widget,form,value):
+        self.freezeMonster()
+        
         store = Store.Store(self.player)
         store.setSceneReturn(self)
+        
         spyral.director.push(store)
 
     def setDoor(self, qRow, qCol):
@@ -397,6 +403,7 @@ class Board(spyral.Scene):
     def freezeMonster(self):
         for enemy in self.ENEMY_LIST:
                 enemy.frozen = True
+               
 
     def defreezeMonster(self):
         for enemy in self.ENEMY_LIST:
